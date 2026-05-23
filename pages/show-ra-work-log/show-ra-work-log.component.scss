@@ -1,0 +1,512 @@
+.ion-text-large {
+    font-size: 1.2rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-large {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-large {
+        font-size: 20px;
+    }
+}
+
+.ion-text-normal {
+    font-size: 1rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-normal {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-normal {
+        font-size: 17px;
+    }
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #218838;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #c82333;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+
+    .photo-container {
+        position: relative;
+        margin-right: 10px;
+
+        .scroll-image {
+            height: 100px;
+            border-radius: 8px;
+        }
+
+        .remove-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 20px;
+            color: red;
+            background: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    }
+}
+
+.complain-image {
+    max-width: 100%;
+    max-height: 300px; // ✅ Limit height to avoid stretching
+    width: auto;
+    height: auto;
+    object-fit: contain; // ✅ Prevent distortion
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 600px) {
+    .complain-image {
+        max-width: 200%;
+        max-height: 300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .complain-image {
+        max-width: 100%;
+        max-height: 200px;
+    }
+}
+
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.label-title {
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.label-value {
+    font-size: 15px;
+    color: #222;
+    display: block;
+    font-weight: 500;
+}
+
+/* ====== Work-log preview layout (aligned with ra-work-log) ====== */
+
+.preview-bifurcation-section {
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background: #fafffe;
+
+  &.por-section-border {
+    border-color: #2E7D32;
+  }
+}
+
+.preview-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+
+  .por-section-border & {
+    background: linear-gradient(135deg, #2E7D32, #43A047);
+  }
+}
+
+.preview-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
+.preview-section-body {
+  padding: 10px 8px;
+}
+
+.themed-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 10px;
+  max-width: 100%;
+
+  @media (min-width: 480px) {
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.themed-card-header {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #ffffff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  span {
+    line-height: 1.3;
+  }
+
+  .count-badge {
+    font-weight: 500;
+    opacity: 0.95;
+    font-size: 0.95em;
+  }
+
+  @media (min-width: 480px) {
+    padding: 12px 14px;
+    font-size: 15px;
+    gap: 10px;
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 14px 18px;
+    font-size: 18px;
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.themed-card-body {
+  padding: 12px;
+
+  @media (min-width: 480px) {
+    padding: 14px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+}
+
+.crime-info-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.12);
+}
+
+.crime-card-header {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #fff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 480px) {
+    font-size: 14px;
+    padding: 10px 14px;
+
+    ion-icon {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    font-size: 17px;
+    padding: 12px 16px;
+
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+.crime-card-body {
+  padding: 10px;
+
+  @media (min-width: 480px) {
+    padding: 12px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px;
+  }
+}
+
+.por-info-card {
+  .info-row-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+
+    @media (min-width: 400px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+      gap: 14px;
+    }
+  }
+
+  .info-cell {
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 10px;
+
+    @media (min-width: 480px) {
+      padding: 10px 12px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 12px 14px;
+    }
+  }
+}
+
+.info-row-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+.info-cell.full-width {
+  grid-column: 1 / -1;
+}
+
+.crime-label {
+  display: block;
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+
+  @media (min-width: 480px) {
+    font-size: 11px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+}
+
+.crime-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  word-break: break-word;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.info-empty-card {
+  border: 1px dashed #e0e0e0;
+  background: #f9fafb;
+}
+
+/* Blue worklog cards (same class names as ra-work-log) */
+.worklog-card {
+  border-radius: 14px;
+  margin: 12px 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f3f8ff 0%, #edf9ff 100%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(52, 152, 219, 0.25);
+}
+
+.worklog-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #3498db 0%, #2c82c9 100%);
+  color: #fff;
+}
+
+.worklog-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.worklog-card-title ion-icon {
+  font-size: 20px;
+}
+
+.worklog-card-title span {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.worklog-card-badge {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.worklog-card-body {
+  padding: 12px 14px 14px;
+}
+
+.worklog-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 2px;
+}
+
+.worklog-value {
+  display: block;
+  font-size: 14px;
+  color: #34495e;
+}
+
+.worklog-image {
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.25);
+}

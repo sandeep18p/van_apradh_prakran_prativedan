@@ -1,0 +1,61 @@
+<div class="dialog-wrapper">
+
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="dialog-card">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <div class="select-with-icon ion-text-center">
+          <ion-label class="dialog-message">
+            <b>{{ requester_name }}</b> ने कुल
+            <b>{{ days_to_extend_by_requester }}</b> दिनों की समयवृद्धि के लिए आवेदन किया है |
+            क्या आप इसे स्वीकृत करना चाहते हैं?
+          </ion-label>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" class="center-container">
+        <ion-row class="days-row ion-align-items-center">
+          <ion-col size="7" size-sm="8" class="label-col">
+            <ion-label class="ion-text-wrap">
+              जाँच हेतु स्वीकृत समय अवधी
+            </ion-label>
+          </ion-col>
+
+          <ion-col size="5" size-sm="4" class="input-col">
+            <ion-item fill="outline" lines="none" class="days-item">
+              <ion-input
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="30"
+                [(ngModel)]="totalDaysGivenByROToExtend"
+                placeholder="दिन">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-around ion-margin-top button-row">
+      <ion-col size="4" class="ion-text-center">
+        <ion-button expand="block" color="success" shape="round" (click)="clickToApproveReject(1)">
+          स्वीकृत
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-center">
+        <ion-button expand="block" color="medium" shape="round" (click)="clickToApproveReject(2)">
+          अस्वीकृत
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-center">
+        <ion-button expand="block" color="danger" shape="round" (click)="cancel()">
+          समाप्त
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

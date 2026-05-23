@@ -1,0 +1,35 @@
+<div class="curtain-container" [class.opening]="isOpening" [class.opened]="isOpened">
+  <!-- Revealed Content Behind Curtains -->
+  <div class="reveal-content">
+    <div class="shimmer-text">
+      <h1>ONLINE POR (Preliminary Offence Report)</h1>
+      <div class="hindi-text">का शुभारंभ</div>
+    </div>
+
+    <div class="sparkles-container">
+      <!-- Optional: can be CSS animated particles -->
+      <span class="sparkle one"></span>
+      <span class="sparkle two"></span>
+      <span class="sparkle three"></span>
+    </div>
+  </div>
+
+  <!-- Curtain Left -->
+  <div class="curtain-half left">
+    <div class="curtain-folds"></div>
+    <div class="curtain-bottom-gold"></div>
+  </div>
+
+  <!-- Curtain Right -->
+  <div class="curtain-half right">
+    <div class="curtain-folds"></div>
+    <div class="curtain-bottom-gold"></div>
+  </div>
+
+  <!-- Rope and Tassel -->
+  <div class="rope-trigger" (click)="openCurtain()" *ngIf="!isOpening && !isOpened">
+    <div class="rope"></div>
+    <div class="tassel"></div>
+    <div class="pull-hint">CLICK</div>
+  </div>
+</div>

@@ -1,0 +1,411 @@
+// ============================================
+// Base Font Scaling and Typography
+// ============================================
+html {
+  font-size: 14px;
+  
+  @media (min-width: 480px) {
+    font-size: 15px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.ion-label-large {
+  font-size: 1rem;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ion-label-small {
+  font-size: 12px;
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
+  
+  @media screen and (min-width: 769px) {
+    font-size: 25px;
+  }
+}
+
+.ion-text-large {
+  font-size: 1.2rem;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ion-label-section {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+  text-decoration: underline;
+}
+
+// ============================================
+// Button Styles
+// ============================================
+.submit-button {
+  --background: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
+  --background-activated: #16a34a;
+  --background-focused: #16a34a;
+  --color: #fff;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+
+  ion-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+// जप्तिनामा / सुपुर्दनामा विवरण प्रविष्ट — distinct from generic submit / PDF row
+.entry-vivran-button {
+  --background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
+  --background-activated: #0e7490;
+  --background-focused: #155e75;
+  --color: #fff;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 14px rgba(8, 145, 178, 0.3);
+  height: 48px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+
+  ion-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+.cancel-button {
+  --background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  --background-activated: #b91c1c;
+  --background-focused: #b91c1c;
+  --color: #fff;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+
+  ion-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+// ============================================
+// Header and Toolbar Styles
+// ============================================
+.ion-header-toolbar {
+  margin-top: 20px;
+
+  @media (min-width: 768px) {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+}
+
+.custom-toolbar {
+  --background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  --color: #ffffff;
+  --border-width: 0;
+}
+
+.custom-back-button {
+  --color: #ffffff;
+}
+
+.responsive-toolbar-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+// ============================================
+// Image Styles
+// ============================================
+.horizontal-scroll-wrapper {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 6px 0;
+  gap: 10px;
+
+  .photo-container {
+    position: relative;
+    margin-right: 0;
+
+    .scroll-image {
+      height: 100px;
+      border-radius: 8px;
+    }
+
+    .remove-icon {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 20px;
+      color: red;
+      background: white;
+      border-radius: 50%;
+      z-index: 1;
+    }
+  }
+}
+
+.complain-image {
+  max-width: 100%;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  padding: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #94a3b8;
+  }
+  
+  @media (min-width: 600px) {
+    max-width: 200%;
+    max-height: 210px;
+  }
+  
+  @media (min-width: 1024px) {
+    max-width: 100%;
+    max-height: 180px;
+  }
+}
+
+// ============================================
+// Common Utility Styles
+// ============================================
+.center-label {
+  display: block;
+  text-align: center;
+}
+
+.text-blue {
+  color: #1565c0;
+}
+
+.text-link-blue {
+  color: blue;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-row-divider {
+  height: 1px;
+  background-color: #ccc;
+  width: 100%;
+  margin: 4px 0;
+}
+
+.parivahan-reason {
+  font-size: 11px;
+  color: #666;
+}
+
+.parivahan-reason-block {
+  display: block;
+  font-size: 12px;
+  color: #555;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.pre-line {
+  white-space: pre-line;
+}
+
+ion-card {
+  margin: 10px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// ============================================
+// Penalty select: heading above row; row = value + chevron only
+// ============================================
+.penalty-select-field {
+  width: 100%;
+  max-width: 400px;
+  margin: 8px auto 14px;
+  box-sizing: border-box;
+}
+
+.penalty-select-heading {
+  margin: 0 0 10px;
+  padding: 0 2px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1a472a;
+  text-align: center;
+}
+
+.penalty-select-item {
+  align-items: center;
+  --padding-start: 12px;
+  --padding-end: 8px;
+  --inner-padding-end: 4px;
+  --inner-padding-top: 6px;
+  --inner-padding-bottom: 6px;
+  --min-height: 42px;
+  --background: #f3f7f4;
+  --ripple-color: rgba(45, 95, 63, 0.15);
+  margin: 0;
+  border: 2px solid #2d5f3f;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(26, 71, 42, 0.1);
+}
+
+.penalty-select-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding-right: 6px;
+}
+
+.penalty-select-value {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.penalty-select-placeholder {
+  color: #5c6d64;
+  font-weight: 400;
+}
+
+.penalty-select-chevron {
+  flex-shrink: 0;
+  align-self: center;
+  font-size: 20px;
+  color: #2d5f3f;
+  margin-inline-start: 2px;
+  opacity: 0.95;
+}
+
+// ============================================
+// Opened penalty section close button
+// ============================================
+.penalty-open-card {
+  position: relative;
+  padding-top: 38px;
+}
+
+.penalty-open-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  --padding-start: 6px;
+  --padding-end: 6px;
+  --border-radius: 999px;
+  --background: rgba(255, 255, 255, 0.92);
+  --background-activated: rgba(240, 247, 244, 0.95);
+  --color: #1a472a;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  width: 32px;
+  height: 32px;
+  margin: 0;
+}
+
+.penalty-open-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid rgba(45, 95, 63, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+::ng-deep .row-divider {
+  height: 2px;
+  background-color: black;
+  margin-top: 8px;
+}
+
+:ng-deep .section-divider {
+  border-bottom: 4px solid black;
+  margin: 8px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .p-column-title {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .p-column-title {
+    display: none;
+  }
+}

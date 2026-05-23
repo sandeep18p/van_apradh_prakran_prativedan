@@ -1,0 +1,357 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title" *ngIf="isRO">
+      {{ getTranslation('giraftari_fard') }} ({{por_number}})
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding center-content">
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="center-content">
+    <ion-row style="display: flex; justify-content: center;">
+      <ion-col size="12" size-lg="10" class="main-content-col">
+
+        <ion-card class="custom-card giraftari-parent-card">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="document-text-outline"></ion-icon>
+              <ion-text class="ion-text">फर्द गिरफ्तारी</ion-text>
+            </span>
+          </ion-card-title>
+          <ion-card-content>
+            <div class="sub-card crime-info-card">
+              <div class="sub-card-header">
+                <span class="icon-text-row">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  <ion-text class="ion-text">अपराध विवरण</ion-text>
+                </span>
+              </div>
+              <div class="sub-card-content info-card">
+                <ion-row>
+                <ion-col size="12" size-md="3">
+                  <ion-label class="label">POR क्रमांक</ion-label>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ por_number }}</span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="12" size-md="3">
+                  <span class="label">अपराध पंजीयन दिनांक</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ crimeDate }}</span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="12" size-md="3">
+                  <span class="label">वन अपराध का प्रकार</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ crime_type }}</span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="12" size-md="3">
+                  <span class="label">धाराएं</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ crime_dhara }}</span>
+                </ion-col>
+              </ion-row>
+              </div>
+            </div>
+
+            <div class="sub-card seized-items-card">
+              <div class="sub-card-header">
+                <span class="icon-text-row">
+                  <ion-icon name="cube-outline"></ion-icon>
+                  <ion-text class="ion-text">जप्त सामाग्रियो का विवरण</ion-text>
+                </span>
+              </div>
+              <div class="sub-card-content info-card">
+                <ion-row>
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त वाहन</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ totalVahanDetailWithNumberFor_VisayTitle || '--' }}</span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="listOfKashthaDetail.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त लट्ठा</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalKashthNag }}, कुल आयतन (घ.मी.) - {{ totalKashthGhanMeter }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="listOfBalliDetail.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त बल्ली</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalBalliNag }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="listOfChiranaDetail.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त चिरान</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalChiranNag }}, कुल आयतन (घ.मी.) - {{ totalChiranGhanMeter }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="baansItemsList.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त औद्योगिक बांस</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalOdyogicBanshNag }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="baansItemsList.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त व्यापारिक बांस</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalVyaprikBanshNag }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="polItemsList.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त फेंसिंग पोल</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalPolNag }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="listOfChattaDetail.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">जप्त जलाऊ</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">
+                    कुल संख्या - {{ totalChattaNag }}
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="listOfOtherJaptSamanDetail.length > 0">
+                <ion-col size="12" size-md="3">
+                  <span class="label">अन्य जप्त सामान</span>
+                </ion-col>
+                <ion-col size="12" size-md="9">
+                  <span class="value">{{ otherJaptSamanTotalDetail }}</span>
+                </ion-col>
+              </ion-row>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="custom-card accused-section-card" *ngIf="comingComplaintData && comingComplaintData.is_accused_found != '0'">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-text class="ion-text">अभियुक्त विवरण</ion-text>
+            </span>
+          </ion-card-title>
+          <ion-card-content>
+            <div *ngFor="let accused of accusedPersonsList; let i = index" class="accused-person-card">
+              <div class="accused-person-header">
+                <ion-label class="accused-title">
+                  <span class="accused-info accused-number">अभियुक्त {{ i + 1 }} </span>
+                  <span class="accused-info"><strong>नाम :</strong> {{ accused.name || '--' }}</span> 
+                  <span class="accused-info"><strong>पिता का नाम :</strong> {{ accused.fathersName || '--' }}</span> 
+                  <span class="accused-info"><strong>उम्र :</strong> {{ accused.age || '--' }}</span> 
+                  <span class="accused-info"><strong>मोबाइल :</strong> {{ accused.mobile_number || '--' }}</span> 
+                  <span class="accused-info"><strong>आधार नंबर :</strong> {{ accused.aadhaar_number || '—' }}</span> 
+                  <span class="accused-info"><strong>जाति वर्ग :</strong> {{ accused.cast || '--' }}</span> 
+                  <span class="accused-info"><strong>जाति :</strong> {{ accused.jati_name || '--' }}</span> 
+                  <span class="accused-info"><strong>पता :</strong> {{ accused.address || '--' }}</span>
+                </ion-label>
+              </div>
+              <div class="accused-person-body">
+                <ion-row class="days-row">
+                <ion-col size="12" size-md="3">
+                  <ion-label>
+                    1. गिरफ्तारी का स्थान, दिनांक एवं समय :
+                  </ion-label>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <ion-input fill="outline" label="गिरफ्तारी स्थान" label-placement="floating"
+                    [(ngModel)]="accused.gir_sthan">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <ion-input fill="outline" label="गिरफ्तारी दिनांक" label-placement="floating" type="date"
+                    [(ngModel)]="accused.gir_date"
+                    [max]="maxGirDate"
+                    (ionChange)="onDateChange($event.detail.value, accused)"
+                    (ionBlur)="validateGirDateOnEntry(accused)">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <div class="time-input-wrapper">
+                    <ion-input fill="outline" label="गिरफ्तारी समय" label-placement="floating" type="time"
+                      (ionChange)="onTimeChange($event.detail.value, accused)" [(ngModel)]="accused.gir_time"
+                      class="time-input">
+                    </ion-input>
+                    <!-- <div class="time-12h">
+                      {{ to12Hour(accused.gir_time) }}
+                    </div> -->
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <ion-label>
+                    2. गिरफ्तार करने वाले अधिकारी का नाम एवं पद :
+                  </ion-label>
+                </ion-col>
+
+                <ion-col size="12" size-md="9">
+                  <ion-input fill="outline" label="अधिकारी का नाम एवं पद" label-placement="floating"
+                    [(ngModel)]="accused.gir_adhikari">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <ion-label>
+                    3. अभियुक्त के पास पाया गया सामान :
+                  </ion-label>
+                </ion-col>
+
+                <ion-col size="12" size-md="9">
+                  <ion-input fill="outline" label="पाया गया सामान" label-placement="floating"
+                    [(ngModel)]="accused.gir_paya_gaya_saman">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-md="3">
+                  <ion-label>
+                    4. शरीर पर पाई गई चोटों का विवरण :
+                  </ion-label>
+                </ion-col>
+
+                <ion-col size="12" size-md="9">
+                  <ion-input fill="outline" label="चोटों का विवरण" label-placement="floating"
+                    [(ngModel)]="accused.gir_body_mark">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12">
+                  <hr class="separator">
+                </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="custom-card certification-card">
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="12" class="certification-block">
+                <ion-label>
+                  प्रमाणित किया जाता है कि उपरोक्त गिरफ्तार शुदा व्यक्ति को उसकी गिरफ्तारी की सूचना किसी परिवारजन को देने
+                  एवं उसके अधिकार से उसे अवगत कराया गया है |
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="signature-row">
+              <ion-col size="12" size-md="4">
+                <div>
+                  <p>
+                    गवाहों के नाम एवं हस्ताक्षर
+                    <span class="signature-line">_______________________</span>
+                    <span class="signature-line">_______________________</span>
+                    <span class="signature-line">_______________________</span>
+                  </p>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <div>
+                  <p>
+                    <span class="signature-line"></span>
+                    गिरफ्तार शुदा व्यक्ति का हस्ताक्षर
+                  </p>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="4">
+                <div>
+                  <p>
+                    <span class="signature-line"></span>
+                    गिरफ्तार करने वाले अधिकारी का हस्ताक्षर एवं पद नाम
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-row class="button-row ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-md="4">
+            <ion-button expand="block" class="submit-button" (click)="submitOnServer()">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              SUBMIT
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="12" size-md="4" *ngIf="showDownloadGirFardPdfButton">
+            <ion-button expand="block" class="submit-button" (click)="generatePdfOfGirPatrak()">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              डाउनलोड फर्द गिरफ्तारी PDF
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="12" size-md="4">
+            <ion-button expand="block" (click)="cancel()" class="cancel-button">
+              <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+              CANCEL
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

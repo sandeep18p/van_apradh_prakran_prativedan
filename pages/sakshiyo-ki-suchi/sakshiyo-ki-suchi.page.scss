@@ -1,0 +1,311 @@
+/* Same as apradhiyo-ki-suchi.page.scss but `.sakshi-table` */
+.ion-header-toolbar {
+    margin-top: 0;
+}
+
+.custom-toolbar {
+    --background: rgba(255, 255, 255, 0.9);
+    --border-color: transparent;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+
+    .responsive-toolbar-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #1a1a1b;
+        letter-spacing: -0.5px;
+    }
+}
+
+.custom-back-button {
+    --color: #1a1a1b;
+}
+
+ion-content {
+    --background: #f8fbff;
+}
+
+.glass-container {
+    padding: 10px 10px 40px 10px;
+}
+
+.info-top-center {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a5568;
+    margin: 10px 5px 5px 5px;
+
+    @media (max-width: 576px) {
+        font-size: 13px;
+    }
+}
+
+.header-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a1b;
+    margin: 5px 5px 20px 5px;
+    gap: 10px;
+
+    .info-left,
+    .info-right {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 12px;
+    }
+}
+
+.modern-card {
+    margin: 15px 0;
+    border-radius: 0;
+    background: white;
+    border: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+
+    .table-container {
+        overflow-x: auto;
+        padding: 0;
+    }
+}
+
+.sakshi-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        color: #000;
+        font-size: 14px;
+
+        @media (max-width: 576px) {
+            padding: 4px;
+            font-size: 10px;
+        }
+    }
+
+    th {
+        font-weight: bold;
+    }
+}
+
+/* Standardized Buttons */
+.submit-btn {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #218838;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #c82333;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.custom-loading {
+    --background: rgba(255, 255, 255, 0.95);
+    --spinner-color: #2E7D32;
+}
+
+// ============================================
+// Form Input Styles
+// ============================================
+ion-input,
+ion-textarea {
+    --border-color: #e0e0e0;
+    --border-radius: 8px;
+    --highlight-color-focused: #2E7D32;
+    --highlight-color: #2E7D32;
+
+    // Prevent label text truncation
+    --label-max-width: 100% !important;
+
+    ::ng-deep {
+
+        .label-text-wrapper,
+        label,
+        .label-text,
+        ion-label,
+        .native-input[readonly]+.label-text-wrapper,
+        .native-input+.label-text-wrapper {
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            word-wrap: break-word !important;
+            max-width: 100% !important;
+            display: block !important;
+            width: 100% !important;
+        }
+    }
+
+    &.ion-valid {
+        --highlight-color: #2E7D32;
+        --highlight-color-focused: #2E7D32;
+    }
+
+    &.ion-invalid {
+        --highlight-color: #d32f2f;
+        --highlight-color-focused: #d32f2f;
+    }
+}
+
+// Fix ion-input text spacing for floating labels only - override Ionic default margins
+::ng-deep {
+
+    .input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h input.sc-ion-input-md,
+    .input-fill-outline.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 18px !important;
+        margin-bottom: 6px !important;
+    }
+}
+
+// ============================================
+// Section Cards (Grouped Elements)
+// ============================================
+.section-card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    margin-bottom: 16px;
+
+    @media (min-width: 480px) {
+        border-radius: 12px;
+    }
+
+    @media (min-width: 768px) {
+        border-radius: 16px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.section-header {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    ion-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    @media (min-width: 480px) {
+        padding: 12px 14px;
+        font-size: 15px;
+        gap: 10px;
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        padding: 14px 18px;
+        font-size: 18px;
+
+        ion-icon {
+            font-size: 24px;
+        }
+    }
+}
+
+.section-body {
+    padding: 12px;
+
+    @media (min-width: 480px) {
+        padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 18px;
+    }
+}
+
+// ============================================
+// Accused Person Card Styles
+// ============================================
+.accused-person-card {
+    background: #ffffff;
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: #2E7D32;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+    }
+
+    @media (min-width: 768px) {
+        padding: 18px;
+        border-radius: 12px;
+    }
+}
+
+.accused-person-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8f5e9;
+
+    ion-label {
+        font-weight: 600;
+        color: #2E7D32;
+        font-size: 15px;
+
+        @media (min-width: 768px) {
+            font-size: 17px;
+        }
+    }
+}

@@ -1,0 +1,259 @@
+.image-modal-wrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+// Top Controls
+.controls-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.controls-col {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  height: 100%;
+}
+
+// Bottom Controls
+.bottom-controls-row {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 80px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.bottom-controls-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 20px;
+  height: 100%;
+  gap: 20px;
+}
+
+// Image Container
+.image-row {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.image-col {
+  height: 100%;
+  padding: 0;
+}
+
+.image-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 80px 20px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: none; // Prevent default touch behaviors
+}
+
+.image-preview-container.panning {
+  cursor: grabbing;
+}
+
+.image-preview-container.pinching {
+  cursor: zoom-in;
+}
+
+.full-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease-out; // Smooth transition when not dragging
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center center;
+  will-change: transform; // Optimize for smooth animations
+}
+
+// Disable transitions during dragging
+.image-preview-container.panning .full-image {
+  transition: none !important;
+}
+
+.image-preview-container.pinching .full-image {
+  transition: none !important;
+}
+
+// Control Buttons
+.control-button {
+  --color: white;
+  --background: rgba(255, 255, 255, 0.1);
+  --background-hover: rgba(255, 255, 255, 0.2);
+  --background-activated: rgba(255, 255, 255, 0.3);
+  --border-radius: 50%;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  margin: 0 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.control-button:hover {
+  --background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.control-button:active {
+  --background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.95);
+}
+
+.control-button ion-icon {
+  font-size: 24px;
+}
+
+// Specific Button Styles
+.close-button {
+  --background: rgba(255, 0, 0, 0.2);
+  --background-hover: rgba(255, 0, 0, 0.3);
+  --background-activated: rgba(255, 0, 0, 0.4);
+}
+
+.reset-button {
+  --background: rgba(0, 150, 255, 0.2);
+  --background-hover: rgba(0, 150, 255, 0.3);
+  --background-activated: rgba(0, 150, 255, 0.4);
+}
+
+.zoom-button {
+  --background: rgba(0, 255, 0, 0.2);
+  --background-hover: rgba(0, 255, 0, 0.3);
+  --background-activated: rgba(0, 255, 0, 0.4);
+}
+
+.rotate-button {
+  --background: rgba(255, 165, 0, 0.2);
+  --background-hover: rgba(255, 165, 0, 0.3);
+  --background-activated: rgba(255, 165, 0, 0.4);
+}
+
+// Zoom Level Display
+.zoom-level {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 60px;
+  text-align: center;
+}
+
+// Disabled Button State
+.control-button[disabled] {
+  --color: rgba(255, 255, 255, 0.3);
+  --background: rgba(255, 255, 255, 0.05);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-button[disabled]:hover {
+  transform: none;
+  --background: rgba(255, 255, 255, 0.05);
+}
+
+// Panning indicators
+.image-preview-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.image-preview-container.panning::before {
+  opacity: 1;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .control-button {
+    width: 44px;
+    height: 44px;
+    margin: 0 2px;
+  }
+  
+  .control-button ion-icon {
+    font-size: 20px;
+  }
+  
+  .zoom-level {
+    font-size: 14px;
+    padding: 6px 12px;
+    min-width: 50px;
+  }
+  
+  .bottom-controls-col {
+    gap: 12px;
+  }
+}
+
+// Touch Device Optimizations
+@media (hover: none) and (pointer: coarse) {
+  .control-button {
+    width: 52px;
+    height: 52px;
+    margin: 0 6px;
+  }
+  
+  .control-button ion-icon {
+    font-size: 26px;
+  }
+  
+  .image-preview-container {
+    cursor: default;
+  }
+  
+  .image-preview-container.panning {
+    cursor: default;
+  }
+}

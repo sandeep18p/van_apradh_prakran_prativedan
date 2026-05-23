@@ -1,0 +1,326 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('vasuli_ka_vivran') }} ({{toolbarTitle}})
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="theme-page-wrap">
+    <ion-row class="ion-justify-content-center ion-text-center summary-row-wrap">
+      <ion-col size="12" size-lg="3.3" class="summary-card red-card">
+        <div class="card-title">आदेशानुसार वसूली</div>
+        <div class="card-row header-row">
+          <div>महसूल</div>
+          <div>मुआवजा</div>
+          <div>योग</div>
+        </div>
+        <div class="card-row">
+          <div>{{ adesh_mahsul }}</div>
+          <div>{{ adesh_mavja }}</div>
+          <div>{{ adesh_mavja_mahsul }}</div>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" size-lg="3.3" class="summary-card green-card">
+        <div class="card-title">वसूली पूर्ण</div>
+        <div class="card-row header-row">
+          <div>महसूल</div>
+          <div>मुआवजा</div>
+          <div>योग</div>
+        </div>
+        <div class="card-row">
+          <div>{{ totalPreviousMahsul }}</div>
+          <div>{{ totalPreviousMavja }}</div>
+          <div>{{ totalPreviousMavjaMahsul }}</div>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" size-lg="3.3" class="summary-card yellow-card">
+        <div class="card-title">वसूली शेष</div>
+        <div class="card-row header-row">
+          <div>महसूल</div>
+          <div>मुआवजा</div>
+          <div>योग</div>
+        </div>
+        <div class="card-row">
+          <div>{{ totalSheshMahsul }}</div>
+          <div>{{ totalSheshMavja }}</div>
+          <div>{{ totalSheshMavjaMahsul }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="theme-page-wrap">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-lg="10">
+        <ion-col size="12" *ngIf="listOfVasuliViran.length > 0">
+          <ion-card class="custom-card">
+            <ion-card-title class="card-section-title">
+              <span class="icon-text-row">
+                <ion-icon name="receipt-outline"></ion-icon>
+                <ion-text>वसूली विवरण इंद्राज</ion-text>
+              </span>
+            </ion-card-title>
+            <ion-card-content>
+              <ion-grid *ngFor="let row of listOfVasuliViran; let i = index" class="kastha-row">
+                <ion-row>
+                  <ion-col size="6" size-lg="2">
+                    <div class="input-block">
+                      <ion-label class="field-label">मनी रसीद क्रमांक</ion-label>
+                      <ion-input class="outlined-box" [(ngModel)]="row.money_rasid_kramank" fill="outline"></ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2" class="col-date">
+                    <ion-label class="field-label">दिनांक</ion-label>
+                    <ion-item (click)="selectDate(row)" lines="none" class="bordered-item">
+                      <ion-label class="date-label">
+                        {{ row.money_rasid_dinank ? (row.money_rasid_dinank | date:'dd-MM-yyyy') : 'दिनांक' }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2">
+                    <div class="input-block">
+                      <ion-label class="field-label">महसूल</ion-label>
+                      <ion-input class="outlined-box" fill="outline" (ionInput)="calculateTotalRashi(row)"
+                        [(ngModel)]="row.mahsul_rashi" type="number"></ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2">
+                    <div class="input-block">
+                      <ion-label class="field-label">मुआवजा</ion-label>
+                      <ion-input (ionInput)="calculateTotalRashi(row)" [(ngModel)]="row.mavja_rashi" class="outlined-box"
+                        fill="outline" type="number"></ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2">
+                    <ion-label class="field-label">योग</ion-label>
+                    <ion-input class="outlined-box" fill="outline"
+                      [(ngModel)]="row.total_rashi" (ionInput)="calculateMahayogTotalRashi(row)" readonly>
+                    </ion-input>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2" class="ion-text-center ion-align-self-center col-delete">
+                    <ion-button fill="clear" color="danger" class="delete-row-btn" (click)="removeVasuliData(i)">
+                      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2">
+                    <div class="input-block">
+                      <ion-label class="field-label">बैंक चालान क्रमांक</ion-label>
+                      <ion-input class="outlined-box" [(ngModel)]="row.bank_chalan_kramank" fill="outline"></ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="2">
+                    <ion-label class="field-label">बैंक चालान दिनांक</ion-label>
+                    <ion-item (click)="selectBankChalanDate(row)" lines="none" class="bordered-item">
+                      <ion-label class="date-label">
+                        {{ row.bank_chalan_dinank ? (row.bank_chalan_dinank | date:'dd-MM-yyyy') : 'दिनांक' }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-row *ngIf="listOfVasuliViran.length > 0" class="form-footer-row">
+            <ion-col size="12" size-lg="6">
+              <div class="total-strip">
+                <ion-label class="instruction-label total-strip-label">कुल वसूली राशि :</ion-label>
+                <ion-label class="instruction-label total-strip-value">{{ totalVasulRashi }}</ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-col class="submit-action-wrap">
+            <ion-button (click)="submitVasuliData()" class="submit-button">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              SUBMIT वसूली का विवरण
+            </ion-button>
+          </ion-col>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid
+    *ngIf="(listOfAlreadySubmittedVasuliDetail && listOfAlreadySubmittedVasuliDetail.length > 0) || (listOfVasuliViran.length > 0); else noData">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-lg="10">
+        <p-table *ngIf="listOfAlreadySubmittedVasuliDetail.length > 0" [value]="listOfAlreadySubmittedVasuliDetail"
+          responsiveLayout="stack" class="custom-margin-table">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>
+                <ion-label class="center-label">
+                  क्र.
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  मनी रसीद क्रमांक
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  मनी रसीद दिनांक
+                </ion-label>
+              </th>
+
+              <th>
+                <ion-label class="center-label">
+                  महसूल
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  मुआवजा
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  योग
+                </ion-label>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr class="custom-table-row">
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">क्र.</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ i + 1 }}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">मनी रसीद क्रमांक</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.money_rasid_kramank}}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">मनी रसीद दिनांक</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.money_rasid_dinank}}
+                </ion-label>
+              </td>
+
+
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">महसूल</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.mahsul_rashi}}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">मुआवजा</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.mavja_rashi}}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small mobile-title">योग</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.total_rashi}}
+                </ion-label>
+              </td>
+
+              <td colspan="9" *ngIf="!isWebPlatform()">
+                <div class="mobile-row-divider"></div>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+
+        <div class="theme-total-summary"
+          *ngIf="(listOfAlreadySubmittedVasuliDetail && listOfAlreadySubmittedVasuliDetail.length > 0)">
+          <div class="total-item">
+            <span class="total-key">महसूल</span>
+            <span class="total-val">{{ totalPreviousMahsul }}</span>
+          </div>
+
+          <div class="total-item">
+            <span class="total-key">मुआवजा</span>
+            <span class="total-val">{{ totalPreviousMavja }}</span>
+          </div>
+
+          <div class="total-item grand-total">
+            <span class="total-key">योग</span>
+            <span class="total-val">{{ totalPreviousMavjaMahsul }}</span>
+          </div>
+        </div>
+
+      </ion-col>
+
+      <ion-col size="12" size-lg="10">
+
+      </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+
+  <!-- ❌ No data fallback -->
+  <ng-template #noData>
+    <div class="empty-state-wrap">
+      <div class="themed-card info-empty-card">
+        <div class="themed-card-body">
+          <ion-text color="medium">
+            <h2>अभी तक वसूली का विवरण इंद्राज नहीं किया गया है | वसूली विवरण इंद्राज करने हेतु बटन क्लिक करें |</h2>
+          </ion-text>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</ion-content>
+
+<ion-footer class="vasuli-add-footer">
+  <ion-toolbar>
+    <div class="vasuli-add-footer__inner">
+      <ion-button class="vasuli-add-btn" expand="block" (click)="addVasuliDetail()">
+        वसूली विवरण जोड़ें
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

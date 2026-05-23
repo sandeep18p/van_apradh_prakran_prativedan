@@ -1,0 +1,1047 @@
+// ============================================
+// Forest Department Theme (match add-complain)
+// ============================================
+:host {
+  --primary-green: #2E7D32;
+  --primary-green-light: #43A047;
+  --primary-green-dark: #1B5E20;
+  --border-color: #e0e0e0;
+
+  ion-input {
+    --label-max-width: 100% !important;
+  }
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+
+ion-grid.center-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+ion-grid.center-content ion-row {
+  width: 100%;
+  min-width: 100%;
+  flex: 0 0 100%;
+}
+
+.main-content-col {
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 992px) {
+    flex: 0 0 83.333%;
+    max-width: 83.333%;
+    min-width: 83.333%;
+  }
+}
+
+ion-content {
+  --background: #f8f9fa;
+  --keyboard-offset: 250px;
+}
+
+.custom-toolbar {
+  --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --color: #ffffff;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+}
+
+.custom-back-button {
+  --color: #ffffff;
+
+  ion-icon {
+    color: #ffffff;
+  }
+}
+
+.ion-header-toolbar {
+  margin-top: 20px;
+
+  @media (min-width: 768px) {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 0;
+  }
+}
+
+// ============================================
+// Themed Cards (Forest Department)
+// ============================================
+.custom-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 12px;
+  padding: 0;
+  transition: box-shadow 0.3s ease;
+
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.12);
+  }
+
+  .card-title {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+
+    @media (min-width: 480px) {
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 12px 14px;
+      font-size: 18px;
+    }
+
+    .icon-text-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+
+      ion-icon {
+        font-size: 18px;
+        color: #ffffff;
+
+        @media (min-width: 480px) {
+          font-size: 20px;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 24px;
+        }
+      }
+
+      ion-text {
+        color: #ffffff;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 8px;
+
+    @media (min-width: 480px) {
+      padding: 10px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 12px;
+    }
+  }
+}
+
+// गिरफ्तारी पत्रक - parent card wrapping both sub-sections
+.giraftari-parent-card {
+  ion-card-content {
+    padding: 12px;
+
+    @media (min-width: 768px) {
+      padding: 16px;
+    }
+  }
+
+  .sub-card {
+    background: #f8faf8;
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .sub-card-header {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #2c3e50;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(46, 125, 50, 0.2);
+
+    @media (min-width: 768px) {
+      padding: 10px 14px;
+      font-size: 16px;
+    }
+
+    .icon-text-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      ion-icon {
+        font-size: 18px;
+        color: #2E7D32;
+
+        @media (min-width: 768px) {
+          font-size: 20px;
+        }
+      }
+
+      ion-text {
+        color: #2c3e50;
+      }
+    }
+  }
+
+  .sub-card-content {
+    padding: 8px;
+
+    @media (min-width: 768px) {
+      padding: 10px 12px;
+    }
+  }
+}
+
+// Info card - compact alternating row backgrounds
+.info-card {
+  ion-card-content ion-row,
+  ion-row {
+    padding: 2px 8px;
+    margin: 0 -8px 1px -8px;
+    border-radius: 6px;
+    align-items: center;
+    min-height: unset;
+
+    @media (min-width: 480px) {
+      padding: 3px 10px;
+      margin: 0 -10px 1px -10px;
+    }
+
+    @media (min-width: 768px) {
+      margin: 0 -12px 1px -12px;
+      padding: 4px 12px;
+    }
+
+    &:nth-child(even) {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .label,
+  .value {
+    line-height: 1.4;
+  }
+}
+
+// Accused person card - each accused in own card
+.accused-person-card {
+  background: #ffffff;
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  border-radius: 10px;
+  padding: 0;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 12px;
+  }
+}
+
+.accused-person-header {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  padding: 12px 16px;
+  border-bottom: 2px solid #81c784;
+
+  .accused-title {
+    margin: 0;
+  }
+
+  .accused-number {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c62828;
+    display: inline-block;
+    margin-bottom: 6px;
+
+    @media (min-width: 768px) {
+      font-size: 20px;
+      margin-bottom: 0;
+      margin-right: 12px;
+    }
+  }
+
+  .accused-info {
+    @media (max-width: 767px) {
+      display: block;
+      padding: 4px 0;
+      font-size: 14px;
+      border-bottom: none;
+    }
+  }
+}
+
+.accused-person-body {
+  padding: 14px 16px;
+
+  @media (min-width: 768px) {
+    padding: 18px 20px;
+  }
+}
+
+.time-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .time-input {
+    flex: 1;
+  }
+
+  .time-12h {
+    white-space: nowrap;
+    font-size: 13px;
+    color: #000;
+  }
+}
+
+.certification-block {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #000;
+  background: #f8faf8;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(46, 125, 50, 0.2);
+
+  ion-label {
+    color: #000;
+  }
+}
+
+.signature-row {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
+  border-radius: 12px;
+  border: 1px dashed #ccc;
+
+  ion-col {
+    text-align: center;
+
+    @media (max-width: 767px) {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+  }
+
+  p {
+    color: #000;
+  }
+
+  .signature-line {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
+.button-row {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e0e0e0;
+  gap: 12px;
+
+  ion-col {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+      flex: 1 1 auto;
+    }
+  }
+
+  ion-button {
+    min-width: 120px;
+  }
+}
+
+// ============================================
+// Toolbar title (theme: white on green)
+// ============================================
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.totals-container {
+
+    .total-card {
+        margin: 4px;
+        background: #2E7D32;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .total-title {
+            font-weight: 600;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .total-value {
+            font-weight: 900;
+            color: #fff;
+            font-size: 15px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            font-size: 15px;
+            padding: 12px;
+        }
+    }
+}
+
+.days-row {
+    align-items: center;
+    margin-top: 8px;
+
+    ion-label {
+        color: #000;
+    }
+
+    .label-col {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+        color: #000;
+    }
+
+    .input-col {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .days-item {
+        --background: #fff;
+        --border-radius: 8px;
+        --highlight-color-focused: #2E7D32;
+        width: 100%;
+        max-width: 120px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    // ion-input {
+    //     text-align: center;
+    //     font-size: 16px;
+    // }
+}
+
+ion-input,
+ion-textarea {
+    --border-color: #e0e0e0;
+    --border-radius: 8px;
+    --highlight-color-focused: #2E7D32;
+    --highlight-color: #2E7D32;
+    --color: #000;
+    transition: box-shadow 0.2s ease;
+}
+
+ion-input.ion-focused,
+ion-textarea.ion-focused {
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15);
+}
+
+::ng-deep ion-input .label-text-wrapper,
+::ng-deep ion-input label,
+::ng-deep ion-input .label-text,
+::ng-deep ion-textarea .label-text-wrapper,
+::ng-deep ion-textarea label,
+::ng-deep ion-textarea .label-text {
+    color: #000 !important;
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    --background-activated: #1B5E20;
+    --background-focused: #1B5E20;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #1B5E20;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+        color: white;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #c82333;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+        color: white;
+    }
+}
+
+
+::ng-deep .custom-margin-table {
+    .p-datatable {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        .p-datatable-header {
+            background: #2E7D32;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .p-datatable-thead>tr>th {
+            background: #2E7D32;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background: #1B5E20;
+            }
+        }
+
+        .p-datatable-tbody>tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e0e0e0;
+
+            &:hover {
+                background: #f5f5f5;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            >td {
+                padding: 1rem;
+                border: none;
+            }
+        }
+    }
+}
+
+::ng-deep .row-divider {
+    height: 2px;
+    background-color: black;
+    margin-top: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    .p-column-title {
+        font-size: 12px;
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+    }
+
+    .ion-label-small {
+        font-size: 15px;
+    }
+}
+
+/* Hide label on large screens */
+@media screen and (min-width: 769px) {
+    .p-column-title {
+        display: none;
+    }
+
+    .ion-label-small {
+        font-size: 25px;
+    }
+
+}
+
+.ion-label-small {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.ion-label-small {
+    font-size: 12px;
+}
+
+.kastha-card {
+    overflow: visible; // allow label to float outside
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    margin: 12px 0;
+    background: #fff;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .instruction-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .add-btn {
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+            font-size: 30px;
+            color: var(--ion-color-primary);
+            transition: transform 0.2s ease;
+        }
+
+        &:hover ion-icon {
+            transform: scale(1.2);
+        }
+    }
+
+    .ion-textarea {
+        margin-top: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+        --border-width: 2px;
+        --border-style: solid;
+        --border-color: blue;
+        --border-radius: 8px;
+        --background: #ffffff;
+        min-height: 100px; // optional, adjust rows if needed
+    }
+
+    .kastha-row {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        background: #fafafa;
+        border: 1px dashed #ddd;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+
+    ion-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    ion-input {
+        --min-height: 56px;
+        height: auto;
+        --border-width: 2px;
+        --border-color: blue;
+        --border-radius: 8px;
+    }
+
+    ng-select {
+        width: 100%;
+        font-size: 14px;
+        border-radius: 6px;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        background: #fff;
+        border: 1px solid #ddd;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus-within {
+            border-color: var(--ion-color-primary);
+            box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.2);
+        }
+    }
+
+    ion-button[color="danger"] {
+        --color: #e74c3c;
+        --background-hover: #fdecea;
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        margin-top: 20px;
+
+        ion-icon {
+            font-size: 18px;
+        }
+    }
+}
+
+.nice-ng-select {
+    width: 100%;
+    font-size: 14px;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 22px;
+    }
+
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep .nice-ng-select.ng-select-focused .ng-select-container {
+    border-color: #3a86ff;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 65px;
+    }
+}
+
+::ng-deep .nice-ng-select .ng-value-container {
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .nice-ng-select .ng-input {
+    display: flex;
+    align-items: center;
+    height: 90%;
+}
+
+::ng-deep .nice-ng-select .ng-input input {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    line-height: 1.5;
+    align-self: center;
+}
+
+::ng-deep .nice-ng-select .ng-placeholder {
+    color: #888;
+    font-weight: 500;
+}
+
+.date-right {
+    display: flex;
+    align-items: center;
+    /* vertical center */
+    justify-content: flex-end;
+    /* move content to right */
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+.date-text {
+    text-align: right;
+    margin: 0;
+}
+
+ion-icon {
+    color: black;
+}
+
+.large_heading_text {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.indent {
+    margin-left: 80px;
+}
+
+.subject {
+    font-weight: 600;
+}
+
+.bold-text {
+    font-weight: 700;
+    /* or bold */
+}
+
+.totals-row {
+    display: flex;
+    gap: 16px;
+}
+
+.total-item {
+    flex: 1;
+    /* equal width */
+    background: #f9fafb;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.small-input {
+    width: 400px;
+    /* 👈 limit width */
+    max-width: 100%;
+}
+
+.large_heading_text {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.small_heading_text {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.signature-line {
+    display: block;
+    margin-top: 5px;
+    /* optional spacing between lines */
+}
+
+.crime-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* default (mobile) */
+.label {
+    font-size: 13px;
+    color: #000;
+    font-weight: 700;
+}
+
+.value {
+    font-size: 15px;
+    font-weight: 400;
+    color: #000;
+}
+
+.left,
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.right {
+    text-align: right;
+}
+
+/* 🔥 Large screens */
+@media (min-width: 768px) {
+    .label {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .value {
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+
+.separator {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 8px 0;
+}
+
+.accused-card {
+    margin-bottom: 16px;
+    --ion-card-background: #fefefe;
+    --ion-card-border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accused-card ion-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.accused-card ion-card-content {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.arrest-row ion-col {
+    margin-top: 8px;
+}
+
+.mt-2 {
+    margin-top: 12px !important;
+}
+
+ion-divider {
+    margin: 12px 0;
+    border-color: #ccc;
+}
+
+.accused-title {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000;
+  gap: 4px 16px;
+  align-items: baseline;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 6px 0;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+    line-height: 1.8;
+    gap: 4px 20px;
+  }
+}
+
+.accused-number {
+  font-weight: 700;
+  font-size: 17px;
+  margin-right: 4px;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+}
+
+.accused-info {
+  margin-right: 0;
+
+  @media (min-width: 768px) {
+    white-space: nowrap;
+    margin-right: 4px;
+  }
+
+  @media (max-width: 767px) {
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    strong {
+      display: inline-block;
+      min-width: 85px;
+      font-weight: 700;
+    }
+  }
+}

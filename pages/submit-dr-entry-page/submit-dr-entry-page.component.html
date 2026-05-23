@@ -1,0 +1,133 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('vasuli_ka_vivran') }} ({{toolbarTitle}})
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-lg="11">
+
+        <ion-col size="12" *ngIf="listOfVasuliViran.length > 0; else noData">
+
+          <ion-card>
+            <ion-card-content>
+
+              <ion-grid *ngFor="let row of listOfVasuliViran; let i = index" class="kastha-row">
+
+                <ion-row [ngClass]="{
+    'row-green': row.is_editable == '1',
+    'row-red': row.is_editable == '0'
+  }">
+
+                  <ion-col size="6" size-lg="1.7">
+                    <div>
+                      <ion-label class="ion-text-extra-small">मनी रसीद क्रमांक</ion-label>
+                      <ion-input style="margin-top: 5px;" [(ngModel)]="row.money_rasid_kramank" class="outlined-box"
+                        fill="outline" readonly>
+                      </ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <ion-label class="ion-text-extra-small">दिनांक</ion-label>
+                    <ion-item lines="none" class="bordered-item">
+                      <ion-label class="date-label">
+                        {{ row.money_rasid_dinank ? (row.money_rasid_dinank | date:'dd-MM-yyyy') : 'दिनांक' }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <div>
+                      <ion-label class="ion-text-extra-small">माव्जा राशि</ion-label>
+                      <ion-input style="margin-top: 5px;" [(ngModel)]="row.mavja_rashi" class="outlined-box"
+                        fill="outline" readonly>
+                      </ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <div>
+                      <ion-label class="ion-text-extra-small">महसूल राशि</ion-label>
+                      <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                        [(ngModel)]="row.mahsul_rashi" readonly>
+                      </ion-input>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <ion-label class="ion-text-extra-small">कुल राशि</ion-label>
+                    <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                      [(ngModel)]="row.total_rashi" readonly>
+                    </ion-input>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <ion-label class="ion-text-extra-small">डी.आर.नंबर</ion-label>
+                    <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;" [(ngModel)]="row.dr_number"
+                      [readonly]="row.is_editable == '0'">
+                    </ion-input>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="1.7">
+                    <ion-label class="ion-text-extra-small">माह - वर्ष</ion-label>
+                    <ion-item (click)="selectMonthYear(row)" lines="none" class="bordered-item">
+                      <ion-label class="date-label">
+                        {{ row.month_year || 'माह - वर्ष' }}
+                      </ion-label>
+                    </ion-item>
+                  </ion-col>
+
+                </ion-row>
+
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-row *ngIf="listOfVasuliViran.length > 0">
+            <ion-col size="6" size-lg="3">
+              <ion-label class="instruction-label" style="font-weight: 700;">कुल वसूली राशि : </ion-label>
+              <ion-label class="instruction-label" style="color: blue; font-weight: 700;">
+                {{ totalVasulRashi }}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-col>
+            <ion-button (click)="submitDRDetail()" class="submit-button" *ngIf="isSubmitAvailable">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              SUBMIT डी.आर. विवरण
+            </ion-button>
+          </ion-col>
+
+        </ion-col>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- ❌ No data fallback -->
+  <ng-template #noData>
+    <div style="text-align: center; margin-top: 50px;">
+      <ion-text color="medium">
+        <h2>श्री मान , कोई वसूली की जानकारी प्रेषित नहीं की गई है |
+        </h2>
+      </ion-text>
+    </div>
+  </ng-template>
+
+</ion-content>

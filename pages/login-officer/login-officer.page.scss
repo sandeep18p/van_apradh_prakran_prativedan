@@ -1,0 +1,821 @@
+// =====================================================
+// Government Forest Department — Officer Login Page
+// Professional, responsive, NO-SCROLL design
+// =====================================================
+
+// --- Color Palette (Government / Forest theme) ---
+$primary-green: #1b5e20;
+$primary-green-light: #2e7d32;
+$primary-green-dark: #0d3b13;
+$accent-gold: #c49000;
+$accent-gold-light: #f5c842;
+$bg-light: #f0f2f5;
+$bg-card: #ffffff;
+$text-dark: #1a1a2e;
+$text-muted: #5a6270;
+$text-light: #ffffff;
+$border-color: #dde2e8;
+$error-red: #c62828;
+
+// --- Typography ---
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+:host {
+  --font-primary: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+  font-family: var(--font-primary);
+}
+
+// --- Ion Content ---
+ion-content {
+  // Prevent white "peek through" during overscroll/bounce on mobile.
+  // Match the page's green gradient background.
+  --background: linear-gradient(160deg, #0d3b13 0%, #1b5e20 40%, #2e7d32 100%);
+  --keyboard-offset: 0px !important;
+}
+
+ion-content::part(scroll) {
+  overscroll-behavior: none;
+}
+
+// =====================================================
+// MAIN WRAPPER
+// =====================================================
+.login-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  // Mobile: exact same gradient as desktop left panel
+  background: linear-gradient(160deg, $primary-green-dark 0%, $primary-green 40%, $primary-green-light 100%);
+  position: relative;
+
+  // Decorative floating circles — same as desktop branding-panel
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -30%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Diamond pattern overlay for mobile (same as desktop .branding-overlay)
+.mobile-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M40 0L80 40L40 80L0 40z" fill="rgba(255,255,255,0.015)"/></svg>') repeat;
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// =====================================================
+// LEFT PANEL — Branding (Desktop Only)
+// =====================================================
+.branding-panel {
+  display: none;
+  position: relative;
+  width: 42%;
+  height: 100vh;
+  background:
+    linear-gradient(160deg, $primary-green-dark 0%, $primary-green 40%, $primary-green-light 100%);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -30%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
+
+.branding-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><path d="M0 0h80v80H0z" fill="none"/><path d="M40 0L80 40L40 80L0 40z" fill="rgba(255,255,255,0.015)"/></svg>') repeat;
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.branding-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.branding-logo-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.branding-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.branding-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-light;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  line-height: 1.35;
+}
+
+.branding-subtitle {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 1.2rem 0;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.branding-divider {
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, $accent-gold-light, transparent);
+  border-radius: 2px;
+  margin: 0 auto 1.2rem auto;
+}
+
+.branding-tagline {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.4rem 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.branding-tagline-sub {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  font-weight: 400;
+}
+
+.branding-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  z-index: 2;
+
+  p {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+}
+
+// =====================================================
+// RIGHT PANEL — Login Form
+// =====================================================
+.login-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: $bg-light;
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  background: $bg-card;
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, $primary-green, $primary-green-light);
+    border-radius: 0 0 3px 3px;
+  }
+}
+
+// =====================================================
+// MOBILE HEADER — Logo + Title (Mobile Only)
+// =====================================================
+.mobile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-logo-ring {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  position: relative;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+.logo-image {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: brightness(1.15) drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.mobile-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: $text-light;
+  margin: 0 0 0.15rem 0;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.35;
+  padding: 0 0.5rem;
+}
+
+.mobile-subtitle {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 0.3rem 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-por {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 0.6rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: $accent-gold-light;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(245, 200, 66, 0.4);
+  }
+}
+
+// =====================================================
+// DESKTOP FORM HEADER (Hidden on mobile)
+// =====================================================
+.desktop-form-header {
+  display: none;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.form-heading {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 0.2rem 0;
+}
+
+.form-subheading {
+  font-size: 0.82rem;
+  color: $text-muted;
+  margin: 0;
+  font-weight: 400;
+}
+
+// =====================================================
+// FORM ELEMENTS — Compact
+// =====================================================
+.form-group {
+  margin-bottom: 0.75rem;
+}
+
+.input-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 0.2rem;
+  display: block;
+  letter-spacing: 0.2px;
+}
+
+.ion-label-small {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $text-muted;
+  margin-bottom: 0.15rem;
+  display: block;
+}
+
+.custom-input {
+  --border-radius: 10px;
+  --border-color: #{$border-color};
+  --border-style: solid;
+  --border-width: 1.5px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --background: #fafbfc;
+  margin-top: 0.2rem;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+
+  &:hover {
+    --border-color: #{$primary-green-light};
+    --background: #fff;
+  }
+
+  &:focus-within {
+    --border-color: #{$primary-green};
+    --border-width: 2px;
+    --background: #fff;
+    box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.08);
+    border-radius: 10px;
+  }
+}
+
+// ng-select styling — compact
+.nice-ng-select {
+  width: 100%;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  margin-top: 0.2rem;
+}
+
+::ng-deep .nice-ng-select .ng-select-container {
+  min-height: 40px;
+  border-radius: 10px !important;
+  border: 1.5px solid $border-color !important;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  background: #fafbfc !important;
+  transition: all 0.25s ease;
+  font-size: 0.85rem;
+
+  &:hover {
+    border-color: $primary-green-light !important;
+    background: #fff !important;
+  }
+}
+
+::ng-deep .nice-ng-select.ng-select-focused .ng-select-container {
+  border-color: $primary-green !important;
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.08) !important;
+  background: #fff !important;
+}
+
+::ng-deep .nice-ng-select .ng-arrow-wrapper .ng-arrow {
+  border-color: $text-muted transparent transparent;
+}
+
+// =====================================================
+// LOGIN BUTTON — Compact
+// =====================================================
+.login-button {
+  --background: linear-gradient(135deg, #{$primary-green} 0%, #{$primary-green-light} 100%);
+  --background-hover: linear-gradient(135deg, #{$primary-green-dark} 0%, #{$primary-green} 100%);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 14px rgba(27, 94, 32, 0.3);
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  height: 46px;
+
+  &:hover {
+    --box-shadow: 0 6px 20px rgba(27, 94, 32, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    --box-shadow: 0 2px 8px rgba(27, 94, 32, 0.3);
+  }
+}
+
+// =====================================================
+// ERROR MESSAGES
+// =====================================================
+.error-message {
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+  display: block;
+  padding-left: 2px;
+  animation: errorSlideIn 0.3s ease;
+}
+
+.server-error {
+  text-align: center;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(198, 40, 40, 0.06);
+  border-radius: 8px;
+  border-left: 3px solid $error-red;
+}
+
+@keyframes errorSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// =====================================================
+// MODAL STYLES (preserve existing)
+// =====================================================
+.custom-dialog-modal {
+  --width: 90vw;
+  --max-width: 400px;
+  --height: auto;
+  --border-radius: 16px;
+  --box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --background: #fff;
+  --overflow: visible;
+}
+
+.custom-dialog-modal .modal-wrapper {
+  width: 90vw;
+  max-width: 420px;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+// =====================================================
+// RESPONSIVE — MOBILE (default, < 768px)
+// Green gradient bg, glassmorphic card, modern look
+// =====================================================
+@media (max-width: 767px) {
+  .login-wrapper {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 4vh;
+  }
+
+  .login-panel {
+    height: auto;
+    min-height: auto;
+    width: 100%;
+    align-self: stretch;
+    padding: 0 1rem 1.5rem 1rem;
+    align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: transparent;
+  }
+
+  .login-card {
+    border-radius: 20px;
+    padding: 1.5rem 1.25rem;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    &::before {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, $accent-gold, $accent-gold-light);
+    }
+  }
+
+  // mobile header is above the card, on the green bg
+  .mobile-header {
+    margin-bottom: 0.85rem;
+    padding-top: 0;
+  }
+
+  .custom-input,
+  .nice-ng-select {
+    scroll-margin-bottom: 200px;
+  }
+
+  .form-group {
+    margin-bottom: 0.65rem;
+  }
+
+  .login-button {
+    margin-top: 0.85rem;
+    height: 44px;
+    --box-shadow: 0 4px 16px rgba(27, 94, 32, 0.35);
+  }
+
+  .input-label,
+  .ion-label-small {
+    color: #2c3e50;
+  }
+}
+
+// =====================================================
+// RESPONSIVE — VERY SMALL MOBILE (< 360px)
+// =====================================================
+@media (max-width: 360px) {
+  .login-wrapper {
+    padding-top: 2vh;
+  }
+
+  .login-panel {
+    padding: 0 0.65rem 1rem 0.65rem;
+  }
+
+  .login-card {
+    padding: 1.15rem 1rem;
+    border-radius: 16px;
+  }
+
+  .mobile-logo-ring {
+    width: 58px;
+    height: 58px;
+  }
+
+  .logo-image {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mobile-title {
+    font-size: 0.88rem;
+  }
+
+  .mobile-subtitle {
+    font-size: 0.65rem;
+  }
+
+  .mobile-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .login-button {
+    height: 42px;
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
+  }
+
+  ::ng-deep .nice-ng-select .ng-select-container {
+    min-height: 36px;
+    font-size: 0.8rem;
+  }
+
+  .custom-input {
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    font-size: 0.82rem;
+  }
+}
+
+// =====================================================
+// RESPONSIVE — TABLET / DESKTOP (768px+)
+// Split-panel, no gradient bg on wrapper
+// =====================================================
+@media (min-width: 768px) {
+  .login-wrapper {
+    background: none;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  .branding-panel {
+    display: block;
+  }
+
+  .mobile-header {
+    display: none;
+  }
+
+  .mobile-overlay {
+    display: none;
+  }
+
+  .mobile-por {
+    display: none;
+  }
+
+  .desktop-form-header {
+    display: block;
+  }
+
+  .login-wrapper {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .login-panel {
+    padding: 1.5rem;
+    height: 100vh;
+    overflow-y: auto;
+    background: $bg-light;
+  }
+
+  .login-card {
+    max-width: 480px;
+    padding: 1.75rem 2rem;
+    border-radius: 22px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
+    background: $bg-card;
+    backdrop-filter: none;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .form-heading {
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.85rem;
+  }
+
+  .login-button {
+    height: 48px;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+// =====================================================
+// RESPONSIVE — LARGE DESKTOP (1200px+)
+// =====================================================
+@media (min-width: 1200px) {
+  .branding-panel {
+    width: 48%;
+  }
+
+  .branding-logo-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .branding-logo {
+    width: 95px;
+    height: 95px;
+  }
+
+  .branding-title {
+    font-size: 1.7rem;
+  }
+
+  .login-card {
+    max-width: 500px;
+    padding: 2rem 2.25rem;
+  }
+
+  .form-heading {
+    font-size: 1.5rem;
+  }
+
+  .desktop-form-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .login-button {
+    height: 50px;
+    margin-top: 1.25rem;
+  }
+
+  ::ng-deep .nice-ng-select .ng-select-container {
+    min-height: 44px;
+  }
+}
+
+// =====================================================
+// SCROLLBAR STYLING
+// =====================================================
+.login-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.login-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.login-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+}

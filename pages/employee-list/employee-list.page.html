@@ -1,0 +1,158 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="cancel()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation() }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <div>
+
+    <div class="search-container">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" size-lg="3" *ngIf="loginedOfficerDesignationId === '1'">
+            <ion-label class="responsive-label">वनमण्डल का नाम</ion-label>
+            <ng-select (change)="onSelectionChangeOfDivision($event)" class="nice-ng-select" [clearable]="false"
+              placeholder="वनमण्डल का नाम चुनें" [(ngModel)]="selectedDivisionId" [items]="listOfDivision"
+              bindLabel="name" bindValue="id" [searchable]="false" />
+          </ion-col>
+          <ion-col size="6" size-lg="3" *ngIf="loginedOfficerDesignationId === '2'">
+            <ion-label class="responsive-label">उप वनमण्डल</ion-label>
+            <ng-select (change)="onSelectionChangeOfSubDivision($event)" class="nice-ng-select" [clearable]="false"
+              placeholder="उप वनमण्डल चुनें" [(ngModel)]="selectedSubDivisionId" [items]="listOfSubDivision"
+              bindLabel="name" bindValue="id" [searchable]="false" />
+          </ion-col>
+
+          <ion-col size="6" size-lg="3" *ngIf="loginedOfficerDesignationId === '2'">
+            <ion-label class="responsive-label">परिक्षेत्र</ion-label>
+            <ng-select (change)="onSelectionChangeOfRang($event)" class="nice-ng-select" [clearable]="false"
+              placeholder="परिक्षेत्र चुनें" [(ngModel)]="selectedRangId" [items]="listOfRang" bindLabel="name"
+              bindValue="id" [searchable]="false" />
+          </ion-col>
+
+          <ion-col size="6" size-lg="3" *ngIf="loginedOfficerDesignationId === '4'">
+            <ion-label class="responsive-label">सहायक परिक्षेत्र</ion-label>
+            <ng-select (change)="onSelectionChangeOfSubRang($event)" class="nice-ng-select" [clearable]="false"
+              placeholder="सहायक परिक्षेत्र चुनें" [(ngModel)]="selectedSubRangId" [items]="listOfSubRang"
+              bindLabel="name" bindValue="id" [searchable]="false" />
+          </ion-col>
+
+          <ion-col size="6" size-lg="3" *ngIf="loginedOfficerDesignationId === '4'">
+            <ion-label class="responsive-label">बिट</ion-label>
+            <ng-select class="nice-ng-select" [clearable]="false" placeholder="बिट चुनें" [(ngModel)]="selectedBitId"
+              [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="false" />
+          </ion-col>
+
+          <ion-col size="6" size-lg="3" class="center-col" *ngIf="loginedOfficerDesignationId != '7'">
+            <ion-button expand="block" class="filter-btn" (click)="filterList()">
+              FILTER
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="6" size-lg="3" class="center-col" *ngIf="loginedOfficerDesignationId != '7'">
+            <ion-button expand="block" class="filter-btn" (click)="clearFilter()">
+              CLEAR FILTER
+            </ion-button>
+          </ion-col>
+
+
+        </ion-row>
+
+
+        <ion-row *ngIf="listOfEmployee && listOfEmployee.length > 0">
+          <ion-col size="12">
+            <div>
+
+              <p-table [value]="listOfEmployee" responsiveLayout="stack" breakpoint="768px" styleClass="modern-table">
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>क्रमांक</th>
+                    <th>पद / स्थान</th>
+                    <th>यूजर नाम</th>
+                    <th>पासवर्ड</th>
+                    <th>मोबाइल नंबर</th>
+                    <th>अधिकारी का नाम</th>
+                    <th></th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                  <tr>
+                    <td>
+                      <span class="p-column-title">क्रमांक</span>
+                      <strong>{{ rowIndex + 1 }}</strong>
+                    </td>
+                    <td>
+                      <span class="p-column-title">पद / स्थान/</span>
+                      {{ item.f_name || '-' }}
+                    </td>
+                    <td>
+                      <span class="p-column-title">यूजर नाम</span>
+                      {{ item.user_name || '-' }}
+                    </td>
+                    <td class="editable-cell">
+                      <span class="p-column-title">पासवर्ड</span>
+                      <ion-input [(ngModel)]="item.password" placeholder="पासवर्ड" class="mobile-input"
+                        [readonly]="!item.is_editable">
+                      </ion-input>
+                    </td>
+                    <td class="editable-cell">
+                      <span class="p-column-title">मोबाइल नंबर</span>
+                      <ion-input type="tel" maxlength="10" [(ngModel)]="item.emp_mobile_number"
+                        placeholder="मोबाइल नंबर दर्ज करें" class="mobile-input" [readonly]="!item.is_editable"
+                        (ionInput)="onUpdateMobile(item)">
+                      </ion-input>
+                    </td>
+                    <td class="editable-cell">
+                      <span class="p-column-title">नाम</span>
+                      <ion-input [(ngModel)]="item.emp_original_name" placeholder="अधिकारी का नाम" class="mobile-input"
+                        [readonly]="!item.is_editable" (ionInput)="onUpdateEmpName(item)">
+                      </ion-input>
+                    </td>
+                    <td>
+                      <span class="p-column-title"></span>
+                      <ion-button size="small" fill="solid" class="update-btn" (click)="updateEmployee(item)"
+                        *ngIf="item.is_editable">
+                        <ion-icon name="create-outline" slot="start"></ion-icon>
+                        UPDATE
+                      </ion-button>
+                    </td>
+                  </tr>
+                </ng-template>
+
+              </p-table>
+
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+
+
+    <!-- <div class="button-container">
+      <ion-button expand="block" (click)="submitProfileDetail()" class="submit-button">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        SUBMIT
+      </ion-button>
+      <ion-button expand="block" (click)="cancel()" class="cancel-button">
+        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+        CANCEL
+      </ion-button>
+    </div> -->
+
+  </div>
+</ion-content>

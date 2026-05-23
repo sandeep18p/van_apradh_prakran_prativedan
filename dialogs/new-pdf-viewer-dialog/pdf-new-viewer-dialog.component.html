@@ -1,0 +1,46 @@
+<ion-header class="modern-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" class="header-back-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; font-weight: 700; font-size: 1.1rem; text-align: center;">
+      {{toolbarTitle}}
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="downloadPdf()" class="header-back-btn">
+        <ion-icon name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pdf-content">
+  <div *ngIf="isLoading" style="text-align: center; padding-top: 50px;">
+    <ion-loading [isOpen]="isLoading" message="Loading PDF Document..."></ion-loading>
+  </div>
+
+  <div *ngIf="!isLoading && !isHtmlResponse && safePdfUrl" style="width: 100%; height: 100%;">
+    <iframe [src]="safePdfUrl" class="pdf-frame"></iframe>
+  </div>
+
+  <div *ngIf="!isLoading && isHtmlResponse"
+    style="padding: 32px 20px; text-align: center; margin-top: 20px; background: white; border-radius: 12px; margin: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <ion-icon name="warning-outline" style="font-size: 54px; color: #f59e0b; margin-bottom: 16px;"></ion-icon>
+    <h3 style="margin: 0 0 12px; color: #064e3b; font-weight: 700;">Could Not Preview PDF</h3>
+    <p style="color: #4b5563; line-height: 1.5; font-size: 0.95rem; margin-bottom: 0;">
+      The viewing server is being blocked from accessing this internal file.
+    </p>
+    <p style="color: #6b7280; line-height: 1.5; font-size: 0.85rem; margin-top: 8px;">
+      (If using <b>ngrok</b> locally, the browser warning page blocks Google Viewer).
+    </p>
+    <ion-button fill="outline" color="success" (click)="downloadPdf()"
+      style="margin-top: 24px; --border-radius: 20px; --border-width: 2px; font-weight: 600;">
+      <ion-icon slot="start" name="download-outline"></ion-icon>
+      Download & Open File
+    </ion-button>
+  </div>
+</ion-content>

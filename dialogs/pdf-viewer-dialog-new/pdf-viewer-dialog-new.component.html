@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Online PDF Viewer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <pdf-viewer [src]="pdfUrl" [render-text]="true" [original-size]="false" [show-all]="true" [zoom]="zoom"
+    style="display:block; height:100vh;"></pdf-viewer>
+
+  <ion-button expand="full" (click)="zoomIn()">Zoom In</ion-button>
+  <ion-button expand="full" (click)="zoomOut()">Zoom Out</ion-button>
+
+</ion-content>

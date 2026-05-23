@@ -1,0 +1,76 @@
+<ion-grid class="image-modal-wrapper">
+  <!-- Top Controls Row -->
+  <ion-row class="controls-row">
+    <ion-col class="controls-col">
+      <!-- Close Button -->
+      <ion-button 
+        fill="clear" 
+        class="control-button close-button" 
+        (click)="dismiss()">
+        <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <!-- Reset Button -->
+      <ion-button 
+        fill="clear" 
+        class="control-button reset-button" 
+        (click)="resetImage()">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- Image Container -->
+  <ion-row class="image-row">
+    <ion-col class="image-col">
+      <div 
+        #imageContainer
+        class="image-preview-container"
+        [class.panning]="isPanning"
+        [class.pinching]="isPinching">
+        <img 
+          #imageElement
+          [src]="imageUrl" 
+          class="full-image" 
+          [style.transform]="getImageTransform()"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+          draggable="false" />
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <!-- Bottom Controls Row -->
+  <ion-row class="bottom-controls-row">
+    <ion-col class="bottom-controls-col">
+      <!-- Zoom Out Button -->
+      <ion-button 
+        fill="clear" 
+        class="control-button zoom-button" 
+        (click)="zoomOut()"
+        [disabled]="zoomLevel <= minZoom">
+        <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <!-- Zoom Level Display -->
+      <span class="zoom-level">{{ getZoomPercentage() }}</span>
+      
+      <!-- Zoom In Button -->
+      <ion-button 
+        fill="clear" 
+        class="control-button zoom-button" 
+        (click)="zoomIn()"
+        [disabled]="zoomLevel >= maxZoom">
+        <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <!-- Rotate Button -->
+      <ion-button 
+        fill="clear" 
+        class="control-button rotate-button" 
+        (click)="rotateImage()">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

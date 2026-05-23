@@ -1,0 +1,117 @@
+// ============================================
+// Official forest / legal government palette
+// Navy + deep forest green + gold section trim.
+// ============================================
+
+// Sarkari band accent (major section headers)
+$gov-gold: #b8972a;
+$gov-gold-bright: #d4af37;
+
+// Core case / generic sections — deep forest
+$color-case-900: #0f3d24;
+$color-case-700: #14532d;
+$color-case-600: #166534;
+$grad-case-header: linear-gradient(135deg, #0d3d2c 0%, #14532d 100%);
+$grad-case-header-soft: linear-gradient(135deg, #14532d 0%, #166534 100%);
+$color-case-tint: #f0f7f3;
+$color-case-border: #a8d5ba;
+$color-case-accent: #14532d;
+
+// POR — Navy (primary legal filing)
+$grad-por-master-header: linear-gradient(135deg, #0a2342 0%, #143e6e 100%);
+$grad-por-inner-header: linear-gradient(135deg, #0c2744 0%, #1a4a78 100%);
+$color-por-tint: #f2f6fb;
+$color-por-border: #c5d4e8;
+$color-por-icon: #143e6e;
+$color-por-muted: #0a2342;
+
+// Location / map — teal
+$color-geo-700: #0f766e;
+$color-geo-600: #0d9488;
+$color-geo-tint: #f0fdfa;
+$grad-geo-cta: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+
+// People / accused — forest emerald
+$grad-people-header: linear-gradient(135deg, #0f3d24 0%, #166534 100%);
+$color-people-700: #14532d;
+$color-people-600: #166534;
+$color-people-tint: #d8ebe0;
+
+// Seized / inventory — dark pine
+$grad-inventory-header: linear-gradient(135deg, #0f3d24 0%, #14532d 100%);
+$color-inventory-700: #14532d;
+$color-inventory-600: #166534;
+$color-inventory-tint: #f0fdf4;
+$color-inventory-dark: #0f3d24;
+
+// Japtinama — formal seizure band
+$grad-japtinama-master: linear-gradient(135deg, #052e20 0%, #0d4d32 50%, #145c3a 100%);
+$grad-japtinama-item: linear-gradient(135deg, #0f4d35 0%, #166534 48%, #1a6b3c 100%);
+$grad-japtinama-item-alt: linear-gradient(135deg, #0a3d22 0%, #14532d 50%, #166534 100%);
+$color-japtinama-tint: #ecf5f0;
+$color-japtinama-tint-deep: #d8ebe0;
+$color-japtinama-border: #7cb89a;
+$color-japtinama-border-strong: #4a9b6f;
+$color-japtinama-text: #064e2f;
+$color-japtinama-text-soft: #0d4d32;
+
+// Supurdnama
+$grad-supurdnama-header: linear-gradient(135deg, #16402a 0%, #1b5e20 55%, #234f2f 100%);
+$color-supurdnama-tint: #f1f8f4;
+$color-supurdnama-border: #a8d5ba;
+$color-supurdnama-text: #0f3d24;
+
+// Abhilekh — archival slate-teal
+$grad-abhilekh-header: linear-gradient(135deg, #0c3d3a 0%, #134e4a 100%);
+$color-abhilekh-tint: #f0f9f8;
+$color-abhilekh-border: #99d0c9;
+
+// Court challan — judicial burgundy
+$grad-court-header: linear-gradient(135deg, #3f0d12 0%, #6b1c24 100%);
+$color-court-tint: #fdf2f2;
+$color-court-border: #e8c4c4;
+
+// Worklog — duty teal
+$grad-worklog-header: linear-gradient(135deg, #0a3d4a 0%, #155e75 100%);
+$color-worklog-tint: #effcfb;
+$color-worklog-border: #a3e0dc;
+
+// Prativedan — formal ink
+$grad-prativedan-header: linear-gradient(135deg, #1a1a18 0%, #2d2d28 100%);
+
+// Officer hierarchy: field green → chief navy
+$grad-ro-header: linear-gradient(135deg, #1a5c3a 0%, #227848 100%);
+$grad-sdo-header: linear-gradient(135deg, #14532d 0%, #166534 100%);
+$grad-dfo-header: linear-gradient(135deg, #0f3d24 0%, #14532d 100%);
+$grad-ccf-header: linear-gradient(135deg, #0a2342 0%, #152946 100%);
+
+// Neutrals
+$border-neutral: #e2e8f0;
+$border-neutral-strong: #cbd5e1;
+
+// ============================================
+// CSS Variables and Base Settings
+// ============================================
+:host {
+  --primary-green: #14532d;
+  --primary-green-light: #166534;
+  --primary-green-dark: #0f3d24;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --bg-light: #f8f9fa;
+  --bg-card: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --section-case: #{$color-case-700};
+  --section-por: #{$color-por-icon};
+  --section-geo: #{$color-geo-700};
+  --section-people: #{$color-people-600};
+  --section-inventory: #{$color-inventory-600};
+  --section-japtinama: #{$color-japtinama-text-soft};
+}

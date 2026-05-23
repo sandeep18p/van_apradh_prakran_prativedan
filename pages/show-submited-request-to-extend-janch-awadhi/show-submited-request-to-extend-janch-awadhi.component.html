@@ -1,0 +1,186 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('janch_awadhi_badhane_hetu_kiye_gaye_awedan') }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid *ngIf="(awedanList && awedanList.length > 0);">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-lg="10">
+        <p-table *ngIf="awedanList.length > 0" [value]="awedanList" responsiveLayout="stack"
+          class="custom-margin-table">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>
+                <ion-label class="center-label">
+                  क्र.
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  आवेदन दिनाँक
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  POR क्रमांक
+                </ion-label>
+              </th>
+              <th *ngIf="isRA">
+                <ion-label class="center-label">
+                  अनुमोदक अधिकारी
+                </ion-label>
+              </th>
+              <th *ngIf="!isRA">
+                <ion-label class="center-label">
+                  जांचकर्ता अधिकारी
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  समयवृद्धि मांग
+                </ion-label>
+              </th>
+              <th *ngIf="isRA">
+                <ion-label class="center-label">
+                  समयवृद्धि स्वीकृति
+                </ion-label>
+              </th>
+              <th>
+                <ion-label class="center-label">
+                  स्थिति
+                </ion-label>
+              </th>
+
+              <th *ngIf="!isRA">
+                <ion-label class="center-label">
+                  स्वीकृत/अस्वीकृत
+                </ion-label>
+              </th>
+
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr class="custom-table-row" [ngClass]="{
+    'row-approved': item.is_approved === '1',
+    'row-rejected': item.is_approved === '2',
+    'row-pending': !item.is_approved || item.is_approved === '0'
+  }">
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">क्र.</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ i + 1 }}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">आवेदन दिनाँक</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.request_at}}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">POR क्रमांक</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.por_number}}
+                </ion-label>
+              </td>
+
+              <td *ngIf="isRA">
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">अनुमोदक अधिकारी</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.approver_name}}
+                </ion-label>
+              </td>
+
+              <td *ngIf="!isRA">
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">जांचकर्ता अधिकारी</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.requester_name}}
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">समयवृद्धि मांग</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.days_to_extend}} दिन
+                </ion-label>
+              </td>
+
+              <td *ngIf="isRA">
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">समयवृद्धि स्वीकृति </ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ item.days_by_approver}} दिन
+                </ion-label>
+              </td>
+
+              <td>
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">स्थिति</ion-label>
+                </span>
+                <ion-label class="center-label">
+                  {{ getAwedanStatus(item.is_approved)}}
+                </ion-label>
+              </td>
+
+              <td *ngIf="!isRA" style="text-align: center;">
+                <span class="p-column-title">
+                  <ion-label class="ion-label-small" style="color: blue;">स्वीकृत/अस्वीकृत</ion-label>
+                </span>
+
+                <ion-button (click)="clickToApproveReject(item)" size="small" fill="outline" color="primary"
+                  class="click-btn">
+                  निर्णय करें
+                </ion-button>
+              </td>
+
+              <td colspan="9" *ngIf="!isWebPlatform()">
+                <div style="height: 1px; background-color: #ccc; width: 100%; margin: 4px 0;"></div>
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div style="text-align: center; margin-top: 50px;" *ngIf="(awedanList.length === 0);">
+    <ion-text color="medium">
+      <h2>श्री मान , कोई आवेदन प्रेषित नहीं किया गया है |
+      </h2>
+    </ion-text>
+  </div>
+
+</ion-content>

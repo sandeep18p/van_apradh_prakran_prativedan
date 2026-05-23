@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="custom-toolbar">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="responsive-toolbar-title">
+            अपराधियों की सूची
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+    <div class="glass-container">
+
+        <!-- Page Title & Header info -->
+        <div class="info-top-center" *ngIf="sys_gen_por_number">
+            ({{ sys_gen_por_number }})
+        </div>
+
+        <div class="header-info-row">
+            <div class="info-left">
+                POR क्रमांक : {{ por_number }}
+            </div>
+            <div class="info-right">
+                पंजीयन दिनांक : {{ date_of_crime }}
+            </div>
+        </div>
+
+        <ion-card class="modern-card">
+            <ion-card-content class="table-container">
+                <table class="apradhi-table">
+                    <thead>
+                        <tr>
+                            <th>क्रमांक</th>
+                            <th>अपराधी का नाम</th>
+                            <th>पिता का नाम</th>
+                            <th>उम्र</th>
+                            <th>जाति वर्ग</th>
+                            <th>जाति</th>
+                            <th>मोबाइल नंबर</th>
+                            <th>आधार नंबर</th>
+                            <th>पता</th>
+                            <th>फोटो</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of apradhiList">
+                            <td>{{ item.sno }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.fathersName }}</td>
+                            <td>{{ item.age }}</td>
+                            <td>{{ item.cast }}</td>
+                            <td>{{ item.jati_name }}</td>
+                            <td>{{ item.mobile_number }}</td>
+                            <td>{{ item.aadhaar_number || '—' }}</td>
+                            <td>{{ item.address }}</td>
+                            <td><div class="photo-placeholder"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ion-card-content>
+        </ion-card>
+
+        <!-- Final Actions -->
+        <ion-grid>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size="6" size-lg="4">
+                    <ion-button expand="block" class="submit-btn" (click)="downloadPdf()">
+                        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                        डाउनलोड अपराधियों की सूची PDF
+                    </ion-button>
+                </ion-col>
+
+                <ion-col size="6" size-lg="4">
+                    <ion-button expand="block" (click)="goBack()" class="cancel-button">
+                        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                        CANCEL
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-content>

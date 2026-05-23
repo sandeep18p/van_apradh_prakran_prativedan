@@ -1,0 +1,24 @@
+<div class="dialog-wrapper">
+  <div class="modal-header">
+    <h3 class="modal-title">विभिन्न वन अपराधों के लिये शास्तियां</h3>
+    <p class="modal-subtitle">कृपया कोई एक चयन करें</p>
+  </div>
+
+  <div class="options-container">
+    <ion-radio-group [(ngModel)]="selectedSection">
+      <ion-item *ngFor="let section of sections" class="option-item" lines="none">
+        <ion-radio slot="start" [value]="section.value"></ion-radio>
+        <ion-label class="option-label">{{ section.label }}</ion-label>
+      </ion-item>
+    </ion-radio-group>
+  </div>
+
+  <div class="modal-actions">
+    <ion-button fill="outline" (click)="cancel()" class="cancel-btn">
+      Cancel
+    </ion-button>
+    <ion-button (click)="confirm()" class="confirm-btn">
+      OK
+    </ion-button>
+  </div>
+</div>

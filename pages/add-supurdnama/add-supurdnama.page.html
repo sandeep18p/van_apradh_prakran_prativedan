@@ -1,0 +1,714 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="cancel()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('supurdanam_vivran') }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding center-content">
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+  <ion-grid>
+    <ion-row style="display: flex;justify-content: center;">
+
+
+      <ion-col size="12" size-lg="9">
+
+        <ion-grid>
+
+          <ion-row style="margin-top: 10px;">
+            <ion-col size="12">
+              <div class="section-card">
+                <div class="section-header">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                  <span>सुपुर्दनामा का विवरण</span>
+                </div>
+                <div class="section-body">
+                  <ion-grid>
+
+                    <ion-row class="kastha-card">
+                      <ion-col size="12" class="section-header">
+                        <span>सुपुर्द में देने वाले अधिकारी का विवरण</span>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurd_me_dene_wale_adhikari_name" label="अधिकारी का नाम">
+                        </ion-input>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurd_me_dene_wale_adhikari_pad" label="अधिकारी का पद">
+                        </ion-input>
+                      </ion-col>
+
+                      <ion-col size="6" class="witness-mobile-field witness-mobile-signature">
+                        <ion-button shape="round" size="small" color="primary" (click)="openSignaturePadForAdhikari()">
+                          <ion-icon name="create-outline" slot="start"></ion-icon>
+                          अधिकारी के हस्ताक्षर
+                        </ion-button>
+                      </ion-col>
+
+                      <ion-col size="6">
+                        <div><ion-img [src]="signatureImageOfAdhikari"></ion-img></div>
+                      </ion-col>
+
+                    </ion-row>
+
+                    <ion-row class="kastha-card">
+                      <ion-col size="12" class="section-header">
+                        <span>सुपुर्ददार का विवरण</span>
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurdar_ka_name" label="नाम">
+                        </ion-input>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurdar_ka_father" label="पिता का नाम">
+                        </ion-input>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurdar_ka_jati" label="जाति">
+                        </ion-input>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="stacked"
+                          [(ngModel)]="supurdar_ka_vyavsay" label="व्यवसाय">
+                        </ion-input>
+                      </ion-col>
+
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-textarea auto-grow="true" rows="5" style="margin-top: 5px;" class="ion-input"
+                          fill="outline" label-placement="stacked" [(ngModel)]="supurdar_ka_poora_pata"
+                          label="पूरा पता">
+                        </ion-textarea>
+                      </ion-col>
+
+
+                      <!-- Date of Seizure -->
+                      <ion-col size="12" size-lg="6">
+                        <div class="date-picker-card" (click)="onSelectSupurdMeLeneKaDinak()" style="margin-top: 5px;">
+                          <ion-label style="margin-left: 10px;">सुपुर्द में लेने का दिनांक : </ion-label>
+                          <ion-label style="margin-left: 10px;" class="date-label">
+                            {{ supurdar_me_lene_ka_date ? (supurdar_me_lene_ka_date | date:'dd-MM-yyyy') : 'दिनांक
+                            चुनें' }}
+                          </ion-label>
+                          <ion-icon style="color: black;" name="calendar-outline"></ion-icon>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="6" class="witness-mobile-field witness-mobile-signature">
+                        <ion-button shape="round" size="small" color="primary" (click)="openSignaturePadForSupurdar()">
+                          <ion-icon name="create-outline" slot="start"></ion-icon>
+                          सुपुर्ददार के हस्ताक्षर
+                        </ion-button>
+                      </ion-col>
+
+                      <ion-col size="6">
+                        <div><ion-img [src]="signatureImageOfSupurdar"></ion-img></div>
+                      </ion-col>
+
+
+                      <ion-col size="12">
+                        <ion-row class="date-picker-card" style="margin: 5px">
+                          <ion-col size="10" style="margin-top: 10px;">
+                            <ion-label class="ion-label-small">सुपुर्दनामा अपलोड करें</ion-label>
+                          </ion-col>
+
+                          <ion-col size="1">
+                            <ion-button fill="clear" size="small" (click)="takeSupurdnamaPhoto()" class="camera-btn">
+                              <ion-icon style="color: black;" size="large" slot="icon-only"
+                                name="folder-outline"></ion-icon>
+                            </ion-button>
+                          </ion-col>
+
+                          <ion-col size="12">
+                            <div class="horizontal-scroll-wrapper" *ngIf="supurdnamaPhotos.length > 0">
+                              <div class="photo-container" *ngFor="let photo of supurdnamaPhotos; let i = index">
+                                <img [src]="photo" class="scroll-image" (click)="openImageViewer(photo)" />
+                                <ion-icon style="color: red;" name="close-circle" class="remove-icon"
+                                  (click)="removeSupurdnamaPhoto(i)"></ion-icon>
+                              </div>
+                            </div>
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin-top: 10px;">
+            <ion-col size="12">
+              <div class="section-card">
+                <div class="section-header">
+                  <ion-icon name="people-outline"></ion-icon>
+                  <span>साक्षियों का विवरण</span>
+                  <ion-button fill="clear" (click)="addWitness()" style="margin-left: auto; --color: #ffffff;">
+                    <span style="color: #ffffff; font-size: 16px; font-weight: 600;">जोड़ें</span>
+                  </ion-button>
+                </div>
+                <div class="section-body">
+                  <div *ngFor="let witness of witnesses; let i = index" class="accused-person-card"
+                    style="margin-bottom: 15px;">
+
+                    <div class="accused-person-header">
+                      <ion-label>साक्षी {{ i + 1 }}</ion-label>
+                      <ion-button *ngIf="witnesses.length > 2" fill="clear" (click)="removeWitness(i)"
+                        style="--color: #d32f2f;">
+                        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                      </ion-button>
+                    </div>
+
+                    <ion-row>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="witness.naam" [label]="witnesses.length > 1 ? 'नाम' : 'नाम'"
+                          label-placement="stacked" fill="outline" />
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="witness.pita_ka_naam"
+                          [label]="witnesses.length > 1 ? 'पिता का नाम' : 'पिता का नाम'" label-placement="stacked"
+                          fill="outline" />
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <ion-textarea [(ngModel)]="witness.pata" fill="outline"
+                          [label]="witnesses.length > 1 ? 'पूर्ण पता' : 'पूर्ण पता'" label-placement="stacked" rows="3"
+                          auto-grow="true"></ion-textarea>
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="witness.jaati" [label]="witnesses.length > 1 ? 'जाति' : 'जाति'"
+                          label-placement="stacked" fill="outline" />
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="witness.age" [label]="witnesses.length > 1 ? 'आयु' : 'आयु'"
+                          label-placement="stacked" fill="outline" type="number" min="0" />
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row style="margin-top: 10px;" *ngIf="witness.naam && witness.naam.trim() !== ''">
+
+                      <ion-col size="12">
+                        <ion-row class="ion-align-items-center ion-justify-content-between">
+                          <ion-col size="6" size-md="6">
+                            <ion-label class="signature-label">
+                              {{ witness.naam }}
+                            </ion-label>
+                          </ion-col>
+
+                          <ion-col size="6" size-md="6" class="ion-text-right">
+                            <ion-row class="ion-justify-content-end ion-align-items-center">
+                              <ion-col size="auto">
+                                <ion-button shape="round" size="small" color="primary"
+                                  (click)="onWitnessSelect(witness, false)">
+                                  <ion-icon name="create-outline" slot="start"></ion-icon>
+                                  हस्ताक्षर
+                                </ion-button>
+                              </ion-col>
+                            </ion-row>
+                          </ion-col>
+                        </ion-row>
+
+                        <ion-row *ngIf="witness.sign" class="ion-margin-top">
+                          <ion-col size="6" class="signature-preview">
+                            <ion-img [src]="witness.sign"></ion-img>
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+                    </ion-row>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!-- जप्त सामग्रियों का विवरण Card -->
+          <ion-row style="margin-top: 10px;"
+            *ngIf="kasthItemsList.length > 0 || balliItemsList.length > 0 || baansItemsList.length > 0 || polItemsList.length > 0 || chiranItemsList.length > 0 || chattaItemsList.length > 0 || OtherJaptItemsList.length > 0">
+            <ion-col size="12">
+              <div class="section-card">
+                <div class="section-header">
+                  <ion-icon name="document-text-outline"></ion-icon>
+                  <span>जप्त सामग्रियों का विवरण</span>
+                </div>
+
+
+                <!-- लट्ठा का विवरण -->
+                <div class="seized-goods-card" *ngIf="kasthItemsList.length > 0">
+                  <div class="seized-card-header">लट्ठा का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="kasthItemsList" responsiveLayout="stack">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>प्रजाति</th>
+                          <th>लम्बाई (मीटर)</th>
+                          <th>गोलाई (सें.मी.)</th>
+                          <th>संख्या</th>
+                          <th>आयतन (घ.मी.)</th>
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr *ngIf="item.left_nag !== '0'">
+                          <td><span class="p-column-title">प्रजाति</span>{{ item.prajati_name }}</td>
+                          <td><span class="p-column-title">लम्बाई (मीटर)</span>{{ item.lambai || 0 }}</td>
+                          <td><span class="p-column-title">गोलाई (सें.मी.)</span>{{ item.golai }}</td>
+                          <td><span class="p-column-title">संख्या</span>{{ item.left_nag }}</td>
+                          <td><span class="p-column-title">आयतन (घ.मी.)</span>{{ item.ghan_meter }}</td>
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+
+                </div>
+
+                <!-- बल्ली का विवरण -->
+                <div class="seized-goods-card" *ngIf="balliItemsList.length > 0">
+                  <div class="seized-card-header">बल्ली का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="balliItemsList" responsiveLayout="stack">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>प्रजाति</th>
+                          <th>लम्बाई वर्ग (मी.)</th>
+                          <th>गोलाई वर्ग (से.मी.)</th>
+                          <th>संख्या</th>
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr *ngIf="item.left_nag !== '0'">
+                          <td><span class="p-column-title">प्रजाति</span>{{ item.prajati_name }}</td>
+                          <td><span class="p-column-title">लम्बाई वर्ग (मी.)</span>{{ item.lambai || 0 }}</td>
+                          <td><span class="p-column-title">गोलाई वर्ग (से.मी.)</span>{{ item.golai }}</td>
+                          <td><span class="p-column-title">संख्या</span>{{ item.left_nag }}</td>
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+
+                </div>
+
+                <!-- बाँस का विवरण -->
+                <div class="seized-goods-card" *ngIf="baansItemsList.length > 0">
+                  <div class="seized-card-header">बाँस का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="baansItemsList" responsiveLayout="stack">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>बाँस का प्रकार</th>
+                          <th>संख्या</th>
+                          <th>लम्बाई (मीटर)</th>
+                          <th>मात्रा (नोशनल टन)</th>
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr *ngIf="item.left_nag !== '0'">
+                          <td><span class="p-column-title">बाँस का प्रकार</span>{{ item.prajati_name || '0' }}</td>
+                          <td><span class="p-column-title">संख्या</span>{{ item.left_nag || 0 }}</td>
+                          <td><span class="p-column-title">लम्बाई (मीटर)</span>{{ item.lambai || 0 }}</td>
+                          <td><span class="p-column-title">मात्रा (नोशनल टन)</span>{{ item.ghan_meter || 0 }}</td>
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+
+                </div>
+
+                <!-- फेंसिंग पोल का विवरण -->
+                <div class="seized-goods-card" *ngIf="polItemsList.length > 0">
+                  <div class="seized-card-header">फेंसिंग पोल का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="polItemsList" responsiveLayout="stack">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>प्रजाति</th>
+                          <th>संख्या</th>
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                        <tr *ngIf="item.left_nag !== '0'">
+                          <td><span class="p-column-title">प्रजाति</span>{{ item.prajati_name || '0' }}</td>
+                          <td><span class="p-column-title">संख्या</span>{{ item.left_nag || 0 }}</td>
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+
+                </div>
+
+                <!-- चिरान का विवरण -->
+                <div class="seized-goods-card" *ngIf="chiranItemsList.length > 0">
+                  <div class="seized-card-header">चिरान का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="chiranItemsList" responsiveLayout="stack">
+
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>
+                            <ion-label class="center-label">
+                              प्रजाति
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              लम्बाई (मीटर)
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              चौड़ाई (सेंटी मीटर)
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              मोटाई (सेंटी मीटर)
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              संख्या
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              आयतन (घ.मी.)
+                            </ion-label>
+                          </th>
+
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+
+                        </tr>
+
+                      </ng-template>
+
+                      <ng-template pTemplate="body" let-item>
+                        <tr class="custom-table-row" *ngIf="item.left_nag !== '0'">
+
+                          <td>
+                            <span class="p-column-title">
+                              प्रजाति
+                            </span>
+                            {{ item.prajati_name }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              लम्बाई (मीटर)
+                            </span>
+                            {{ item.lambai || 0 }}
+                          </td>
+                          <td>
+                            <span class="p-column-title">
+                              चौड़ाई (सेंटी मीटर)
+                            </span>
+                            {{ item.golai }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              मोटाई (सेंटी मीटर)
+                            </span>
+                            {{ item.motai }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              संख्या
+                            </span>
+                            {{ item.left_nag }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              आयतन (घ.मी.)
+                            </span>
+                            {{ item.ghan_meter }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+
+
+                          <td colspan="9" *ngIf="!isWebPlatform()">
+                            <div style="height: 1px; background-color: #ccc; width: 100%; margin: 4px 0;"></div>
+                          </td>
+
+                        </tr>
+
+                      </ng-template>
+
+                    </p-table>
+                  </div>
+                </div>
+
+                <!-- जलाऊ का विवरण -->
+                <div class="seized-goods-card" *ngIf="chattaItemsList.length > 0">
+                  <div class="seized-card-header">जलाऊ का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="chattaItemsList" responsiveLayout="stack">
+
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>
+                            <ion-label class="center-label">
+                              प्रजाति
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              चट्टा संख्या
+                            </ion-label>
+                          </th>
+
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+
+                        </tr>
+
+                      </ng-template>
+
+                      <ng-template pTemplate="body" let-item>
+                        <tr class="custom-table-row" *ngIf="item.left_nag !== '0'">
+
+                          <td>
+                            <span class="p-column-title">
+                              प्रजाति
+                            </span>
+                            {{ item.prajati_name }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              चट्टा संख्या
+                            </span>
+                            {{ item.left_nag || 0 }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+
+                          <td colspan="9" *ngIf="!isWebPlatform()">
+                            <div style="height: 1px; background-color: #ccc; width: 100%; margin: 4px 0;"></div>
+                          </td>
+
+                        </tr>
+
+                      </ng-template>
+
+                    </p-table>
+                  </div>
+
+                </div>
+
+                <div class="seized-goods-card" *ngIf="OtherJaptItemsList.length > 0">
+                  <div class="seized-card-header">अन्य सामग्रियों का विवरण</div>
+                  <div class="seized-card-body">
+                    <p-table [value]="OtherJaptItemsList" responsiveLayout="stack">
+
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>
+                            <ion-label class="center-label">
+                              सामग्री का विवरण
+                            </ion-label>
+                          </th>
+                          <th>
+                            <ion-label class="center-label">
+                              संख्या (नग)
+                            </ion-label>
+                          </th>
+
+                          <th>
+                            <ion-label class="center-label">
+                              मात्रा (घ.मी.)
+                            </ion-label>
+                          </th>
+
+                          <th>
+                            <ion-label class="center-label">
+                              अनुमानित मूल्य
+                            </ion-label>
+                          </th>
+
+                          <th>संख्या (सुपुर्द में दिया गया)</th>
+
+                        </tr>
+
+                      </ng-template>
+
+                      <ng-template pTemplate="body" let-item>
+                        <tr class="custom-table-row" *ngIf="item.left_nag !== '0'">
+
+                          <td>
+                            <span class="p-column-title">
+                              सामाग्री का विवरण
+                            </span>
+                            {{ item.if_other_then_detail }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              संख्या (नग)
+                            </span>
+                            {{ item.left_nag || 0 }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              मात्रा (घ.मी.)
+                            </span>
+                            {{ item.ghan_meter || 0 }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">
+                              अनुमानित मूल्य
+                            </span>
+                            {{ item.total_cost || 0 }}
+                          </td>
+
+                          <td>
+                            <span class="p-column-title">संख्या (सुपुर्द में दिया गया)</span>
+                            <ion-input #supurdInput (ionInput)="onEnterSupurdMeDiyaGayaInput(item, supurdInput)"
+                              [(ngModel)]="item.supurd_me_diya_gya" style="margin-top: 5px;"
+                              class="outlined-box2 sankhya-input" fill="outline" type="number" min="0">
+                            </ion-input>
+                          </td>
+
+                          <td colspan="9" *ngIf="!isWebPlatform()">
+                            <div style="height: 1px; background-color: #ccc; width: 100%; margin: 4px 0;"></div>
+                          </td>
+
+
+                        </tr>
+
+                      </ng-template>
+
+                    </p-table>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </ion-col>
+          </ion-row>
+
+
+        </ion-grid>
+      </ion-col>
+
+    </ion-row>
+
+
+
+    <ion-row class="button-row ion-justify-content-center ion-align-items-center">
+      <ion-col size="6" size-lg="4.5">
+        <ion-button expand="block" class="submit-button" (click)="submitOnServer()">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          SUBMIT
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6" size-lg="4.5">
+        <ion-button expand="block" (click)="cancel()" class="cancel-button">
+          <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+          CANCEL
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- Image Preview/Edit Modal -->
+  <ion-modal [isOpen]="isImagePreviewModalOpen" (willDismiss)="closeImagePreviewModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Edit Photo</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeImagePreviewModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="image-preview-container">
+          <div #cropperContainer class="cropper-container">
+            <img #imagePreview [src]="previewImageDataUrl" class="preview-image" />
+          </div>
+
+          <div class="action-buttons">
+            <ion-button color="danger" fill="outline" (click)="rejectImage()" class="action-btn">
+              <ion-icon name="close-circle" slot="start"></ion-icon>
+              अस्वीकार करें
+            </ion-button>
+            <ion-button color="success" fill="solid" (click)="approveImage()" class="action-btn">
+              <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+              स्वीकार करें
+            </ion-button>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

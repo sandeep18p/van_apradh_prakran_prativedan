@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="responsive-toolbar-title">{{getTranslation('profile_setup')}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <div class="profile-container">
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-title class="welcome-title">
+          <span class="icon-text-row">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span>Welcome</span>
+          </span>
+        </ion-card-title>
+        <ion-card-subtitle class="officer-info">{{officerInfo}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="info-card">
+      <ion-card-content>
+        <ion-text color="danger" class="info-text">
+          आदरणीय अधिकारी,
+          कृपया अपनी प्रोफ़ाइल सेटअप के लिए नीचे विवरण दर्ज करें। यह केवल आपको एक बार करना होगा |
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+
+
+    <div class="search-container">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" size-lg="4" *ngIf="shouldShowCircle">
+            <ion-label class="responsive-label">वृत्त का नाम</ion-label>
+            <ng-select  (change)="onSelectionChangeOfCircle($event)" class="nice-ng-select" [items]="listOfCircle"
+              bindLabel="name" bindValue="id" [(ngModel)]="selectedCircleId" [searchable]="true" [clearable]="false"
+              placeholder="वृत्त का नाम चुनें">
+            </ng-select>
+          </ion-col>
+          <ion-col size="12" size-lg="4" *ngIf="shouldShowDivision">
+            <ion-label class="responsive-label">वनमण्डल का नाम</ion-label>
+            <ng-select (change)="onSelectionChangeOfDivision($event)" class="nice-ng-select" [clearable]="false" placeholder="वनमण्डल का नाम चुनें"
+              [(ngModel)]="selectedDivisionId" [items]="listOfDivision" bindLabel="name" bindValue="id"
+              [searchable]="true" />
+          </ion-col>
+          <ion-col size="12" size-lg="4" *ngIf="shouldShowSubDivision">
+            <ion-label class="responsive-label">उप वनमण्डल का नाम</ion-label>
+            <ng-select (change)="onSelectionChangeOfSubDivision($event)" class="nice-ng-select" [clearable]="false" placeholder="उप वनमण्डल का नाम चुनें"
+              [(ngModel)]="selectedSubDivisionId" [items]="listOfSubDivision" bindLabel="name" bindValue="id"
+              [searchable]="true" />
+          </ion-col>
+
+          <ion-col size="12" size-lg="4" *ngIf="shouldShowRang">
+            <ion-label class="responsive-label">परिक्षेत्र का नाम</ion-label>
+            <ng-select (change)="onSelectionChangeOfRang($event)" class="nice-ng-select" [clearable]="false" placeholder="परिक्षेत्र का नाम चुनें"
+              [(ngModel)]="selectedRangId" [items]="listOfRang" bindLabel="name" bindValue="id"
+              [searchable]="true" />
+          </ion-col>
+
+          <ion-col size="12" size-lg="4" *ngIf="shouldShowBit">
+            <ion-label class="responsive-label">बिट का नाम</ion-label>
+            <ng-select class="nice-ng-select" [clearable]="false" placeholder="बिट  का नाम चुनें"
+              [(ngModel)]="selectedBitId" [items]="listOfBit" bindLabel="name" bindValue="id"
+              [searchable]="true" />
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+
+    <div class="button-container">
+      <ion-button expand="block" (click)="submitProfileDetail()" class="submit-button">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        SUBMIT
+      </ion-button>
+      <ion-button expand="block" (click)="cancel()" class="cancel-button">
+        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+        CANCEL
+      </ion-button>
+    </div>
+    
+  </div>
+</ion-content>

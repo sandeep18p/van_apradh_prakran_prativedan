@@ -1,0 +1,176 @@
+<ion-header class="ion-header-toolbar">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('janch_adhikari_log_work') }} ({{toolbarTitle}})
+    </ion-title>
+
+    <ion-buttons slot="end" *ngIf="workLogList && workLogList.length > 0">
+      <ion-button fill="clear" (click)="generatePDF()">
+        <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        <ion-label>PDF</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-loading
+    cssClass="custom-loading"
+    [isOpen]="isLoading"
+    [message]="loadingMessage">
+  </ion-loading>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="1"></ion-col>
+
+      <ion-col size="12" size-lg="10">
+
+        <!-- SECTION: जाँच हेतु प्रेषण एवं कार्य विवरण (same as ra-work-log) -->
+        <div
+          class="preview-bifurcation-section por-section-border"
+          *ngIf="(whenAssignJanchkartaDetail && whenAssignJanchkartaDetail.length > 0) || (workLogList && workLogList.length > 0)">
+          <div class="preview-section-header">
+            <span class="preview-section-number">
+              <ion-icon name="document-text-outline"></ion-icon>
+            </span>
+            <span>जाँच हेतु प्रेषण एवं कार्य विवरण</span>
+          </div>
+          <div class="preview-section-body">
+
+            <!-- जाँच हेतु प्रेषण करने वाले अधिकारी (same structure as ra-work-log) -->
+            <ion-col size="12" *ngIf="whenAssignJanchkartaDetail && whenAssignJanchkartaDetail.length > 0">
+              <div class="themed-card crime-info-card">
+                <div class="crime-card-header">
+                  <ion-icon name="people-outline"></ion-icon>
+                  <span>जाँच हेतु प्रेषण करने वाले अधिकारी</span>
+                </div>
+                <div class="crime-card-body">
+                  <ion-card *ngFor="let item of whenAssignJanchkartaDetail" class="ion-margin">
+                    <ion-card-content>
+                      <ion-row>
+                        <ion-col size="12" size-lg="6">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जाँच हेतु प्रेषण करने वाले अधिकारी
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block;">
+                            {{ item.address || '--' }}
+                          </ion-text>
+                        </ion-col>
+                        <ion-col size="12" size-lg="6">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जांच हेतु प्रेषण करने का दिनांक
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block;">
+                            {{ item.created_at || '--' }}
+                          </ion-text>
+                        </ion-col>
+                        <ion-col size="12" size-lg="6" *ngIf="item.work_log_text">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जाँच हेतु प्रेषण करने वाले अधिकारी की टिप्पणी
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block; white-space: pre-line;">
+                            {{ item.work_log_text }}
+                          </ion-text>
+                        </ion-col>
+                      </ion-row>
+                    </ion-card-content>
+                  </ion-card>
+                </div>
+              </div>
+            </ion-col>
+
+            <!-- पूर्व कार्य विवरण (same card design as ra-work-log) -->
+            <ion-col size="12" *ngIf="workLogList && workLogList.length > 0; else noWorkLogData">
+              <div class="worklog-card" *ngFor="let item of workLogList; let i = index">
+                <div class="worklog-card-header">
+                  <div class="worklog-card-title">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    <span>कार्य विवरण इन्द्राज {{ i + 1 }}</span>
+                  </div>
+                  <div class="worklog-card-badge">
+                    {{ i + 1 }}
+                  </div>
+                </div>
+                <div class="worklog-card-body">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="12" size-lg="6">
+                        <span class="worklog-label">कार्य विवरण की तिथि</span>
+                        <span class="worklog-value">{{ item.work_log_date || '--' }}</span>
+                      </ion-col>
+                      <ion-col size="12" size-lg="6">
+                        <span class="worklog-label">पता (स्थान)</span>
+                        <span class="worklog-value">{{ item.address || '--' }}</span>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="12">
+                        <span class="worklog-label">कार्य का विवरण</span>
+                        <span class="worklog-value" style="white-space: pre-line;">
+                          {{ item.work_log_text || '--' }}
+                        </span>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="12">
+                        <span class="worklog-label">सम्बंधित अभिलेख</span>
+                      </ion-col>
+                      <ion-col size="12">
+                        <ng-container *ngIf="item?.work_log_images_array as photos">
+                          <div *ngIf="photos.length > 0; else noPhotos" class="horizontal-scroll-wrapper">
+                            <div class="photo-container" *ngFor="let photo of photos">
+                              <img
+                                [src]="getFullPathImage(photo)"
+                                class="worklog-image"
+                                (click)="showImageAlert(photo)" />
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-col>
+
+            <ng-template #noWorkLogData>
+              <div class="themed-card info-empty-card">
+                <div class="themed-card-body" style="text-align: center;">
+                  <ion-text color="medium">
+                    <h2>
+                      इस POR से सम्बंधित कोई कार्य विवरण इंद्राज नहीं किया गया है।
+                    </h2>
+                    <p *ngIf="isComingForLogEntry">
+                      कार्य विवरण इंद्राज करने के लिए नीचे दिए गए बटन पर क्लिक करें।
+                    </p>
+                  </ion-text>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #noPhotos>
+              <p class="label-value" style="color: red;">कोई अभिलेख उपलब्ध नहीं है</p>
+            </ng-template>
+
+          </div>
+        </div>
+
+      </ion-col>
+
+      <ion-col size-lg="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isComingForLogEntry">
+    <ion-fab-button (click)="addNewWorkLog()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

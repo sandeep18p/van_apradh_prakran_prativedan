@@ -1,0 +1,1676 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="cancel()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('edit_complain') }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding center-content">
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+  <ion-grid class="center-content">
+    <ion-row style="display: flex;justify-content: center;">
+
+      <ion-col size="12" size-lg="9">
+        <ion-row class="ion-align-items-end">
+          <ion-col size="6">
+            <ion-input class="ion-input" [(ngModel)]="complainer_name" label="POR जारीकर्ता का नाम"
+              label-placement="floating" fill="outline" />
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-input class="ion-input" [(ngModel)]="complainer_pad"
+              (ionInput)="setJaptKarnewaleAdhikariKaPadVariable()" label="जारीकर्ता का पद" label-placement="floating"
+              fill="outline" />
+          </ion-col>
+
+        </ion-row>
+      </ion-col>
+
+      <ion-col size="12" size-lg="9">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title class="ion-text-small" style="font-weight: 700;">
+              क्या यह प्रकरण बीट निरीक्षण का है?
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-radio-group [(ngModel)]="isBeatNirikshan" (ionChange)="onRadioChangeBeatNirikhan($event)">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="6" size-lg="3">
+                  <ion-item lines="none">
+                    <ion-radio slot="start" [value]="false"></ion-radio>
+                    <ion-label class="ion-text-small">नहीं</ion-label>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col size="6" size-lg="3">
+                  <ion-item lines="none">
+                    <ion-radio slot="start" [value]="true"></ion-radio>
+                    <ion-label class="ion-text-small">हाँ</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-lg="9">
+        <ion-card class="custom-card">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="location-outline"></ion-icon>
+              <ion-text class="ion-text">अपराध का स्थान</ion-text>
+            </span>
+          </ion-card-title>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-text class="ion-text">अक्षांश</ion-text>
+                    </ion-col>
+                    <ion-col size="12">
+                      <ion-text class="ion-text-small" style="color: blue;">{{lat}}</ion-text>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+
+                <ion-col size="6">
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-text class="ion-text">दिक्षांश</ion-text>
+                    </ion-col>
+                    <ion-col size="12">
+                      <ion-text class="ion-text-small" style="color: blue;">{{lon}}</ion-text>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+
+                <ion-col size="12">
+                  <ion-text class="ion-text-extra-small"
+                    style="color: blue;">{{current_location_google_addres}}</ion-text>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+
+        <ion-grid>
+
+          <ion-row style="margin-bottom: 10px;">
+            <ion-col size="12" size-lg="6">
+              <div class="date-picker-card" (click)="onSelecteCrimDate()">
+                <ion-label style="margin-left: 10px;">अपराध पंजीयन दिनांक : </ion-label>
+                <ion-label style="margin-left: 10px;" class="date-label">
+                  {{ crimeDate ? (crimeDate | date:'dd-MM-yyyy') : 'अपराध पंजीयन दिनांक' }}
+                </ion-label>
+                <ion-icon style="color: black;" name="calendar-outline"></ion-icon>
+              </div>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="isBG">
+              <div class="date-picker-card">
+                <ion-label style="margin-left: 10px;"> अपराध बीट का नाम : {{selectedCrimeBeatName}}</ion-label>
+              </div>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="isRA">
+              <ng-select class="nice-ng-select" (change)="onSelectBeat($event)" [clearable]="false"
+                placeholder="अपराध बीट का नाम" [items]="listOfBeat" bindLabel="name" bindValue="id" [searchable]="true"
+                [(ngModel)]="selectedCrimeBeat" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+              <ion-input class="ion-input" [(ngModel)]="por_number" label="POR क्रमांक प्रेषित करिये"
+                label-placement="floating" fill="outline" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+
+              <ng-select class="nice-ng-select" (change)="selectedCompartment($event)" [clearable]="false"
+                placeholder="कम्पार्टमेंट नंबर चुने" [items]="listOfCompartment" bindLabel="name" bindValue="name"
+                [searchable]="true" />
+
+              <!-- Clipboard container -->
+              <div style="margin-top: 5px;" class="clipboard-container" *ngIf="clipboardCompartment.length > 0">
+                <div class="clipboard-item" *ngFor="let comparement_number of clipboardCompartment">
+                  {{ comparement_number.name }}
+                  <button type="button" class="cancel-btn"
+                    (click)="removeCompartment(comparement_number.name)">❌</button>
+                </div>
+              </div>
+
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+              <ion-textarea [(ngModel)]="crimePlace" fill="outline" label="अपराध की जगह" label-placement="floating"
+                rows="3" auto-grow="true"></ion-textarea>
+            </ion-col>
+
+          </ion-row>
+          <!-- code added by sandeep pansari start 2 Date 9 28 25 -->
+          <ion-radio-group [(ngModel)]="isAccusedFound" (ionChange)="onRadioChange($event)" class="accused-radio-group">
+            <ion-row>
+              <ion-col size="6" size-lg="3">
+                <ion-radio [value]="true">
+                  <ion-label>ज्ञात अपराधी</ion-label>
+                </ion-radio>
+              </ion-col>
+
+              <ion-col size="6" size-lg="3">
+                <ion-radio [value]="false">
+                  <ion-label>अज्ञात अपराधी</ion-label>
+                </ion-radio>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+
+          <ion-row *ngIf="isAccusedFound">
+
+            <ion-col size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="ion-label-large" style="font-weight: 700; margin-top: 10px;">व्यक्तिगत
+                  जानकारी</ion-label>
+                <ion-button fill="clear" size="small" (click)="addAccusedPerson()" class="add-btn">
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-col>
+
+            <!-- Single accused person fields (for backward compatibility and first accused) -->
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-input class="ion-input" [(ngModel)]="accussedName" (ionInput)="onSingleAccusedFieldChange()"
+                label="अपराधी का नाम" label-placement="floating" fill="outline" />
+            </ion-col>
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-input [(ngModel)]="accussedFatherName" (ionInput)="onSingleAccusedFieldChange()"
+                label="अपराधी के पिता का नाम" label-placement="floating" fill="outline" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-input [(ngModel)]="accussedAge" (ionInput)="onSingleAccusedFieldChange()" label="अपराधी की उम्र"
+                label-placement="floating" fill="outline" type="number" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false" placeholder="जाति वर्ग चुने"
+                [(ngModel)]="selectedAccusedCast" (ngModelChange)="onSingleAccusedFieldChange()" [items]="listOfCast"
+                bindLabel="name" bindValue="id" [searchable]="true" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-input [(ngModel)]="accussed_jati_name" (ionInput)="onSingleAccusedFieldChange()"
+                label="अपराधी की जाति" label-placement="floating" fill="outline" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-input [(ngModel)]="accussedMobile" (ionInput)="onSingleAccusedFieldChange()"
+                label="अपराधी मोबाइल नंबर" label-placement="floating" fill="outline" type="number" />
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" *ngIf="accusedPersons.length === 1">
+              <ion-textarea [(ngModel)]="address" (ionInput)="onSingleAccusedFieldChange()" fill="outline" label="पता"
+                label-placement="floating" rows="3" auto-grow="true"></ion-textarea>
+            </ion-col>
+
+            <!-- Multiple accused persons -->
+            <ion-col size="12" *ngIf="accusedPersons.length > 1">
+              <div *ngFor="let accused of accusedPersons; let i = index"
+                style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; position: relative;">
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <ion-label style="font-weight: 600; color: #3880ff;">
+                    अपराधी {{ i + 1 }}
+                    <!-- <span *ngIf="i === 0" style="color: #f04141; font-size: 12px;">(मुख्य अपराधी)</span> -->
+                  </ion-label>
+                  <ion-button fill="clear" color="danger" size="small" (click)="removeAccusedPerson(i)"
+                    *ngIf="accusedPersons.length > 1">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-button>
+                </div>
+
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input class="ion-input" [(ngModel)]="accused.name" (ionInput)="onAccusedPersonChange(i)"
+                        label="अपराधी का नाम" label-placement="floating" fill="outline" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="accused.fathersName" (ionInput)="onAccusedPersonChange(i)"
+                        label="अपराधी के पिता का नाम" label-placement="floating" fill="outline" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="accused.age"
+                        [label]="accusedPersons.length > 1 ? 'अपराधी ' + (i + 1) + ' की उम्र ' : 'अपराधी की उम्र'"
+                        label-placement="floating" fill="outline" , type="number"
+                        (ionInput)="onAccusedPersonChange(i)" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false"
+                        placeholder="जाति वर्ग चुने" [(ngModel)]="accused.cast"
+                        (ngModelChange)="onAccusedPersonChange(i)" [items]="listOfCast" bindLabel="name" bindValue="id"
+                        [searchable]="true" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="accused.jati_name"
+                        [label]="accusedPersons.length > 1 ? 'अपराधी ' + (i + 1) + ' की जाति ' : 'अपराधी की जाति'"
+                        label-placement="floating" fill="outline" (ionInput)="onAccusedPersonChange(i)" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="accused.mobile_number"
+                        [label]="accusedPersons.length > 1 ? 'अपराधी ' + (i + 1) + ' मोबाइल नंबर' : 'मोबाइल नंबर'"
+                        label-placement="floating" fill="outline" type="number" />
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                      <ion-textarea [(ngModel)]="accused.address" (ionInput)="onAccusedPersonChange(i)" fill="outline"
+                        label="पता" label-placement="floating" rows="3" auto-grow="true"></ion-textarea>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row style="margin-top: 10px;">
+            <ion-col size="12">
+              <ion-label class="ion-label-large" style="font-weight: 700;">अपराध सम्बन्धी जानकारी</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin-top: 5px">
+            <ion-col size="12" size-lg="6">
+              <!-- <ion-label class="ion-text-extra-small" style="font-weight: 700;">अपराध का प्रकार</ion-label> -->
+              <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false"
+                placeholder="अपराध का प्रकार चुनें" [(ngModel)]="selectedCrimType" [items]="listOfCrimType"
+                bindLabel="name" bindValue="id" [searchable]="true" />
+              <!-- <ion-label class="instruction-label">{{getSelectedCrimDhara()}}</ion-label> -->
+
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+
+              <ng-select (change)="setActualDharayenAccrodingToHeadSelection($event)" class="nice-ng-select"
+                [clearable]="false" placeholder="अपराध अधिनियम / नियम" [items]="localListOfDharaHead" bindLabel="name"
+                bindValue="id" [searchable]="true" />
+
+              <ng-select style="margin-top: 5px;" (change)="selectedDharayen($event)" class="nice-ng-select"
+                [clearable]="false" placeholder="अपराध की धाराएं" [items]="localListOfActualDhara" bindLabel="name"
+                bindValue="id" [searchable]="true" />
+
+              <!-- Clipboard container -->
+              <div style="margin-top: 5px;" class="clipboard-container" *ngIf="clipboardDharas.length > 0">
+                <div class="clipboard-item" *ngFor="let dhara of clipboardDharas">
+                  {{ dhara.extraInfo }} - {{ dhara.name }}
+                  <button type="button" class="cancel-btn" (click)="removeDhara(dhara.id)">❌</button>
+                </div>
+              </div>
+
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+              <ion-input [(ngModel)]="witness_first_name" label="पहला साक्षी का नाम" label-placement="floating"
+                fill="outline" />
+            </ion-col>
+            <ion-col size="12" size-lg="6">
+              <ion-textarea [(ngModel)]="witness_address_first" label="पहला साक्षी का पता" label-placement="floating"
+                fill="outline" rows="3" />
+            </ion-col>
+
+
+            <ion-col size="12" size-lg="6">
+              <ion-input [(ngModel)]="witness_second_name" label="दूसरा साक्षी का नाम" label-placement="floating"
+                fill="outline" />
+            </ion-col>
+            <ion-col size="12" size-lg="6">
+              <ion-textarea [(ngModel)]="witness_address_second" label="दूसरा साक्षी का पता" label-placement="floating"
+                fill="outline" rows="3" />
+            </ion-col>
+
+          </ion-row>
+
+
+          <ion-row class="kastha-card">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">जप्त ठूंठ की जानकारी</ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addThunthInfo()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list>
+                <ion-item *ngFor="let row of listOfThunthDetail; let i = index">
+
+                  <ion-grid>
+
+                    <ion-row>
+
+                      <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">प्रजाति</ion-label>
+                          <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select" [clearable]="false"
+                            placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type" [items]="listOfWoodPrajati"
+                            bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                          </ng-select>
+                        </div>
+
+                      </ion-col>
+
+                      <!-- <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">ऊंचाई (मीटर)</ion-label>
+                          <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                            [(ngModel)]="row.unchai" type="number">
+                          </ion-input>
+                        </div>
+
+                      </ion-col> -->
+
+                      <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">गोलाई वर्ग (सेंटी मीटर)</ion-label>
+                          <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                            (ionInput)="calculateGhanMeter(row)" [(ngModel)]="row.golai" (ionInput)="validateGolai(row)"
+                            (keypress)="allowOnlyRangePatternForWarg($event)">
+                          </ion-input>
+                        </div>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">संख्या</ion-label>
+                          <ion-input style="margin-top: 5px;" (ionInput)="calculateGhanMeter(row)" [(ngModel)]="row.nag"
+                            class="outlined-box" fill="outline" type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="3" class="ion-text-center">
+                        <ion-button fill="clear" color="danger" (click)="removeThunthInfo(i)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                    </ion-row>
+
+                  </ion-grid>
+
+
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfThunthDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल ठूंठ संख्या</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalThunthNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row class="kastha-card">
+            <!-- Header row -->
+            <ion-col size="10">
+              <ion-label class="instruction-label">जप्त लट्ठा की जानकारी</ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addKasthaInfo()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list lines="none">
+                <ion-grid *ngFor="let row of listOfKashthaDetail; let i = index" class="kastha-row">
+                  <ion-row>
+
+                    <!-- प्रजाति चुने -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                        <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                          placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type" [items]="listOfWoodPrajati"
+                          bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                        </ng-select>
+                      </div>
+                    </ion-col>
+
+
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">हालात</ion-label>
+                        <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                          placeholder="हालात चुने" [(ngModel)]="row.kasth_halat" [items]="kasthHalatList"
+                          bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                        </ng-select>
+                      </div>
+                    </ion-col>
+
+                    <!-- लम्बाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">लम्बाई (मीटर)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterKastha(row)" [(ngModel)]="row.lambai" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- गोलाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">गोलाई (सेंटी मीटर)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterKastha(row)" [(ngModel)]="row.golai" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- नग -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterKastha(row)" [(ngModel)]="row.nag" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- घन मीटर -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">आयतन (घ.मी.)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" [value]="row.ghan_meter"
+                          readonly></ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- Delete button -->
+                    <ion-col size="6" size-lg="1" class="ion-text-center">
+                      <ion-button fill="clear" color="danger" (click)="removeKashthaInfo(i)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-grid>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfKashthaDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल लट्ठा संख्या</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalKashthNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+            <ion-col *ngIf="listOfKashthaDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल आयतन (घ.मी.)</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalKashthGhanMeter }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <!-- BALLI KI JANKARI -->
+
+
+          <ion-row class="kastha-card">
+            <!-- Header row -->
+            <ion-col size="10">
+              <ion-label class="instruction-label">जप्त बल्ली की जानकारी</ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addBalliInfo()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list lines="none">
+                <ion-grid *ngFor="let row of listOfBalliDetail; let i = index" class="kastha-row">
+                  <ion-row>
+
+                    <!-- प्रजाति चुने -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                        <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                          placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type" [items]="listOfWoodPrajati"
+                          bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                        </ng-select>
+                      </div>
+                    </ion-col>
+
+                    <!-- लम्बाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">लम्बाई वर्ग(मी.)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" [(ngModel)]="row.lambai"
+                          (ionInput)="validateBalliLambai(row)" (keypress)="allowOnlyRangePatternForWarg($event)">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- गोलाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">गोलाई वर्ग (से.मी.)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" [(ngModel)]="row.golai"
+                          (ionInput)="validateBalliGolai(row)" (keypress)="allowOnlyRangePatternForWarg($event)">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- नग -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" [(ngModel)]="row.nag"
+                          type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- Delete button -->
+                    <ion-col size="6" size-lg="1" class="ion-text-center">
+                      <ion-button fill="clear" color="danger" (click)="removeBalliInfo(i)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-grid>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfBalliDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल बल्ली संख्या</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalBalligNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+
+          <!-- END BALLI KI JANKARI -->
+
+          <!-- CHIRAN KI JANKARI START-->
+
+          <ion-row class="kastha-card">
+            <!-- Header row -->
+            <ion-col size="10">
+              <ion-label class="instruction-label">जप्त चिरान की जानकारी</ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addChiranInfo()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list lines="none">
+                <ion-grid *ngFor="let row of listOfChiranaDetail; let i = index" class="kastha-row">
+                  <ion-row>
+
+                    <!-- प्रजाति चुने -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                        <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                          placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type" [items]="listOfWoodPrajati"
+                          bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                        </ng-select>
+                      </div>
+                    </ion-col>
+
+                    <!-- लम्बाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">लम्बाई (मीटर)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.lambai" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- चौड़ाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">चौड़ाई (सेंटी मीटर)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.golai" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- मोटाई -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">मोटाई (सेंटी मीटर)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.motai" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- नग -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                          (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.nag" type="number">
+                        </ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- घन मीटर -->
+                    <ion-col size="6" size-lg="2">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">आयतन (घ.मी.)</ion-label>
+                        <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" [value]="row.ghan_meter"
+                          readonly></ion-input>
+                      </div>
+                    </ion-col>
+
+                    <!-- Delete button -->
+                    <ion-col size="6" size-lg="1" class="ion-text-center">
+                      <ion-button fill="clear" color="danger" (click)="removeChiranInfo(i)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-grid>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfChiranaDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल चिरान संख्या</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalChiranNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+            <ion-col *ngIf="listOfChiranaDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल आयतन (घ.मी.)</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalChiranGhanMeter }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <!-- CHIRAN KI JANKARI END -->
+
+
+          <ion-row class="kastha-card">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">जप्त जलाऊ की जानकारी</ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addChattaInfo()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list>
+                <ion-item *ngFor="let row of listOfChattaDetail; let i = index">
+
+                  <ion-grid>
+
+                    <ion-row>
+
+                      <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">प्रजाति</ion-label>
+                          <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select" [clearable]="false"
+                            placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type" [items]="listOfWoodPrajati"
+                            bindLabel="name" bindValue="id" [searchable]="true" appendTo="body">
+                          </ng-select>
+                        </div>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="3">
+                        <div>
+                          <ion-label class="ion-text-extra-small">चट्टा संख्या</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.nag" class="outlined-box" fill="outline"
+                            type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="3" class="ion-text-center">
+                        <ion-button fill="clear" color="danger" (click)="removeChattaInfo(i)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                    </ion-row>
+
+                  </ion-grid>
+
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfChattaDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल चट्टा संख्या</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalChattaNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+
+          <ion-row class="kastha-card">
+
+            <ion-col size="10">
+              <div class="label-inline">
+                <ion-label class="instruction-label">
+                  अन्य जप्त सामान की जानकारी
+                </ion-label>
+                <ion-label class="note-label">
+                  (जप्त वाहन की प्रविस्टि यहाँ ना करें)
+                </ion-label>
+              </div>
+            </ion-col>
+
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addOtherJaptSamanDetail()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-list>
+                <ion-item *ngFor="let row of listOfOtherJaptSamanDetail; let i = index">
+
+                  <ion-grid>
+
+                    <ion-row>
+
+                      <ion-col size="6" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">सामग्री का विवरण</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.if_other_then_detail"
+                            class="outlined-box" fill="outline"></ion-input>
+                        </div>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">संख्या (नग)</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.nag" class="outlined-box" fill="outline"
+                            type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">मात्रा (घन मीटर)</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.ghan_meter" class="outlined-box"
+                            fill="outline" type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">अनुमानित मूल्य</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                            fill="outline" type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12">
+                        <ion-row class="ion-align-items-center">
+                          <ion-col size="12" size-lg="6">
+                            <ion-label class="ion-text-extra-small">
+                              क्या वनोपज डिपो में परिवहन किया जाना है?
+                            </ion-label>
+                          </ion-col>
+
+                          <ion-col size="12" size-lg="6">
+                            <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+
+                              <div style="display: flex; gap: 20px; align-items: center;">
+
+                                <ion-col size="6" size-lg="3">
+                                  <ion-item lines="none">
+                                    <ion-label>हाँ</ion-label>
+                                    <ion-radio slot="start" value="1"></ion-radio>
+                                  </ion-item>
+                                </ion-col>
+
+                                <ion-col size="6" size-lg="3">
+                                  <ion-item lines="none">
+                                    <ion-label>नहीं</ion-label>
+                                    <ion-radio slot="start" value="0"></ion-radio>
+                                  </ion-item>
+                                </ion-col>
+
+                              </div>
+
+                            </ion-radio-group>
+                          </ion-col>
+
+                          <ion-col size="12" *ngIf="row.is_yogya_to_parivahan == '0'">
+                            <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                              label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                              auto-grow="true"></ion-textarea>
+                          </ion-col>
+
+                        </ion-row>
+
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="12" class="ion-text-end">
+                        <ion-button fill="clear" color="danger" (click)="removeOtherJaptiSaman(i)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                    </ion-row>
+
+                  </ion-grid>
+
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col *ngIf="listOfOtherJaptSamanDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल अन्य सामग्री संख्या (नग)</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalOtherJaptSamanNag }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+            <ion-col *ngIf="listOfOtherJaptSamanDetail.length > 0" size="12">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-label class="instruction-label">कुल अन्य सामग्री संख्या (घ.मी.)</ion-label>
+                <ion-label class="instruction-label" style="color: blue;">
+                  {{ totalOtherJaptSamanGhanMeter }}
+                </ion-label>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+
+
+          <ion-row class="kastha-card">
+            <ion-col size="12">
+              <ion-label style="margin-left: 10px;">क्या प्रकरण में वाहन जप्त किया गया है ?</ion-label>
+            </ion-col>
+            <ion-col size="12" size-lg="6">
+              <ion-radio-group [(ngModel)]="isVahanFound" (ionChange)="onRadioChangeIsVahanFound($event)"
+                class="accused-radio-group">
+                <ion-row>
+                  <ion-col size="6" size-lg="3">
+                    <ion-radio [value]="false">
+                      <ion-label>नहीं</ion-label>
+                    </ion-radio>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="3">
+                    <ion-radio [value]="true">
+                      <ion-label>हाँ</ion-label>
+                    </ion-radio>
+                  </ion-col>
+
+
+                </ion-row>
+              </ion-radio-group>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row class="kastha-card" *ngIf="isVahanFound">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">
+                वाहन की जानकारी
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-text-end">
+              <ion-button fill="clear" size="small" (click)="addJaptVahanDetail()" class="add-btn">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+
+
+            <ion-col size="12">
+              <ion-list>
+                <ion-item *ngFor="let row of listOfVahanDetail; let i = index">
+
+                  <ion-grid>
+
+                    <ion-row>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">वाहन का प्रकार / मॉडल / विवरण</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.vahan_prakar" class="outlined-box"
+                            fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">वाहन क्रमांक</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.vahan_kramank" class="outlined-box"
+                            fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">अनुमानित मूल्य</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.anumanit_mulya" class="outlined-box"
+                            fill="outline" type="number">
+                          </ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">वाहन मालिक का नाम</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.malik_ka_name" class="outlined-box"
+                            fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">पिता का नाम</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.malik_k_father_ka_name"
+                            class="outlined-box" fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">पूरा पता</ion-label>
+                          <ion-textarea [(ngModel)]="row.pata" fill="outline" label-placement="floating" rows="3"
+                            auto-grow="true"></ion-textarea>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">तहसील</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.tahsil" class="outlined-box"
+                            fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4">
+                        <div>
+                          <ion-label class="ion-text-extra-small">जिला</ion-label>
+                          <ion-input style="margin-top: 5px;" [(ngModel)]="row.jila" class="outlined-box"
+                            fill="outline"></ion-input>
+                        </div>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="12" class="ion-text-end">
+                        <ion-button fill="clear" color="danger" (click)="removeVahanDetail(i)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                    </ion-row>
+
+                  </ion-grid>
+
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+
+
+
+          </ion-row>
+
+
+
+
+          <!-- <ion-row class="date-picker-card" style="margin: 5px">
+
+            <ion-col size="12" size-lg="12">
+              <ion-textarea [(ngModel)]="otherJaptaSamanDetail" fill="outline" label="अन्य जप्त सामान की जानकारी"
+                label-placement="floating" rows="3" auto-grow="true"></ion-textarea>
+            </ion-col>
+
+          </ion-row> -->
+
+          <ion-col size="12">
+            <ion-label class="instruction-label">
+              जप्तिनामा का विवरण
+            </ion-label>
+          </ion-col>
+
+          <ion-row class="kastha-card">
+            <ion-col size="12" size-lg="6">
+              <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="floating"
+                [(ngModel)]="japt_karne_wale_adhikari_ka_name" label="जप्त करने वाले अधिकारी का नाम">
+              </ion-input>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6">
+              <ion-input style="margin-top: 5px;" class="ion-input" fill="outline" label-placement="floating"
+                [(ngModel)]="japt_karne_wale_adhikari_ka_pad" label="अधिकारी का पद">
+              </ion-input>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-row class="date-picker-card" style="margin: 5px">
+
+                <ion-col size="10">
+                  <ion-label class="ion-label-small">चिन्ह जो जप्त सामग्री पर अंकित किया गया (HAMMER MARK)</ion-label>
+                </ion-col>
+
+                <ion-col size="1">
+                  <ion-button fill="clear" size="small" (click)="takeChinhaImage()" class="camera-btn">
+                    <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+
+                <ion-col size="5" *ngIf="chinhaPhoto && chinhaPhoto.trim() !== ''">
+                  <div class="horizontal-scroll-wrapper">
+                    <img [src]="chinhaPhoto" class="scroll-image" />
+                  </div>
+                </ion-col>
+
+              </ion-row>
+            </ion-col>
+
+            <ion-col size="12" *ngIf="showAccussedPersonSignPadOrNot()">
+
+              <ion-col size="12">
+                <ion-label class="ion-label-small" style="font-weight: 700;">
+                  अपराधियों का हस्ताक्षर
+                </ion-label>
+              </ion-col>
+
+              <ion-grid *ngFor="let row of accusedPersons; let i = index">
+
+
+                <ion-row class="signature-row">
+
+                  <ion-col size="12" class="signature-card">
+                    <ion-row class="ion-align-items-center">
+
+                      <ion-col size="6" size-lg="6">
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-label class="signature-label">{{ row.name }}</ion-label>
+                          </ion-col>
+                          <ion-col size="12">
+                            <ion-button color="primary" shape="round" fill="solid" size="default"
+                              (click)="openSignaturePadForApradhi(row)">
+                              <ion-icon name="create-outline" slot="start"></ion-icon>
+                              <ion-text>SIGN</ion-text>
+                            </ion-button>
+                          </ion-col>
+                        </ion-row>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="row.signatureImage">
+                        <ion-img [src]="row.signatureImage" alt="Signature"></ion-img>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+
+              </ion-grid>
+
+            </ion-col>
+
+            <ion-col size="12" *ngIf="showWitnessPersonSignPadOrNot()">
+
+              <ion-col size="12">
+                <ion-label class="ion-label-small" style="font-weight: 700;">
+                  साक्षियों का हस्ताक्षर
+                </ion-label>
+              </ion-col>
+
+              <ion-grid>
+
+                <ion-row class="signature-row">
+                  <!-- Witness 1 -->
+                  <ion-col size="12" size-lg="12" class="signature-card" *ngIf="witness_first_name">
+                    <ion-row class="ion-align-items-center">
+
+
+                      <ion-col size="6" size-lg="6">
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-label class="signature-label">{{ witness_first_name }}</ion-label>
+                          </ion-col>
+                          <ion-col size="12">
+                            <ion-button color="primary" shape="round" fill="solid" size="default"
+                              (click)="openSignaturePadForSakshi(1)">
+                              <ion-icon name="create-outline" slot="start"></ion-icon>
+                              <ion-text>SIGN</ion-text>
+                            </ion-button>
+                          </ion-col>
+                        </ion-row>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="witness1Sign">
+                        <ion-img [src]="witness1Sign" alt="Signature"></ion-img>
+                      </ion-col>
+
+                      <!-- <ion-col size="8">
+                        <ion-label class="signature-label">{{ witness_first_name }}</ion-label>
+                      </ion-col>
+
+                      <ion-col size="4">
+                        <ion-row>
+                          <ion-col size="12" class="ion-text-center">
+                            <ion-button color="primary" shape="round" fill="solid" size="default"
+                              (click)="openSignaturePadForSakshi(1)">
+                              <ion-icon name="create-outline" slot="start"></ion-icon>
+                              <ion-text>SIGN</ion-text>
+                            </ion-button>
+                          </ion-col>
+
+                          <ion-col size="12" class="signature-preview" *ngIf="witness1Sign">
+                            <ion-img [src]="witness1Sign" alt="Signature"></ion-img>
+                          </ion-col>
+                        </ion-row>
+                      </ion-col> -->
+
+                    </ion-row>
+                  </ion-col>
+
+                  <!-- Witness 2 -->
+                  <ion-col size="12" size-lg="12" class="signature-card" *ngIf="witness_second_name">
+                    <ion-row class="ion-align-items-center">
+
+                      <ion-col size="6" size-lg="6">
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-label class="signature-label">{{ witness_second_name }}</ion-label>
+                          </ion-col>
+                          <ion-col size="12">
+                            <ion-button color="primary" shape="round" fill="solid" size="default"
+                              (click)="openSignaturePadForSakshi(2)">
+                              <ion-icon name="create-outline" slot="start"></ion-icon>
+                              <ion-text>SIGN</ion-text>
+                            </ion-button>
+                          </ion-col>
+                        </ion-row>
+
+                      </ion-col>
+
+                      <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="witness2Sign">
+                        <ion-img [src]="witness2Sign" alt="Signature"></ion-img>
+                      </ion-col>
+
+                      <!-- <ion-col size="8">
+                        <ion-label class="signature-label">{{ witness_second_name }}</ion-label>
+                      </ion-col>
+
+                      <ion-col size="4">
+                        <ion-row>
+                          <ion-col size="12" class="ion-text-center">
+                            <ion-button color="primary" shape="round" fill="solid" size="default"
+                              (click)="openSignaturePadForSakshi(2)">
+                              <ion-icon name="create-outline" slot="start"></ion-icon>
+                              <ion-text>SIGN</ion-text>
+                            </ion-button>
+                          </ion-col>
+
+                          <ion-col size="12" class="signature-preview" *ngIf="witness2Sign">
+                            <ion-img [src]="witness2Sign" alt="Signature"></ion-img>
+                          </ion-col>
+                        </ion-row>
+                      </ion-col> -->
+
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+
+
+              </ion-grid>
+
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-textarea class="ion-input" [(ngModel)]="japtinama_anya_vishesh_vivran" fill="outline"
+                label="अन्य विशेष विवरण" label-placement="floating" rows="3" auto-grow="true"></ion-textarea>
+            </ion-col>
+
+
+            <ion-col size="12">
+              <ion-row class="date-picker-card" style="margin: 5px">
+                <ion-col size="10" style="margin-top: 10px;">
+                  <ion-label class="ion-label-small">जप्ति नामा का फोटो</ion-label>
+                </ion-col>
+
+                <ion-col size="1">
+                  <ion-button fill="clear" size="small" (click)="takeJaptinamaPhoto()" class="camera-btn">
+                    <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+
+                <ion-col size="5">
+                  <div class="horizontal-scroll-wrapper" *ngIf="japti_nama_photo && japti_nama_photo.trim() !== ''">
+                    <img [src]="japti_nama_photo" class="scroll-image" />
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+
+
+          </ion-row>
+
+          <ion-col size="12">
+            <ion-label class="instruction-label">
+              सुपुर्दनामा का विवरण
+            </ion-label>
+          </ion-col>
+
+          <ion-row class="kastha-card">
+
+            <ion-label style="margin-left: 10px;">क्या सुपुर्ददार और जाप्तिकर्ता एक ही व्यक्ति है ?</ion-label>
+
+            <ion-col size="12">
+              <ion-radio-group [(ngModel)]="isJaptikartaAndSupurdarSame"
+                (ionChange)="onRadioChangeOfisJaptikartaAndSupurdarSame($event)" class="accused-radio-group">
+                <ion-row>
+                  <ion-col size="6" size-lg="3">
+                    <ion-radio [value]="true">
+                      <ion-label>हाँ</ion-label>
+                    </ion-radio>
+                  </ion-col>
+
+                  <ion-col size="6" size-lg="3">
+                    <ion-radio [value]="false">
+                      <ion-label>नहीं</ion-label>
+                    </ion-radio>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-col>
+
+            <ion-col size="12" *ngIf="!isJaptikartaAndSupurdarSame">
+              <ion-row>
+
+                <ion-col size="12" size-lg="6">
+                  <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" label-placement="floating"
+                    [(ngModel)]="supurddar_ka_name" label="सुपुर्ददार का नाम">
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" size-lg="6">
+                  <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" label-placement="floating"
+                    [(ngModel)]="supurddar_ka_pita_ka_name" label="पिता  नाम">
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" size-lg="6">
+                  <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" label-placement="floating"
+                    [(ngModel)]="supurddar_ka_jati" label="जाती">
+                  </ion-input>
+                </ion-col>
+                <ion-col size="12" size-lg="6">
+                  <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline" label-placement="floating"
+                    [(ngModel)]="supurddar_ka_vyavsay" label="व्यवसाय">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="6">
+                  <ion-textarea [(ngModel)]="supurddar_ka_full_address" fill="outline" label="पूरा पता"
+                    label-placement="floating" rows="3" auto-grow="true"></ion-textarea>
+                </ion-col>
+
+                <ion-col size="12" size-lg="6">
+                  <div class="date-picker-card" (click)="onSelecteSupurdMeLeneKaDinank()">
+                    <ion-label style="margin-left: 10px;">सुपुर्द में लेने का दिनांक : </ion-label>
+                    <ion-label style="margin-left: 10px;" class="date-label">
+                      {{ supurd_me_lene_ka_dinank ? (supurd_me_lene_ka_dinank | date:'dd-MM-yyyy') : 'दिनांक' }}
+                    </ion-label>
+                    <ion-icon style="color: black;" name="calendar-outline"></ion-icon>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" class="signature-card" *ngIf="supurddar_ka_name">
+                  <ion-row class="ion-align-items-center">
+
+                    <ion-col size="6" size-lg="6">
+                      <ion-row>
+                        <ion-col size="12">
+                          <ion-label class="signature-label">{{supurddar_ka_name}}</ion-label>
+                        </ion-col>
+                        <ion-col size="12">
+                          <ion-button color="primary" shape="round" fill="solid" size="default"
+                            (click)="openSignaturePadForSupurddar()">
+                            <ion-icon name="create-outline" slot="start"></ion-icon>
+                            <ion-text>SIGN</ion-text>
+                          </ion-button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="signatureImageSupurddar">
+                      <ion-img [src]="signatureImageSupurddar" alt="Signature"></ion-img>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+
+                <ion-col size="12">
+                  <ion-row class="ion-margin-vertical ion-align-items-center ion-justify-content-between">
+
+                    <ion-col size="6" size-lg="6">
+                      <div class="ion-flex ion-flex-col">
+                        <ion-label style="display: block; color: blue;" class="ion-text-small">सुपुर्द में देने वाले
+                          अधिकारी का नाम</ion-label>
+                        <ion-label style="display: block; color: black;">{{ japt_karne_wale_adhikari_ka_name
+                          }}</ion-label>
+                      </div>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="6" class="ion-text-end">
+                      <div>
+                        <ion-label style="display: block; color: blue;" class="ion-text-small">अधिकारी का पद</ion-label>
+                        <ion-label style="display: block; color: black;">{{ japt_karne_wale_adhikari_ka_pad
+                          }}</ion-label>
+                      </div>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-col>
+
+                <ion-col size="12" *ngIf="showAccussedPersonSignPadOrNot()">
+
+                  <ion-col size="12">
+                    <ion-label class="ion-label-small" style="font-weight: 700;">
+                      अपराधियों का हस्ताक्षर
+                    </ion-label>
+                  </ion-col>
+
+                  <ion-grid *ngFor="let row of accusedPersons; let i = index">
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-row>
+
+                        <ion-col size="6" size-lg="6">
+                          <ion-label style="margin-left: 10px;">{{row.name}}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="row.signatureImage">
+                          <ion-img *ngIf="row.signatureImage" [src]="row.signatureImage" alt="Signature"></ion-img>
+                        </ion-col>
+
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-grid>
+
+                </ion-col>
+
+                <ion-col size="12" *ngIf="showWitnessPersonSignPadOrNot()">
+
+                  <ion-col size="12">
+                    <ion-label class="ion-label-small" style="font-weight: 700;">
+                      साक्षियों का हस्ताक्षर
+                    </ion-label>
+                  </ion-col>
+
+                  <ion-grid>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-row>
+
+                        <ion-col size="6" size-lg="6">
+                          <ion-label style="margin-left: 10px;">{{witness_first_name}}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="witness1Sign">
+                          <ion-img *ngIf="witness1Sign" [src]="witness1Sign" alt="Signature"></ion-img>
+                        </ion-col>
+
+                      </ion-row>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-row>
+
+                        <ion-col size="6" size-lg="6">
+                          <ion-label style="margin-left: 10px;">{{witness_second_name}}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="6" class="signature-preview" *ngIf="witness2Sign">
+                          <ion-img *ngIf="witness2Sign" [src]="witness2Sign" alt="Signature"></ion-img>
+                        </ion-col>
+
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-grid>
+
+                </ion-col>
+
+                <ion-col size="12">
+                  <ion-row class="date-picker-card" style="margin: 5px">
+                    <ion-col size="10">
+                      <ion-label class="ion-label-small">सुपुर्द नामा का फोटो</ion-label>
+                    </ion-col>
+
+                    <ion-col size="1">
+                      <ion-button fill="clear" size="small" (click)="takeSupurdNamaPhoto()" class="camera-btn">
+                        <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                    <ion-col size="5">
+                      <div class="horizontal-scroll-wrapper"
+                        *ngIf="supurd_nama_photo && supurd_nama_photo.trim() !== ''">
+                        <img [src]="supurd_nama_photo" class="scroll-image" />
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+
+              </ion-row>
+            </ion-col>
+
+
+          </ion-row>
+
+          <ion-col size="12">
+            <ion-label class="instruction-label">
+              निम्नानुसार दस्तावेज की फोटो अपलोड करें
+            </ion-label>
+          </ion-col>
+
+          <ion-row class="date-picker-card" style="margin: 5px">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">POR का फोटो</ion-label>
+            </ion-col>
+
+            <ion-col size="1">
+              <ion-button fill="clear" size="small" (click)="takePorPhoto()" class="camera-btn">
+                <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="5">
+              <div class="horizontal-scroll-wrapper" *ngIf="por_photo && por_photo.trim() !== ''">
+                <img [src]="showImage(por_photo) || 'assets/img/cg_image.png'" class="complain-image"
+                  (click)="showImageAlert(por_photo)" />
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row class="date-picker-card" style="margin: 5px">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">अपराधी का फोटो</ion-label>
+            </ion-col>
+
+            <ion-col size="1">
+              <ion-button fill="clear" size="small" (click)="takeApradhiPhoto()" class="camera-btn">
+                <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="5">
+              <div class="horizontal-scroll-wrapper" *ngIf="apradhi_photo && apradhi_photo.trim() !== ''">
+                <img [src]="showImage(apradhi_photo) || 'assets/img/cg_image.png'" class="complain-image"
+                  (click)="showImageAlert(apradhi_photo)" />
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+
+          <ion-row class="date-picker-card" style="margin: 5px">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">पंचनामा का फोटो</ion-label>
+            </ion-col>
+
+            <ion-col size="1">
+              <ion-button fill="clear" size="small" (click)="takePanchaNamaPhoto()" class="camera-btn">
+                <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="5">
+              <div class="horizontal-scroll-wrapper" *ngIf="panch_nama_photo && panch_nama_photo.trim() !== ''">
+                <img [src]="showImage(panch_nama_photo) || 'assets/img/cg_image.png'" class="complain-image"
+                  (click)="showImageAlert(panch_nama_photo)" />
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+
+          <ion-row class="date-picker-card" style="margin: 5px">
+
+            <ion-col size="10">
+              <ion-label class="instruction-label">अन्य फोटो</ion-label>
+            </ion-col>
+
+            <ion-col size="1">
+              <ion-button fill="clear" size="small" (click)="takePic()" class="camera-btn">
+                <ion-icon style="color: black;" size="large" slot="icon-only" name="camera-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+              <div class="horizontal-scroll-wrapper">
+                <div class="photo-container" *ngFor="let photo of photos; let i = index">
+                  <img [src]="photo" class="scroll-image" />
+                  <ion-icon style="color: red;" name="close-circle" class="remove-icon"
+                    (click)="removePhoto(i)"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row class="signature-row" *ngIf="complainer_name">
+
+            <ion-col size="12" class="signature-card">
+              <ion-row class="ion-align-items-center">
+
+                <ion-col size="5" size-lg="6">
+                  <ion-label class="signature-label">{{complainer_name}}</ion-label>
+                </ion-col>
+
+                <ion-col size="4" size-lg="4" class="ion-text-center">
+                  <ion-button color="primary" shape="round" fill="solid" size="default" (click)="openSignaturePad()">
+                    <ion-icon name="create-outline" slot="start"></ion-icon>
+                    <ion-text>SIGN</ion-text>
+                  </ion-button>
+                </ion-col>
+
+                <ion-col size="3" size-lg="2" class="signature-preview" *ngIf="signatureImage">
+                  <ion-img [src]="signatureImage" alt="Signature"></ion-img>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <div class="button-container">
+                <ion-button expand="block" (click)="updateCrimDetail()" class="submit-button">
+                  <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                  UPDATE
+                </ion-button>
+                <ion-button expand="block" (click)="cancel()" class="cancel-button">
+                  <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                  समाप्त
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

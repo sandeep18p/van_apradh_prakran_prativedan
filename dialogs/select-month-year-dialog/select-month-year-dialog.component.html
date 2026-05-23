@@ -1,0 +1,19 @@
+<div class="dialog-container">
+  <div class="dialog-content">
+
+    <img src="assets/img/ic_cancel.png" class="close-icon" (click)="closeModel()" />
+
+    <ion-datetime presentation="month-year" display-format="MM-yyyy" value-format="MM-yyyy"
+      [value]="selectedMonthYearISO" (ionChange)="onDateChange($event)" placeholder="माह-वर्ष चुने" [min]="minDate">
+    </ion-datetime>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="center-btn">
+          <ion-button (click)="onSelectDate()">OK</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</div>

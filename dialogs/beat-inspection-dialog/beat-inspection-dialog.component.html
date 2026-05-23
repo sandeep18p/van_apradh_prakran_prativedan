@@ -1,0 +1,33 @@
+<div class="dialog-wrapper">
+  <ion-button fill="clear" (click)="dismiss()" class="close-button">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-button>
+
+  <ion-grid class="dialog-grid">
+    <ion-row class="ion-justify-content-center ion-text-center">
+      <ion-col size="12" size-md="10" size-lg="8">
+        <div class="question-container">
+          <ion-icon name="help-circle-outline" class="question-icon"></ion-icon>
+          <ion-text class="question-text">
+            क्या यह प्रकरण बीट निरीक्षण का है?
+          </ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center button-row">
+      <ion-col size="6" size-md="5" size-lg="4">
+        <ion-button expand="block" color="danger" class="action-button no-button" (click)="onNoClick()">
+          <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+          नहीं
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" size-md="5" size-lg="4">
+        <ion-button expand="block" color="success" class="action-button yes-button" (click)="onYesClick()">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          हाँ
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

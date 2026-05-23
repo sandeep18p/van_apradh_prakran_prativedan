@@ -1,0 +1,2233 @@
+.custom-toolbar {
+    --background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --border-color: #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.responsive-label {
+    font-size: 12px;
+    font-weight: 700;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    /* Large screens (desktops) */
+    @media (min-width: 1024px) {
+        font-size: 20px;
+    }
+}
+
+.nice-ng-select {
+    width: 100%;
+    font-size: 14px;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 22px;
+    }
+
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep .nice-ng-select.ng-select-focused .ng-select-container {
+    border-color: #3a86ff;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 65px;
+    }
+}
+
+// Ion-style outline + floating label (matches ion-input fill="outline" in accused section)
+.outline-floating-ng-select-wrap {
+    position: relative;
+    width: 100%;
+    margin-top: 2px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        border-color: #2E7D32;
+    }
+
+    &:focus-within {
+        border-color: #2E7D32;
+        box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+    }
+}
+
+.outline-floating-ng-select-label {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    transform: translateY(-50%);
+    z-index: 2;
+    padding: 2px 4px 1px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1a1a1a;
+    background: #ffffff;
+    pointer-events: none;
+    line-height: 1.4;
+    max-width: calc(100% - 24px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.outline-floating-ng-select-wrap:focus-within .outline-floating-ng-select-label {
+    color: #1a1a1a;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner .ng-select-container {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 8px;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner.ng-select-focused .ng-select-container {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner .ng-select-container:hover {
+    border: none !important;
+}
+
+::ng-deep .nice-ng-select .ng-value-container {
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .nice-ng-select .ng-input {
+    display: flex;
+    align-items: center;
+    height: 90%;
+}
+
+::ng-deep .nice-ng-select .ng-input input {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    line-height: 1.5;
+    align-self: center;
+}
+
+::ng-deep .nice-ng-select .ng-placeholder {
+    color: #888;
+    font-weight: 500;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+    display: block !important;
+    /* Ensure block-level for margin to apply */
+    padding: 10px 14px !important;
+    /* Add internal spacing */
+    margin: 6px 8px !important;
+    /* Add space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+    padding: 10px 14px !important;
+    /* Padding inside each item */
+    margin: 4px 6px !important;
+    /* Space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option:hover {
+    background-color: #f0f0f0 !important;
+    /* optional hover effect */
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #218838;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #c82333;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+// Container styles
+.profile-container {
+    max-width: 1200px;
+}
+
+// Card styles
+.welcome-card {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .welcome-title {
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .welcome-title .icon-text-row {
+        display: flex;
+        align-items: center; // vertical centering
+        justify-content: flex-start; // align to start
+        gap: 8px; // spacing between icon and text
+    }
+
+    .welcome-title ion-icon {
+        font-size: 24px; // optional: adjust icon size
+    }
+
+    .officer-info {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+}
+
+.info-card {
+    //margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background: #fff3f3;
+    border: 1px solid #ffcdd2;
+
+    .info-text {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+
+        ion-icon {
+            font-size: 1.2rem;
+            color: #e74c3c;
+        }
+    }
+}
+
+.form-card {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .form-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+
+        ion-icon {
+            color: #3498db;
+        }
+    }
+}
+
+// Button container
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+    .button-container {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card .welcome-title {
+        font-size: 1.3rem;
+    }
+
+    .form-card .form-label {
+        font-size: 0.9rem;
+    }
+}
+
+// Loading animation
+.custom-loading {
+    --background: rgba(255, 255, 255, 0.9);
+    --spinner-color: #3498db;
+}
+
+.search-container {
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+ion-content {
+    --keyboard-offset: 250px; // optional tweak
+}
+
+.textarea-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+full-height-textarea {
+    flex: 1;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 2px;
+    border-color: black;
+}
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+// .horizontal-scroll-wrapper {
+//     display: flex;
+//     overflow-x: auto;
+//     white-space: nowrap;
+//     padding: 10px 0;
+
+//     .photo-container {
+//         position: relative;
+//         margin-right: 10px;
+
+//         .scroll-image {
+//             height: 100px;
+//             border-radius: 8px;
+//         }
+
+//         .remove-icon {
+//             position: absolute;
+//             top: -5px;
+//             right: -5px;
+//             font-size: 20px;
+//             color: red;
+//             background: white;
+//             border-radius: 50%;
+//             z-index: 1;
+//         }
+//     }
+// }
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    gap: 10px;
+    /* better than margin-right */
+    scroll-behavior: smooth;
+    /* optional */
+}
+
+.photo-container {
+    position: relative;
+    flex: 0 0 auto;
+    /* prevents shrinking */
+    width: 120px;
+    /* fixed width */
+    height: 100px;
+    /* fixed height */
+}
+
+.scroll-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* keeps aspect ratio */
+    border-radius: 8px;
+}
+
+.remove-icon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 20px;
+    color: red;
+    background: white;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+// ============================================
+// Themed Card Styles (Forest Department Theme)
+// ============================================
+.custom-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 16px;
+  padding: 0;
+
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-title {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (min-width: 480px) {
+      padding: 12px 14px;
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 14px 18px;
+      font-size: 18px;
+    }
+
+    .icon-text-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      flex: 1;
+
+      ion-icon {
+        font-size: 18px;
+        color: #ffffff;
+
+        @media (min-width: 480px) {
+          font-size: 20px;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 24px;
+        }
+      }
+
+      ion-text {
+        color: #ffffff;
+      }
+    }
+
+    ion-button {
+      --color: #ffffff;
+      --background: rgba(255, 255, 255, 0.2);
+      --background-hover: rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      font-size: 12px;
+      height: 32px;
+      margin: 0;
+      margin-left: auto;
+
+      @media (min-width: 768px) {
+        font-size: 14px;
+        height: 36px;
+      }
+
+      ion-icon {
+        font-size: 16px;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 12px;
+    position: relative;
+    overflow: visible !important;
+
+    @media (min-width: 480px) {
+      padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 18px;
+    }
+  }
+
+}
+
+// ============================================
+// Form Input Styles
+// ============================================
+.ion-input {
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --highlight-color-focused: #2E7D32;
+  --highlight-color: #2E7D32;
+  --label-max-width: 100% !important;
+}
+
+// ============================================
+// Date Picker Card
+// ============================================
+.date-picker-card {
+  border-radius: 8px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  }
+
+  ion-icon {
+    color: #2E7D32;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .date-picker-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .date-picker-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .date-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+  }
+
+  .date-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    flex: 1;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+}
+
+// ============================================
+// Info Field Styles (for display mode)
+// ============================================
+.info-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  transition: all 0.2s ease;
+  min-height: 70px;
+
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: #2E7D32;
+  }
+
+  .info-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+
+    @media (min-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
+  .info-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    word-wrap: break-word;
+    line-height: 1.4;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+
+    &.dhara-value {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #2E7D32;
+      font-weight: 600;
+
+      @media (min-width: 768px) {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+// Date display with clickable calendar icon
+.date-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 0;
+
+  .calendar-icon-small {
+    font-size: 18px;
+    color: #2E7D32;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    .calendar-icon-small {
+      color: #1B5E20;
+    }
+  }
+}
+
+// Edit form card styling
+.edit-form-card {
+  border: 2px solid #FF9800;
+  animation: slideDown 0.3s ease-out;
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ============================================
+// Section Card Styles (for Accused/Witness sections)
+// ============================================
+.section-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 16px;
+
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.section-header {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #ffffff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+
+  span {
+    flex: 1;
+    color: #ffffff;
+  }
+
+  ion-button {
+    --color: #ffffff;
+    --background: rgba(255, 255, 255, 0.2);
+    --background-hover: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    height: 32px;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: 14px;
+      height: 36px;
+    }
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 480px) {
+    padding: 12px 14px;
+    font-size: 15px;
+    gap: 10px;
+
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 14px 18px;
+    font-size: 18px;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+/* When section is in edit mode, match option-1 orange header */
+.section-header.edit-active {
+  background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+}
+
+.section-body {
+  padding: 12px;
+
+  @media (min-width: 480px) {
+    padding: 14px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+}
+
+// ============================================
+// Accused Person Card Styles
+// ============================================
+.accused-person-card {
+  background: #ffffff;
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+    border-radius: 12px;
+  }
+}
+
+.accused-person-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8f5e9;
+
+  ion-label {
+    font-weight: 600;
+    color: #2E7D32;
+    font-size: 15px;
+
+    @media (min-width: 768px) {
+      font-size: 17px;
+    }
+  }
+}
+
+.accused-radio-group {
+  display: block;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+
+  ion-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  ion-radio {
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+
+    &::part(container) {
+      border-color: #2E7D32;
+      border-width: 2px;
+    }
+
+    &::part(mark) {
+      background: #2E7D32;
+    }
+  }
+
+  ion-label {
+    color: #000000 !important;
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 8px;
+    display: inline-block;
+  }
+}
+
+// No accused container
+.no-accused-container {
+  text-align: center;
+  padding: 24px;
+  background: #fff3e0;
+  border-radius: 8px;
+  border: 1px solid #ffcc80;
+  margin-top: 16px;
+
+  .no-accused-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e65100;
+    margin-bottom: 8px;
+
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
+  }
+
+  .no-accused-subtitle {
+    display: block;
+    font-size: 14px;
+    color: #bf360c;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+}
+
+// ============================================
+// Rajinama Section Styles
+// ============================================
+.rajinama-section {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-top: 8px;
+
+  .rajinama-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .camera-btn {
+      --background: #2E7D32;
+      --color: #ffffff;
+      border-radius: 8px;
+      height: 40px;
+      width: 40px;
+      margin: 0;
+    }
+  }
+
+  .photo-container {
+    position: relative;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e0e0e0;
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .remove-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      font-size: 24px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      z-index: 10;
+    }
+  }
+
+  .horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 8px 0;
+  }
+
+  .scroll-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+  }
+
+  .complain-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.button-green {
+    --background: #28a745; // green
+    --color: white;
+}
+
+.button-red {
+    --background: #dc3545; // red
+    --color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .p-column-title {
+        font-size: 12px;
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+    }
+
+    .ion-label-small {
+        font-size: 15px;
+    }
+}
+
+/* Hide label on large screens */
+@media screen and (min-width: 769px) {
+    .p-column-title {
+        display: none;
+    }
+
+    .ion-label-small {
+        font-size: 18px;
+    }
+
+}
+
+.dar-input {
+    width: 100px;
+    height: 32px;
+    font-size: 18px;
+    //text-align: right;
+    border-color: #666;
+    border-radius: 4px;
+    background: #fff;
+    padding-start: 6px;
+    padding-end: 6px;
+}
+
+// .outlined-box {
+//     border: 2px solid #ece9df;
+//     /* Ionic primary color or your choice */
+//     border-radius: 8px;
+//     padding: 5px 10px;
+//     margin-bottom: 10px;
+//     width: 100px;
+//     height: 32px;
+//     font-size: 18px;
+// }
+
+// .outlined-box ion-input {
+//     --padding-start: 5px;
+//     --padding-end: 5px;
+// }
+
+.kastha-card ion-input {
+    --min-height: 56px;
+    /* ensures floating label has space */
+    height: auto;
+    min-height: 56px; // enough for floating label
+    --border-width: 2px;
+    --border-style: solid;
+    --border-color: blue;
+    --border-radius: 8px;
+    --background: #ffffff;
+    padding-top: 12px; // optional to avoid label cut
+}
+
+.kastha-card {
+    overflow: visible; // allow label to float outside
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    margin: 12px 0;
+    background: #fff;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .instruction-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .add-btn {
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+            font-size: 30px;
+            color: var(--ion-color-primary);
+            transition: transform 0.2s ease;
+        }
+
+        &:hover ion-icon {
+            transform: scale(1.2);
+        }
+    }
+
+    .ion-textarea {
+        margin-top: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+        --border-width: 2px;
+        --border-style: solid;
+        --border-color: blue;
+        --border-radius: 8px;
+        --background: #ffffff;
+        min-height: 100px; // optional, adjust rows if needed
+    }
+
+    .kastha-row {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        background: #fafafa;
+        border: 1px dashed #ddd;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+
+    ion-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    ion-input {
+        --min-height: 56px;
+        height: auto;
+        --border-width: 2px;
+        --border-color: blue;
+        --border-radius: 8px;
+    }
+
+    ng-select {
+        width: 100%;
+        font-size: 14px;
+        border-radius: 6px;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        background: #fff;
+        border: 1px solid #ddd;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus-within {
+            border-color: var(--ion-color-primary);
+            box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.2);
+        }
+    }
+
+    ion-button[color="danger"] {
+        --color: #e74c3c;
+        --background-hover: #fdecea;
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        margin-top: 20px;
+
+        ion-icon {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Table improvements */
+.custom-margin-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        background: var(--ion-color-light);
+        font-weight: 600;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td {
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:hover {
+        background: #f9f9f9;
+    }
+}
+
+.outlined-box.negative {
+    --background: #fdecea; // light red background
+    --color: #2e7d32; // text green
+}
+
+.outlined-box.positive {
+    --background: #e8f5e9; // light green background
+    --color: #d32f2f; // text red
+}
+
+
+// ---------------//
+
+.form-section {
+    --ion-padding: 12px;
+
+    ion-col {
+        margin-bottom: 12px;
+    }
+
+    .outlined-input,
+    .outlined-textarea {
+        --border-width: 2px;
+        --border-style: solid;
+        --border-color: blue;
+        --border-radius: 8px;
+        --background: #ffffff;
+        margin: 0 5px;
+    }
+
+    .instruction-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .date-picker-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 2px solid blue;
+        border-radius: 8px;
+        background: #fff;
+        padding: 8px 10px;
+        cursor: pointer;
+        margin-top: 5px;
+
+        .date-label {
+            color: #333;
+            font-weight: 500;
+        }
+
+        ion-icon {
+            font-size: 20px;
+            color: #000;
+        }
+    }
+}
+
+.accused-radio-group {
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.accused-radio-group ion-radio {
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+
+    &::part(container) {
+      border-color: #2E7D32;
+      border-width: 2px;
+    }
+
+    &::part(mark) {
+      background: #2E7D32;
+    }
+}
+
+.accused-radio-group ion-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.accused-radio-group ion-label {
+    color: #000000 !important;
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+// ============================================
+// Choice-card style radios (compact + neat)
+// Used only where we add `decision-choice-group`
+// ============================================
+.decision-choice-group {
+  padding: 6px 8px;
+  border: 1px solid rgba(46, 125, 50, 0.18);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: none;
+
+  ion-row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  @media (min-width: 992px) {
+    ion-row {
+      flex-wrap: nowrap;
+    }
+
+    ion-col {
+      flex: 1 1 0;
+      max-width: 50%;
+    }
+  }
+
+  @media (max-width: 991px) {
+    ion-row {
+      flex-wrap: wrap;
+    }
+
+    ion-col {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+
+  ion-radio {
+    width: 100%;
+    margin: 0;
+    padding: 8px 10px;
+    min-height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    box-shadow: none;
+    transition: border-color 120ms ease, background 120ms ease;
+    align-items: center;
+
+    &::part(container) {
+      border-color: #2E7D32;
+      border-width: 2px;
+    }
+
+    &::part(mark) {
+      background: #2E7D32;
+    }
+  }
+
+  @media (hover: hover) {
+    ion-radio:hover {
+      border-color: rgba(46, 125, 50, 0.35);
+      background: #f6fbf7;
+    }
+  }
+
+  ion-label {
+    color: #111 !important;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 8px;
+    line-height: 1.2;
+    white-space: normal;
+    letter-spacing: 0.1px;
+  }
+}
+
+::ng-deep .custom-margin-table {
+    .p-datatable {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        .p-datatable-header {
+            background: #2E7D32;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .p-datatable-thead>tr>th {
+            background: #2E7D32;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background: #1B5E20;
+            }
+        }
+
+        .p-datatable-tbody>tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e0e0e0;
+
+            &:hover {
+                background: #f5f5f5;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            >td {
+                padding: 1rem;
+                border: none;
+            }
+        }
+    }
+}
+
+.totals-container {
+    margin-top: 12px;
+    padding: 8px;
+
+    .total-card {
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .total-title {
+            font-weight: 600;
+            color: #222;
+            font-size: 14px;
+        }
+
+        .total-value {
+            font-weight: 700;
+            color: #1e88e5;
+            font-size: 15px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            font-size: 15px;
+            padding: 14px 18px;
+        }
+    }
+}
+
+
+.no-accused-container {
+    text-align: center;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: 2px dashed #dee2e6;
+}
+
+.no-accused-icon {
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.no-accused-title {
+    display: block;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.no-accused-subtitle {
+    display: block;
+    color: #868e96;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.accused-title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 6px;
+}
+
+.accused-icon {
+    color: #007bff;
+}
+
+.accused-title {
+    font-weight: 700;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.accused-count {
+    color: #666;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.accused-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fafafa;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.accused-header {
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.accused-field {
+    margin-bottom: 8px;
+}
+
+.label-small {
+    font-size: 13px;
+    color: #007bff;
+    display: block;
+}
+
+.label-large {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    color: #333;
+}
+
+/* ===== Work-log preview (matched with show-ra-work-log) ===== */
+
+.label-title {
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.label-value {
+    font-size: 15px;
+    color: #222;
+    display: block;
+    font-weight: 500;
+}
+
+.themed-card-body {
+    padding: 12px;
+
+    @media (min-width: 480px) {
+        padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 18px;
+    }
+}
+
+.crime-info-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(46, 125, 50, 0.12);
+}
+
+.crime-card-header {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #fff;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+
+    ion-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    @media (min-width: 480px) {
+        font-size: 14px;
+        padding: 10px 14px;
+
+        ion-icon {
+            font-size: 18px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        font-size: 17px;
+        padding: 12px 16px;
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+}
+
+.crime-card-body {
+    padding: 10px;
+
+    @media (min-width: 480px) {
+        padding: 12px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 16px;
+    }
+}
+
+.info-empty-card {
+    border: 1px dashed #e0e0e0;
+    background: #f9fafb;
+}
+
+// ============================================
+// Image Preview Modal Styles (CropperJS)
+// ============================================
+.image-preview-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 90vh;
+}
+
+.cropper-container {
+    width: 100%;
+    height: 60vh;
+    min-height: 300px;
+    max-height: 500px;
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.preview-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    opacity: 1;
+}
+
+.cropper-container .cropper-container {
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+.cropper-container img.cropper-image {
+    display: block !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+.cropper-container>img:not(.preview-image) {
+    display: none;
+}
+
+.cropper-container .cropper-view-box {
+    outline: 2px solid #39f !important;
+    outline-color: rgba(51, 153, 255, 0.75) !important;
+    display: block !important;
+}
+
+.cropper-container .cropper-point {
+    background-color: #39f !important;
+    width: 5px !important;
+    height: 5px !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.cropper-container .cropper-line {
+    background-color: rgba(51, 153, 255, 0.1) !important;
+    display: block !important;
+}
+
+.cropper-container .cropper-face {
+    background-color: rgba(51, 153, 255, 0.1) !important;
+    display: block !important;
+}
+
+.cropper-container .cropper-crop-box {
+    display: block !important;
+    cursor: move !important;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    padding: 10px 0;
+
+    .action-btn {
+        flex: 1 1 auto;
+        --border-radius: 8px;
+        font-weight: 600;
+        white-space: normal;
+        word-wrap: break-word;
+        min-width: 140px;
+        --padding-start: 12px;
+        --padding-end: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        height: auto;
+        min-height: 48px;
+    }
+
+    ::ng-deep .action-btn {
+        .button-native {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            line-height: 1.4 !important;
+        }
+
+        .button-inner {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+    }
+}
+
+.cropper-container .cropper-view-box,
+.cropper-container .cropper-face {
+    border-radius: 0;
+}
+
+/* Work log cards - light green variant (lighter than parent Work Log card) */
+.worklog-card {
+    border-radius: 14px;
+    margin: 12px 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f3fff6 0%, #eafff1 100%);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.22);
+}
+
+.worklog-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff;
+}
+
+.worklog-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.worklog-card-title ion-icon {
+    font-size: 20px;
+}
+
+.worklog-card-title span {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.worklog-card-badge {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.worklog-card-body {
+    padding: 12px 14px 14px;
+}
+
+.worklog-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 2px;
+}
+
+.worklog-value {
+    display: block;
+    font-size: 14px;
+    color: #34495e;
+}
+
+.worklog-image {
+    max-width: 100%;
+    max-height: 160px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.25);
+}
+
+.totals-container-for-other {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.total-card.worklog-date-card {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+.total-card.worklog-date-card:hover {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    transform: translateY(-1px);
+}
+
+.worklog-content {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.worklog-icon {
+    font-size: 20px;
+    color: #0d6efd;
+}
+
+.worklog-label-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.worklog-label-date {
+    font-weight: 500;
+    font-size: 15px;
+    color: #334155;
+}
+
+.input-card {
+    background: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.action-card {
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.instruction-label {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.button-green {
+    --background: #16a34a;
+    --background-hover: #15803d;
+}
+
+.button-red {
+    --background: #dc2626;
+    --background-hover: #b91c1c;
+}
+
+.camera-btn {
+    --background: #2563eb;
+}
+
+.photo-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 8px 2px;
+    scroll-behavior: smooth;
+}
+
+.photo-box {
+    position: relative;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-photo {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.remove-photo:hover {
+    transform: scale(1.2);
+}
+
+.custom-back-button {
+    color: black;
+}
+
+.date-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radio-options-horizontal {
+    display: flex;
+    flex-direction: row;
+    /* 🔹 side-by-side */
+    align-items: center;
+    gap: 20px;
+    /* space between options */
+}
+
+.radio-options-horizontal ion-item {
+    --background: transparent;
+    --inner-padding-end: 0;
+    --padding-start: 0;
+    --min-height: 32px;
+}
+
+.radio-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    /* 🔹 space between हाँ and नहीं options */
+}
+
+.radio-row ion-item {
+    --background: transparent;
+    --inner-padding-end: 0;
+    --padding-start: 0;
+    --min-height: 32px;
+}
+
+.radio-fullwidth-group {
+    width: 100%;
+
+    ion-row {
+        width: 100%;
+    }
+
+    ion-col {
+        display: flex;
+        justify-content: center;
+        /* center content horizontally */
+    }
+
+    .radio-item {
+        --background: #f7f7f7;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+        padding: 8px 12px;
+        width: 100%;
+        /* each item fills its column */
+        justify-content: center;
+        text-align: center;
+        transition: 0.2s all ease;
+    }
+
+    .radio-item:hover {
+        background: #e6f4ea;
+    }
+
+    ion-label {
+        font-weight: 500;
+        margin-left: 8px;
+    }
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+
+    .photo-container {
+        position: relative;
+        margin-right: 10px;
+
+        .scroll-image {
+            height: 100px;
+            border-radius: 8px;
+        }
+
+        .remove-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 20px;
+            color: red;
+            background: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    }
+}
+
+.rajinama-section {
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.rajinama-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.total-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #333;
+}
+
+.camera-btn {
+    --background: #3880ff;
+    --color: #fff;
+    border-radius: 50%;
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.photo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.scroll-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.remove-icon {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 20px;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+}
+
+.totals-container-ioninput {
+    margin-top: 12px;
+    padding: 8px;
+
+    .total-card {
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .total-title {
+            flex: 1;
+            font-weight: 600;
+            color: #222;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .total-value {
+            flex: 1;
+            max-width: 200px;
+
+            /* ion-input override */
+            --padding-start: 10px;
+            --padding-end: 10px;
+            --min-height: 38px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e88e5;
+        }
+    }
+
+    /* Desktop / Large screen */
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            padding: 14px 18px;
+
+            .total-title {
+                font-size: 15px;
+            }
+
+            .total-value {
+                max-width: 240px;
+                font-size: 15px;
+            }
+        }
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 576px) {
+        .total-card {
+            flex-direction: column;
+            align-items: stretch;
+
+            .total-value {
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+
+.accused-person-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8f5e9;
+
+    ion-label {
+        font-weight: 600;
+        color: #2E7D32;
+        font-size: 15px;
+
+        @media (min-width: 768px) {
+            font-size: 17px;
+        }
+    }
+}
+
+.disabled-section {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+// Make ion-text-extra-small labels black
+ion-label.ion-text-extra-small {
+    color: #000000 !important;
+}

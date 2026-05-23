@@ -1,0 +1,69 @@
+<div class="dialog-wrapper">
+
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="dialog-card">
+    <div class="modal-header">
+      <div class="modal-title">जाँच अधिकारी नियुक्ति</div>
+      <div class="modal-subtitle">कृपया विवरण भरें और सबमिट करें</div>
+    </div>
+
+    <div class="modal-body">
+      <ion-row class="form-grid">
+        <ion-col size="12">
+
+          <div class="field-label">जाँचकर्ता अधिकारी</div>
+          <div class="select-with-icon">
+            <ng-select class="nice-ng-select" [clearable]="false" placeholder="कृपया जाँचकर्ता अधिकारी चुने"
+              [(ngModel)]="selectedRAId" [items]="listOfRA" bindLabel="empName" bindValue="emp_id" [searchable]="true"
+              style="width: 100%;">
+            </ng-select>
+            <ion-icon name="chevron-down-outline" class="select-arrow-icon"></ion-icon>
+          </div>
+
+        </ion-col>
+
+        <ion-col size="12">
+          <div class="field-label">टिप्पणी / निर्देश</div>
+          <ion-textarea [(ngModel)]="ro_remark" fill="outline" label="जाँचकर्ता अधिकारी के लिए टिप्पणी / निर्देश "
+            label-placement="floating" auto-grow="true" rows="5" class="remark-textarea"></ion-textarea>
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="field-label">FOCR क्रमाँक</div>
+          <ion-input class="ion-input" [(ngModel)]="focr_number" fill="outline" />
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="field-label">FOCR दिनांक</div>
+          <div class="date-picker-card" (click)="onSelecteFocrDate()">
+            <ion-label class="date-label">
+              {{ focr_date ? (focr_date | date:'dd-MM-yyyy') : 'दिनांक के लिए यहाँ क्लिक करें' }}
+            </ion-label>
+            <ion-icon class="date-icon" name="calendar-outline"></ion-icon>
+          </div>
+        </ion-col>
+
+        <ion-col size="12" *ngIf="showAssignedLimit">
+          <div class="field-label">जांच अवधी दिनों में (1-30)</div>
+          <ion-input class="ion-input" type="number" inputmode="numeric" min="1" max="30"
+            [(ngModel)]="assignedLimit" fill="outline" />
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between button-row">
+        <ion-col size="6">
+          <ion-button expand="block" class="primary-btn" shape="round" (click)="clickToAssignRA()">
+            सबमिट
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" class="secondary-btn" shape="round" (click)="cancel()">
+            निरस्त
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</div>

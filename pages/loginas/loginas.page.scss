@@ -1,0 +1,14 @@
+.target-box {
+  border: 1px solid #d7d7d7;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fafafa;
+  margin-bottom: 12px;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+

@@ -1,0 +1,22 @@
+<div class="dialog-wrapper">
+  <div class="dialog-content">
+    <ion-text class="responsive-label text-content">
+      {{ server_message }}
+    </ion-text>
+  </div>
+
+  <div class="dialog-actions">
+    <ion-button *ngIf="!getIsYesNO()" class="modern-btn" shape="round" color="primary" (click)="yesClick()">
+      {{ yesOrOk }}
+    </ion-button>
+
+    <ng-container *ngIf="getIsYesNO()">
+      <ion-button class="modern-btn" shape="round" color="success" (click)="yesClick()">
+        {{ yesOrOk }}
+      </ion-button>
+      <ion-button class="modern-btn" shape="round" color="medium" fill="outline" (click)="noClick()">
+        नहीं
+      </ion-button>
+    </ng-container>
+  </div>
+</div>

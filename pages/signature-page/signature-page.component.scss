@@ -1,0 +1,26 @@
+ion-content {
+  --background: #fff;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  touch-action: none;
+  display: block;
+  background: #ffffff;
+  border: 2px dashed #aaa;
+}
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+}

@@ -1,0 +1,16 @@
+<ion-content fullscreen>
+
+  <ion-label class="top-name-label">
+    Name : <strong>{{personName}}</strong>
+  </ion-label>
+
+  <canvas #canvas (touchstart)="startDrawing($event)" (touchmove)="draw($event)" (touchend)="stopDrawing()"
+    (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="stopDrawing()"
+    (mouseleave)="stopDrawing()"></canvas>
+
+  <div class="controls">
+    <ion-button color="success" expand="block" (click)="saveSignature()">सबमिट</ion-button>
+    <ion-button color="medium" expand="block" (click)="clearCanvas()">साफ करें</ion-button>
+    <ion-button color="danger" expand="block" (click)="cancel()">रद्द करें</ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,2023 @@
+// ============================================
+// Forest Department Theme Variables
+// ============================================
+:host {
+  --primary-green: #2E7D32;
+  --primary-green-light: #43A047;
+  --primary-green-dark: #1B5E20;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --bg-light: #f8f9fa;
+  --bg-card: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  // Prevent label truncation globally
+  ion-input {
+    --label-max-width: 100% !important;
+  }
+}
+
+// ============================================
+// Toolbar Styles
+// ============================================
+.custom-toolbar {
+  --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --color: #ffffff;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+}
+
+.custom-back-button {
+  --color: #ffffff;
+  
+  ion-icon {
+    color: #ffffff;
+  }
+}
+
+.responsive-toolbar-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ion-header-toolbar {
+  margin-top: 20px;
+
+  @media (min-width: 768px) {
+    margin-top: 40px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+}
+
+// ============================================
+// Typography
+// ============================================
+.ion-text-large {
+  font-size: 1.2rem;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.ion-text-small {
+  font-size: 1rem;
+  
+  @media (min-width: 600px) {
+    font-size: 14px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+.ion-text-extra-small {
+  font-size: 12px;
+  
+  @media (min-width: 600px) {
+    font-size: 14px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+.ion-label-large {
+  font-size: 1.2rem;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+// ============================================
+// Themed Card Styles (Forest Department Theme)
+// ============================================
+.custom-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 16px;
+  padding: 0;
+  
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  ion-card-header {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    
+    @media (min-width: 480px) {
+      padding: 12px 14px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 14px 18px;
+    }
+  }
+
+  ion-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.2px;
+    
+    @media (min-width: 480px) {
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
+  }
+
+  .card-title {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    
+    @media (min-width: 480px) {
+      padding: 12px 14px;
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 14px 18px;
+      font-size: 18px;
+    }
+
+    .icon-text-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      
+      ion-icon {
+        font-size: 18px;
+        color: #ffffff;
+        
+        @media (min-width: 480px) {
+          font-size: 20px;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 24px;
+        }
+      }
+      
+      ion-text {
+        color: #ffffff;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 12px;
+    
+    @media (min-width: 480px) {
+      padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 18px;
+    }
+  }
+}
+
+// ============================================
+// Form Input Styles
+// ============================================
+ion-input, ion-textarea {
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --highlight-color-focused: #2E7D32;
+  --highlight-color: #2E7D32;
+  
+  // Prevent label text truncation
+  --label-max-width: 100% !important;
+  
+  ::ng-deep {
+    .label-text-wrapper,
+    label,
+    .label-text,
+    ion-label,
+    .native-input[readonly] + .label-text-wrapper,
+    .native-input + .label-text-wrapper {
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      word-wrap: break-word !important;
+      max-width: 100% !important;
+      display: block !important;
+      width: 100% !important;
+    }
+  }
+  
+  &.ion-valid {
+    --highlight-color: #2E7D32;
+    --highlight-color-focused: #2E7D32;
+  }
+  
+  &.ion-invalid {
+    --highlight-color: #d32f2f;
+    --highlight-color-focused: #d32f2f;
+  }
+}
+
+ion-input.ion-valid {
+  --highlight-color: #2E7D32;
+  --highlight-color-focused: #2E7D32;
+}
+
+ion-textarea.ion-valid {
+  display: block;
+  --highlight-color: #2E7D32;
+  --highlight-color-focused: #2E7D32;
+}
+
+// Fix ion-input text spacing for floating labels only - override Ionic default margins
+::ng-deep {
+  .input-fill-outline.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 18px !important;
+    margin-bottom: 6px !important;
+  }
+
+  // Apply input padding fix ONLY for "संख्या" fields (we add class="sankhya-input" in HTML)
+  ion-input.sankhya-input .native-input.sc-ion-input-md {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 18px !important;
+    padding-bottom: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+  }
+}
+
+// ============================================
+// Location Card Specific Styles
+// ============================================
+.responsive-img {
+  width: 60%;
+  max-width: 60px;
+  height: auto;
+  cursor: pointer;
+
+  @media (max-width: 600px) {
+    width: 60%;
+    max-width: 60px;
+  }
+
+  @media (min-width: 768px) {
+    width: 50px;
+    max-width: 50px;
+  }
+}
+
+.center-img-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// ============================================
+// Google Map Location section - black font & border for visibility
+// ============================================
+.location-ghatna-card {
+  border: 1px solid #000 !important;
+
+  ion-card-content {
+    color: #000;
+
+    ion-item ion-label,
+    ion-segment ion-label,
+    ion-text,
+    .ion-text-small,
+    .ion-text-extra-small {
+      color: #000 !important;
+    }
+
+    ion-segment {
+      --color: #000;
+      border: 1px solid #000;
+      border-radius: 8px;
+
+      ion-segment-button {
+        --color: #000;
+        --color-checked: #000;
+
+        &::part(native) {
+          color: #000;
+        }
+      }
+    }
+
+    ion-icon[name="refresh-circle-outline"] {
+      color: #000 !important;
+    }
+
+    ion-input {
+      --color: #000;
+      --placeholder-color: #333;
+    }
+  }
+}
+
+// Location coordinates styling - make them forest green
+ion-text[style*="color: blue"] {
+  color: #2E7D32 !important;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+// ============================================
+// Date Picker Card
+// ============================================
+.date-picker-card {
+  border-radius: 8px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  }
+
+  ion-icon {
+    color: #2E7D32;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .date-picker-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .date-picker-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .date-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    flex: 1;
+    
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+  
+  ion-label {
+    color: #666;
+    font-size: 13px;
+    
+    @media (min-width: 768px) {
+      font-size: 14px;
+    }
+  }
+}
+
+// ============================================
+// NG-Select Styling
+// ============================================
+::ng-deep .nice-ng-select .ng-select-container {
+  height: 45px;
+  min-height: 50px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: none;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s ease-in-out;
+  
+  @media (min-width: 600px) {
+    min-height: 50px;
+  }
+
+  @media (min-width: 1024px) {
+    min-height: 55px;
+  }
+  
+  &:hover {
+    border-color: #2E7D32;
+  }
+}
+
+::ng-deep .nice-ng-select.ng-select-focused .ng-select-container {
+  border-color: #2E7D32;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+}
+
+// Ion-style outline + floating label for ng-select (matches ion-input fill="outline")
+.outline-floating-ng-select-wrap {
+  position: relative;
+  width: 100%;
+  margin-top: 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: #2E7D32;
+  }
+
+  &:focus-within {
+    border-color: #2E7D32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+  }
+}
+
+.outline-floating-ng-select-label {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 2px 4px 1px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a1a1a;
+  background: #ffffff;
+  pointer-events: none;
+  line-height: 1.4;
+  max-width: calc(100% - 24px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outline-floating-ng-select-wrap:focus-within .outline-floating-ng-select-label {
+  color: #1a1a1a;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner.ng-select-focused .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .outline-floating-ng-select-wrap .outline-floating-ng-select-inner .ng-select-container:hover {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+  display: block !important;
+  padding: 10px 14px !important;
+  margin: 6px 8px !important;
+  background-color: #ffffff !important;
+  color: #000 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+  padding: 10px 14px !important;
+  margin: 4px 6px !important;
+  background-color: #ffffff !important;
+  color: #000 !important;
+  border-radius: 6px !important;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #e8f5e9 !important;
+  }
+  
+  &.ng-option-selected {
+    background-color: #c8e6c9 !important;
+    color: #1B5E20 !important;
+    font-weight: 600;
+  }
+}
+
+::ng-deep ng-select .ng-placeholder {
+  color: #999 !important;
+}
+
+// ============================================
+// Section Cards (Grouped Elements)
+// ============================================
+.section-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: visible; // Changed from hidden to visible to allow dropdowns
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 16px;
+  
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.section-header {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #ffffff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-top-left-radius: 10px; // Match parent card border-radius
+  border-top-right-radius: 10px; // Match parent card border-radius
+  
+  ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  
+  @media (min-width: 480px) {
+    padding: 12px 14px;
+    font-size: 15px;
+    gap: 10px;
+    border-top-left-radius: 12px; // Match parent card border-radius
+    border-top-right-radius: 12px; // Match parent card border-radius
+    
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 14px 18px;
+    font-size: 18px;
+    border-top-left-radius: 16px; // Match parent card border-radius
+    border-top-right-radius: 16px; // Match parent card border-radius
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.section-body {
+  padding: 12px;
+  overflow: visible; // Allow dropdowns to overflow the card
+  
+  @media (min-width: 480px) {
+    padding: 14px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+}
+
+// ============================================
+// Seized Goods Summary – Green Tabular Design (same as view-complain-detail2)
+// ============================================
+.seized-goods-section {
+  margin: 10px 0;
+  @media (min-width: 768px) {
+    margin: 16px 0;
+  }
+}
+
+.seized-main-header {
+  background: #2E7D32;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  ion-icon { font-size: 20px; }
+  @media (min-width: 768px) {
+    font-size: 17px;
+    padding: 14px 20px;
+    ion-icon { font-size: 24px; }
+  }
+}
+
+.seized-goods-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  @media (min-width: 768px) {
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  ::ng-deep .p-datatable {
+    margin: 0;
+    box-shadow: none;
+    .p-datatable-thead > tr > th {
+      background: #2E7D32;
+      color: white;
+      padding: 10px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      border-right: 1px solid rgba(255,255,255,0.2);
+      &:last-child { border-right: none; }
+      @media (min-width: 768px) { font-size: 13px; padding: 12px 10px; }
+      ion-label { color: white; }
+    }
+    .p-datatable-tbody > tr {
+      border-bottom: 2px solid #2E7D32;
+      &:last-child { border-bottom: none; }
+      &:nth-child(odd) { background: #ffffff; }
+      &:nth-child(even) { background: #f8fdf8; }
+      &:hover { background: #e8f5e9; }
+      > td {
+        padding: 10px 8px;
+        font-size: 13px;
+        color: #000;
+        border: none;
+        border-right: 1px solid #e0e0e0;
+        font-weight: 500;
+        &:first-child { font-weight: 600; color: #1B5E20; }
+        &:last-child { border-right: none; }
+        @media (min-width: 768px) { padding: 12px 10px; font-size: 14px; }
+        ion-label { color: #000; }
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    ::ng-deep .p-datatable {
+      .p-datatable-tbody > tr {
+        border-bottom: 3px solid #2E7D32;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        &:last-child { border-bottom: 3px solid #2E7D32; margin-bottom: 0; }
+      }
+      .p-datatable-tbody > tr > td {
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 8px 12px;
+        &:last-child { border-bottom: none; }
+        .p-column-title { font-weight: 600; color: #2E7D32; margin-right: 8px; }
+      }
+    }
+  }
+}
+
+.seized-card-header {
+  background: #2E7D32;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 0.5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  @media (min-width: 768px) {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+}
+
+.seized-card-body {
+  padding: 0;
+}
+
+.seized-summary-box {
+  background: #f5f5f5;
+  border-top: 2px solid #2E7D32;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  @media (min-width: 768px) {
+    padding: 12px 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: 768px) { flex: 1; min-width: 200px; }
+}
+
+.summary-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  @media (min-width: 768px) { font-size: 14px; }
+}
+
+.summary-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2E7D32;
+  @media (min-width: 768px) { font-size: 15px; }
+}
+
+// For green table cells (stack + center label)
+.seized-goods-section .center-label {
+  display: block;
+  text-align: center;
+}
+.seized-goods-section .ion-label-small {
+  font-size: 12px;
+  color: #2E7D32;
+}
+@media screen and (max-width: 768px) {
+  .seized-goods-section .p-column-title {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+    color: #2E7D32;
+  }
+}
+@media screen and (min-width: 769px) {
+  .seized-goods-section .p-column-title { display: none; }
+}
+
+// ============================================
+// Accused Person Card Styles
+// ============================================
+.accused-person-card {
+  background: #ffffff;
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+  }
+  
+  @media (min-width: 768px) {
+    padding: 18px;
+    border-radius: 12px;
+  }
+}
+
+.accused-person-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8f5e9;
+  
+  ion-label {
+    font-weight: 600;
+    color: #2E7D32;
+    font-size: 15px;
+    
+    @media (min-width: 768px) {
+      font-size: 17px;
+    }
+  }
+}
+
+.accused-radio-group {
+  display: block;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+  
+  ion-radio {
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    
+    &::part(container) {
+      border-color: #2E7D32;
+    }
+    
+    &::part(mark) {
+      background: #2E7D32;
+    }
+  }
+  
+  ion-label {
+    color: #333;
+    font-weight: 500;
+  }
+}
+
+// ============================================
+// Crime Information Section
+// ============================================
+.crime-info-section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  
+  @media (min-width: 768px) {
+    padding: 20px;
+    border-radius: 12px;
+  }
+}
+
+// ============================================
+// Compartment & Dhara Selection Styles
+// ============================================
+.custom-dropdown-trigger,
+.dhara-dropdown-trigger {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  background-color: #ffffff !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #2E7D32 !important;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  }
+  
+  span {
+    color: #333;
+    font-size: 14px;
+  }
+  
+  ion-icon {
+    color: #666;
+    font-size: 20px;
+  }
+}
+
+.custom-dropdown-content,
+.dhara-dropdown-content {
+  background: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dhara-item-row {
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #e8f5e9 !important;
+  }
+  
+  &.selected {
+    background-color: #c8e6c9 !important;
+    
+    &:hover {
+      background-color: #a5d6a7 !important;
+    }
+  }
+}
+
+// Selected compartments/dharas chips
+ion-chip {
+  --background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  --color: #1B5E20;
+  border: 1px solid #81c784;
+  font-weight: 500;
+  
+  ion-label {
+    color: #1B5E20;
+  }
+}
+
+// ============================================
+// Button Styles
+// ============================================
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.submit-button {
+  --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  --background-activated: #1B5E20;
+  --background-focused: #1B5E20;
+  --color: #fff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+
+  ion-icon {
+    margin-right: 0.5rem;
+  }
+  
+  &:hover {
+    --box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+  }
+}
+
+.cancel-button {
+  --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  --background-activated: #c82333;
+  --background-focused: #c82333;
+  --color: #fff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+  height: 48px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+
+  ion-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+// Add button styling
+ion-button[fill="clear"] {
+  ion-icon[name="add-circle-outline"] {
+    color: #2E7D32;
+    font-size: 24px;
+  }
+}
+
+// ============================================
+// Photo/Image Styles
+// ============================================
+.photo-scroll-container {
+  display: flex;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding: 10px;
+
+  .photo-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+    border: 2px solid #e0e0e0;
+    
+    &:hover {
+      border-color: #2E7D32;
+    }
+  }
+}
+
+.horizontal-scroll-wrapper {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+
+  .photo-container {
+    position: relative;
+    margin-right: 10px;
+
+    .scroll-image {
+      height: 100px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      
+      &:hover {
+        border-color: #2E7D32;
+      }
+    }
+
+    .remove-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      font-size: 20px;
+      color: red;
+      background: white;
+      border-radius: 50%;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.scroll-image {
+  height: 100px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+
+// ============================================
+// Label Styles
+// ============================================
+.instruction-label {
+  margin: 10px 0 5px 10px;
+  font-weight: 600;
+  display: block;
+  color: #2E7D32;
+  font-size: 14px;
+  
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+.note-label {
+  margin: 10px 0 5px 10px;
+  color: #d32f2f;
+  font-size: 10px;
+  display: block;
+  margin-top: 2px;
+  
+  @media (min-width: 600px) {
+    font-size: 12px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+// ============================================
+// Content Layout
+// ============================================
+.custom-content {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+
+  @media (min-width: 768px) {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+
+ion-content {
+  --keyboard-offset: 250px;
+  --background: #f8f9fa;
+}
+
+// ============================================
+// Kastha Card Styles
+// ============================================
+.kastha-card {
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  border-radius: 10px;
+  padding: 12px 10px;
+  margin: 8px 0;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+    border-color: #2E7D32;
+  }
+
+  .kastha-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2E7D32;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8f5e9;
+  }
+
+  .add-btn {
+    --padding-start: 0;
+    --padding-end: 0;
+
+    ion-icon {
+      font-size: 24px;
+      color: #2E7D32;
+    }
+  }
+
+  .kastha-row {
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+  }
+
+  ion-input,
+  ng-select {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+.kastha-card ion-grid,
+.kastha-card ion-col,
+.kastha-card ion-row {
+  overflow: hidden !important;
+}
+
+.kastha-card ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  width: 100%;
+}
+
+// ============================================
+// Signature Preview
+// ============================================
+.signature-preview {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-top: 4px;
+
+  ion-img {
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+    background: #fff;
+    border: 2px solid #2E7D32;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  @media (max-width: 600px) {
+    ion-img {
+      width: 120px;
+      height: 70px;
+    }
+  }
+}
+
+// ============================================
+// Utility Classes
+// ============================================
+.label-icon-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  }
+
+  ion-icon {
+    font-size: 25px;
+    color: #2E7D32;
+  }
+
+  .date-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+}
+
+.clipboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.clipboard-item {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #81c784;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #1B5E20;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 14px;
+  color: #d32f2f;
+  
+  &:hover {
+    color: #b71c1c;
+  }
+}
+
+// ============================================
+// Spin Animation
+// ============================================
+.spin-animation {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================
+// Outlined Box
+// ============================================
+.outlined-box {
+  border: 2px solid rgba(46, 125, 50, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  
+  &:hover {
+    border-color: #2E7D32;
+  }
+}
+
+.outlined-box ion-input {
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.round-input {
+  --border-radius: 25px;
+  --background: #f0f0f0;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --min-height: 40px;
+}
+
+// ============================================
+// Custom NG-Select Variants
+// ============================================
+::ng-deep .custom-ng-select .ng-dropdown-panel .ng-option {
+  background-color: #fafafa;
+  
+  &:nth-child(odd) {
+    background-color: #eef7ff;
+  }
+  
+  &:hover {
+    background-color: #e8f5e9 !important;
+  }
+}
+
+.ionic-ng-select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #dcdcdc;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  color: #333;
+
+  ::ng-deep .ng-select-container {
+    min-height: 45px;
+    border-radius: 12px;
+    padding: 0.2rem 0.5rem;
+    border-color: #e0e0e0;
+    
+    &:hover {
+      border-color: #2E7D32;
+    }
+  }
+
+  ::ng-deep .ng-select-container .ng-value {
+    color: #000;
+  }
+
+  ::ng-deep .ng-select-dropdown {
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  ::ng-deep .ng-select-container .ng-placeholder {
+    color: #888;
+  }
+}
+
+// ============================================
+// Image Preview Modal Styles
+// ============================================
+.image-preview-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 90vh;
+}
+
+.cropper-container {
+  width: 100%;
+  height: 60vh;
+  min-height: 300px;
+  max-height: 500px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  position: relative;
+  display: block;
+  // Center the cropper content
+  text-align: center;
+}
+
+.preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  // Remove width: 100% - let cropperjs handle sizing
+  width: auto;
+  height: auto;
+  // Center the image
+  margin: 0 auto;
+  opacity: 1;
+}
+
+// Ensure cropperjs's internal structure is centered
+.cropper-container .cropper-container {
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+// Don't add margin: 0 auto to cropper internal elements - it breaks cropperjs positioning
+// Cropperjs handles its own layout internally
+
+// Ensure cropper's image is properly displayed
+.cropper-container img.cropper-image {
+  display: block !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  // Don't add margin: 0 auto - let cropperjs handle positioning
+}
+
+// Hide cropperjs's internal duplicate image if any
+.cropper-container > img:not(.preview-image) {
+  display: none;
+}
+
+// Ensure cropper controls are visible
+.cropper-container .cropper-view-box {
+  outline: 2px solid #39f !important;
+  outline-color: rgba(51, 153, 255, 0.75) !important;
+  display: block !important;
+}
+
+// Ensure cropper handles/points are visible
+.cropper-container .cropper-point {
+  background-color: #39f !important;
+  width: 5px !important;
+  height: 5px !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+// Ensure cropper lines are visible
+.cropper-container .cropper-line {
+  background-color: rgba(51, 153, 255, 0.1) !important;
+  display: block !important;
+}
+
+// Ensure cropper face is visible
+.cropper-container .cropper-face {
+  background-color: rgba(51, 153, 255, 0.1) !important;
+  display: block !important;
+}
+
+// Ensure cropper crop box is visible and interactive
+.cropper-container .cropper-crop-box {
+  display: block !important;
+  cursor: move !important;
+}
+
+.image-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  .control-btn {
+    --border-radius: 8px;
+    --background: #2E7D32;
+    --color: #ffffff;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+  padding: 10px 0;
+  
+  .action-btn {
+    flex: 1 1 auto;
+    --border-radius: 8px;
+    font-weight: 600;
+    white-space: normal;
+    word-wrap: break-word;
+    min-width: 140px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    height: auto;
+    min-height: 48px;
+  }
+  
+  // Global style to ensure button text displays fully
+  ::ng-deep .action-btn {
+    .button-native {
+      white-space: normal !important;
+      word-wrap: break-word !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      line-height: 1.4 !important;
+    }
+    
+    .button-inner {
+      white-space: normal !important;
+      word-wrap: break-word !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+    }
+  }
+}
+
+.cropper-container .cropper-view-box,
+.cropper-container .cropper-face {
+  border-radius: 0;
+}
+
+// ============================================
+// Dhara Info Modal Styles
+// ============================================
+.dhara-info-modal {
+  --width: 100%;
+  --max-width: 100%;
+  --height: 100%;
+  --min-height: 100%;
+  --max-height: 100%;
+  --border-radius: 0;
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  .modal-wrapper {
+    min-height: 100%;
+  }
+
+  ion-header {
+    ion-toolbar {
+      --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+      --color: #ffffff;
+      --border-color: rgba(255, 255, 255, 0.2);
+      --border-width: 0 0 1px 0;
+    }
+  }
+
+  ion-content {
+    --background: #ffffff;
+  }
+}
+
+// ============================================
+// POR Submitter Info Card Style
+// ============================================
+.por-submitter-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+  margin-bottom: 16px;
+  
+  @media (min-width: 480px) {
+    border-radius: 12px;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.por-submitter-header {
+  background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+  color: #ffffff;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  
+  ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  
+  @media (min-width: 480px) {
+    padding: 12px 14px;
+    font-size: 15px;
+    gap: 10px;
+    
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 14px 18px;
+    font-size: 18px;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.por-submitter-body {
+  padding: 12px;
+  
+  @media (min-width: 480px) {
+    padding: 14px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+  
+  // Prevent label truncation in POR submitter section
+  ion-input {
+    --label-max-width: 100% !important;
+    --label-font-size: 14px !important;
+    
+    ::ng-deep {
+      .label-text-wrapper,
+      label,
+      .label-text,
+      ion-label,
+      .native-input[readonly] + .label-text-wrapper,
+      .native-input + .label-text-wrapper {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-wrap: break-word !important;
+        max-width: 100% !important;
+        display: block !important;
+        width: 100% !important;
+        font-size: 14px !important;
+      }
+    }
+  }
+}
+
+// Global style to prevent label truncation - add at the end of file
+::ng-deep {
+  ion-input[label="POR जारीकर्ता का नाम"],
+  ion-input[label*="POR जारीकर्ता"] {
+    --label-max-width: 100% !important;
+    
+    .label-text-wrapper,
+    label,
+    .label-text,
+    ion-label {
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      word-wrap: break-word !important;
+      max-width: 100% !important;
+      display: block !important;
+      width: 100% !important;
+    }
+  }
+}
+
+// sandeepdonedone start - Witness Table Responsive Styles
+.witness-table-desktop {
+  display: block;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.witness-table-mobile {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+// साक्षियों का विवरण - Green theme (matches view-complain-detail2)
+.witness-section-label {
+  font-weight: 700;
+  margin-top: 15px;
+  display: block;
+  margin-bottom: 10px;
+  color: var(--primary-green, #2E7D32);
+}
+
+.witness-table-wrapper.witness-table-green {
+  overflow-x: auto;
+  margin-top: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.12);
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+.witness-table-green .witness-grid {
+  padding: 0;
+  min-width: 700px;
+}
+
+.witness-table-header {
+  background: #2E7D32;
+  font-weight: 600;
+  border: none;
+  margin: 0;
+  min-height: 0;
+
+  .witness-th {
+    background: #2E7D32;
+    color: #fff;
+    padding: 10px 8px;
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 13px;
+      padding: 12px 10px;
+    }
+  }
+
+  .witness-th-center {
+    text-align: center;
+  }
+
+  .witness-label {
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+
+    @media (min-width: 768px) {
+      font-size: 12px;
+    }
+  }
+}
+
+.witness-table-row {
+  border-bottom: 2px solid #2E7D32;
+  margin: 0;
+  min-height: 0;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:nth-child(odd) {
+    background: #ffffff;
+  }
+
+  &:nth-child(even) {
+    background: #f8fdf8;
+  }
+
+  &:hover {
+    background: #e8f5e9;
+  }
+}
+
+.witness-table-row .witness-td {
+  padding: 10px 8px;
+  border: none;
+  border-right: 1px solid #e0e0e0;
+  font-size: 12px;
+  background: transparent;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  @media (min-width: 768px) {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+}
+
+.witness-td-index {
+  font-weight: 600;
+  color: #1B5E20;
+
+  .witness-label {
+    color: #1B5E20;
+    font-weight: 600;
+  }
+}
+
+.witness-td-center {
+  text-align: center;
+}
+
+.witness-td-signature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.witness-label {
+  font-size: 11px;
+  color: #1a1a1a;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.witness-label-wrap {
+  word-break: break-word;
+}
+
+.witness-label-muted {
+  color: #999;
+}
+
+.witness-signature-img {
+  max-width: 50px;
+  max-height: 35px;
+  cursor: pointer;
+  object-fit: contain;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: #2E7D32;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+  }
+
+  @media (min-width: 768px) {
+    max-width: 60px;
+    max-height: 45px;
+  }
+}
+
+.witness-table-green-mobile {
+  margin-top: 10px;
+}
+
+.witness-mobile-card {
+  border: 1px solid #a5d6a7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #f8fdf8;
+  box-shadow: 0 1px 4px rgba(46, 125, 50, 0.08);
+}
+
+.witness-mobile-card-header {
+  margin-bottom: 8px;
+}
+
+.witness-mobile-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #2E7D32;
+}
+
+.witness-mobile-field {
+  margin-bottom: 6px;
+
+  &.witness-mobile-signature {
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+}
+
+.witness-mobile-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2E7D32;
+  display: block;
+}
+
+.witness-mobile-value {
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+  color: #1a1a1a;
+  word-break: break-word;
+}
+
+.witness-mobile-sig-wrap {
+  margin-top: 4px;
+}
+
+.witness-mobile-sig-img {
+  max-width: 80px;
+  max-height: 50px;
+  cursor: pointer;
+  object-fit: contain;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  padding: 4px;
+  background: #fff;
+
+  &:hover {
+    border-color: #2E7D32;
+  }
+}
+// sandeepdonedone end - Witness Table Responsive Styles
+
+// ============================================
+// Stepper Styles
+// ============================================
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.15);
+}
+
+.stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  min-width: 80px;
+  
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .step-label {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    
+    @media (min-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  
+  &.active {
+    .step-circle {
+      background: var(--primary-green, #2E7D32);
+      color: white;
+      box-shadow: 0 3px 8px rgba(46, 125, 50, 0.4);
+    }
+    .step-label {
+      color: var(--primary-green, #2E7D32);
+      font-weight: 700;
+    }
+  }
+}
+
+.stepper-line {
+  flex: 1;
+  height: 3px;
+  background: #f0f0f0;
+  margin: 0 4px;
+  margin-top: -24px;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+  
+  &.active {
+    background: var(--primary-green, #2E7D32);
+  }
+}

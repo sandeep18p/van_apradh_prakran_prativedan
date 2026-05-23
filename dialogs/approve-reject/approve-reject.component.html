@@ -1,0 +1,23 @@
+<div class="dialog-wrapper">
+  <ion-grid class="dialog-card">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-textarea [(ngModel)]="approveRejectRemark" fill="outline" [label]="remarkLabel" label-placement="floating"
+          auto-grow="true" rows="5" class="remark-textarea"></ion-textarea>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-between ion-margin-top button-row">
+      <ion-col size="6">
+        <ion-button expand="block" color="success" shape="round" (click)="submitData()">
+          {{accept_reject_text}}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="danger" shape="round" (click)="cancel()">
+          समाप्त
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

@@ -1,0 +1,12 @@
+<ion-grid class="image-modal-wrapper">
+  <ion-row class="close-row">
+    <ion-col class="close-col">
+      <img src="assets/img/ic_cancel.png" alt="Close" class="close-img" (click)="dismiss()" />
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <div class="image-preview-container">
+      <img [src]="showImage(imageUrl) || 'assets/img/cg_image.png'" class="full-image" />
+    </div>
+  </ion-row>
+</ion-grid>

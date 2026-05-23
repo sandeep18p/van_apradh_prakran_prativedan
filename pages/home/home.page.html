@@ -1,0 +1,232 @@
+<ion-header class="modern-header">
+    <ion-toolbar>
+        <ion-buttons slot="start" *ngIf="isLoggedIn">
+            <ion-button (click)="goToDashboard()" class="header-back-btn">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+        </ion-title>
+        <ion-buttons slot="end">
+
+            <button *ngIf="isWeb" class="modern-header-btn download-header-btn" (click)="downloadApp()">
+                <ion-icon name="download-outline"></ion-icon>
+                <span>Download Mobile App </span>
+            </button>
+
+            <button *ngIf="!isLoggedIn" class="modern-header-btn gradient-login-btn" (click)="goToLogin()">
+                <ion-icon name="log-in-outline"></ion-icon>
+                <span>Login</span>
+            </button>
+
+            <button *ngIf="isLoggedIn" class="modern-header-btn dashboard-hbtn" (click)="goToDashboard()">
+                <ion-icon name="grid-outline"></ion-icon>
+                <span>Dashboard</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-content" [fullscreen]="true">
+
+    <!-- ===== Manual 6.13 (Modal) ===== -->
+    <ion-modal [isOpen]="showManual613Modal" cssClass="manual613-modal" (didDismiss)="closeManual613Modal()">
+        <ng-template>
+            <ion-header class="modern-header">
+                <ion-toolbar>
+                    <ion-title>वन अपराध प्रकरणों में प्रशमन की समय-सीमा</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="closeManual613Modal()">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="manual613-content" [fullscreen]="true">
+                <div class="manual-page">
+
+                    <div class="title-box">
+                        <h1>(वन अपराध प्रकरणों में कार्यवाही की समय-सीमा)</h1>
+                    </div>
+
+                    <!-- <div class="subtitle-box">
+                        <h2>(वन अपराध प्रकरणों में कार्यवाही की समय-सीमा)</h2>
+                    </div> -->
+
+                    <p class="intro">
+                        वनों की सुरक्षा विभाग का प्राथमिक दायित्व है। वन अपराधियों के विरुद्ध सामयिक कड़ी कार्यवाही वन
+                        अपराधों के नियंत्रण में अत्यंत प्रभावी होती है।
+                        वन अपराध प्रकरणों में विलंब से कार्यवाही करने पर अपराधियों का मनोबल बढ़ता है। अतः इन प्रकरणों
+                        में समयबद्ध सामयिक कार्यवाही विभाग की प्राथमिकता है।
+                        वन अपराध घटित होने पर प्रकरण की जांच, प्रशमन एवं कोर्ट में चालान प्रस्तुत करने की कार्यवाही
+                        निम्नानुसार समय-सीमा में की जायेगी:–
+                    </p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>क्र.</th>
+                                <th>कार्यवाही</th>
+                                <th>अधिकतम समय-सीमा</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>वन अपराध प्रकरण की जांच कार्यवाही पूर्ण कर परिक्षेत्र कार्यालय में प्रस्तुत करना।
+                                </td>
+                                <td>01 माह (विशेष प्रकरण में परिक्षेत्र अधिकारी की अनुमति से 02 माह तक)</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>परिक्षेत्र कार्यालय से प्रकरण को प्रशमन का निर्णय लेने की स्थिति में प्रकरण उप
+                                    वनमंडलाधिकारी / वनमंडलाधिकारी को प्रेषित करना।</td>
+                                <td>15 दिवस</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>प्राधिकृत अधिकारी द्वारा प्रकरण का प्रशमन अथवा प्रकरण का कोर्ट चालान करने संबंधी
+                                    निर्णय</td>
+                                <td>15 दिवस</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>प्रशमन के निर्णय की सूचना एवं अभियुक्त से प्रकरण में मुआवजा महसूल की वसूली</td>
+                                <td>01 माह</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>प्रशमन एवं वसूली की पूर्ण कार्यवाही</td>
+                                <td>पी.ओ.आर. (P.O.R.) की तिथि से अधिकतम 4 माह के अंदर</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>न्यायालय में प्रस्तुत किये जाने वाले प्रकरणों में चालान प्रस्तुत करना।</td>
+                                <td>पी.ओ.आर. (P.O.R.) की तिथि से अधिकतम 4 माह के अंदर</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>धारा 63 में विनिर्दिष्ट अपराध का कोर्ट चालान करना</td>
+                                <td>पी.ओ.आर. (P.O.R.) की तिथि से 2 माह के अंदर</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="notes-box">
+                        <div class="notes-title">टीप (Notes):</div>
+                        <p>1. उपरोक्त निर्धारित समय-सीमा का बिना किसी विशेष कारण के पालन नहीं करना, कर्तव्य के प्रति
+                            लापरवाही मानी जावेगी।</p>
+                        <p>2. यदि अभियुक्त द्वारा राजीनामा देने के उपरांत, प्राधिकृत अधिकारी द्वारा निर्धारित मुआवजा एवं
+                            महसूल की राशि एक माह के अंदर जमा नहीं कराई जाती है तो वन अपराध प्रकरण में कोर्ट चालान किया
+                            जायेगा।</p>
+                    </div>
+
+                </div>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+
+    <!-- ===== PDF Viewer ===== -->
+    <div *ngIf="showPdfViewer" class="pdf-container">
+
+        <button class="close-btn" (click)="showPdfViewer=false">
+            ✖ Close
+        </button>
+
+        <iframe [src]="pdfUrl" width="100%" height="100%" frameborder="0">
+        </iframe>
+
+    </div>
+
+    <!-- ===== PDF Viewer ===== -->
+    <!-- <div *ngIf="showPdfViewer" style="height:100vh; position: relative;">
+        <button (click)="showPdfViewer=false" style="position:absolute; top:10px; right:10px; z-index:10;">
+            Close
+        </button>
+        <iframe [src]="pdfUrl" width="100%" height="100%" style="border:none;">
+        </iframe>
+    </div> -->
+
+
+    <div *ngIf="!showPdfViewer">
+        <!-- ===== HERO SECTION ===== -->
+        <div class="hero-wrapper">
+            <div class="hero-bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+
+            <div class="hero-content hero-content--with-logo">
+                <div class="hero-logo" aria-hidden="true">
+                    <img src="assets/img/cg_image.png" alt="छत्तीसगढ़ शासन">
+                </div>
+
+                <div class="hero-text">
+                    <h1 class="hero-heading">वन एवं जलवायु परिवर्तन विभाग</h1>
+                    <!-- <h2 class="hero-subheading">POR (Preliminary Offence Report)</h2> -->
+                    <h3 class="hero-subheading">
+                        प्राथमिक अपराध सूचना
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== DATA SECTION ===== -->
+        <div class="data-section">
+
+            <!-- Acts & Rules Card (Now same size/color) -->
+            <div class="modern-card clickable-card" (click)="openActsActionSheet()" tappable role="button">
+                <div class="card-header-row"
+                    style="flex-direction: column; text-align: center; gap: 8px; padding: 20px 12px; height: 100%; justify-content: center;">
+                    <div class="card-icon-wrap docs-icon" style="margin: 0 auto;">
+                        <ion-icon name="document-text-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 class="card-title"
+                            style="font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; padding-top: 3px;">
+                            अधिनियम एवं नियम</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compounding Process (Image) -->
+            <div class="modern-card clickable-card" (click)="openCompoundingProcessImage()" tappable role="button">
+                <div class="card-header-row"
+                    style="flex-direction: column; text-align: center; gap: 8px; padding: 20px 12px; height: 100%; justify-content: center;">
+                    <div class="card-icon-wrap docs-icon" style="margin: 0 auto;">
+                        <ion-icon name="leaf-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 class="card-title"
+                            style="font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; padding-top: 3px;">
+                            वन अपराध प्रकरणों में प्रशमन की समय-सीमा
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Individual Reference Docs Cards -->
+            <div class="modern-card clickable-card" *ngFor="let doc of referenceDocs" (click)="onDocClick(doc)" tappable
+                role="button">
+                <div class="card-header-row"
+                    style="flex-direction: column; text-align: center; gap: 8px; padding: 20px 12px; height: 100%; justify-content: center;">
+                    <div class="card-icon-wrap docs-icon" style="margin: 0 auto;">
+                        <ion-icon [name]="doc.icon"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 class="card-title"
+                            style="font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; padding-top: 3px;">
+                            {{doc.name}}</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</ion-content>

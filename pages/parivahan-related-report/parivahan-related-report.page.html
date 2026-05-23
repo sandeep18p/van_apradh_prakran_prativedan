@@ -1,0 +1,150 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Parivahan Related Report</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="filter-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="4">
+          <ion-label>Circle</ion-label>
+          <ng-select [items]="listOfCircle" bindLabel="name" bindValue="id" [(ngModel)]="selectedCircleId"
+            placeholder="Select Circle">
+          </ng-select>
+        </ion-col>
+        <ion-col size="6" size-md="3">
+          <ion-label>From Date</ion-label>
+          <input type="date" [(ngModel)]="fromDate" class="date-input">
+        </ion-col>
+        <ion-col size="6" size-md="3">
+          <ion-label>To Date</ion-label>
+          <input type="date" [(ngModel)]="toDate" class="date-input">
+        </ion-col>
+        <ion-col size="12" size-md="2" class="ion-align-self-end">
+          <ion-button expand="block" (click)="fetchReport()" color="success">
+            <ion-icon name="filter-outline" slot="start"></ion-icon>
+            Filter
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading report data...</p>
+  </div>
+
+  <div *ngIf="!isLoading && processedRows.length > 0">
+
+    <div class="header-with-action">
+      <div>
+        <h3 class="report-title">प्रपत्र क्रमांक PR-004 -- POR वनोपज के परिवहन का विवरण (PR-33)</h3>
+        <p class="report-subtitle">राज्य स्तरीय प्रतिवेदन - अवधि [ {{fromDate | date:'dd-MM-yyyy'}} से {{toDate |
+          date:'dd-MM-yyyy'}} ]</p>
+      </div>
+      <ion-button fill="solid" (click)="downloadExcel()" color="success" class="export-btn">
+        <ion-icon name="download-outline" slot="start"></ion-icon>
+        Export Excel
+      </ion-button>
+    </div>
+
+    <div class="table-container">
+      <table class="pivot-report-table">
+        <thead>
+          <!-- Row 1: Main sections -->
+          <tr>
+            <th rowspan="2" class="sticky-col">परिपरिक्षेत्र</th>
+            <th colspan="4" class="section-header color-opening">माह के प्रारम्भ में परिवहन हेतु शेष POR वनोपज</th>
+            <th colspan="4" class="section-header color-seized">माह में जप्त POR वनोपज</th>
+            <th colspan="4" class="section-header color-depo">माह में डिपो में परिवहनित POR वनोपज</th>
+            <th colspan="4" class="section-header color-closing">महान्त में परिवहन हेतु शेष POR वनोपज</th>
+          </tr>
+          <!-- Row 2: Sub-categories -->
+          <tr class="sub-header">
+            <!-- Opening -->
+            <th class="color-opening">काष्ठ (m³)</th>
+            <th class="color-opening">बल्ली (संख्या)</th>
+            <th class="color-opening">जलाऊ (संख्या)</th>
+            <th class="color-opening">अन्य (संख्या)</th>
+            <!-- Seized -->
+            <th class="color-seized">काष्ठ (m³)</th>
+            <th class="color-seized">बल्ली (संख्या)</th>
+            <th class="color-seized">जलाऊ (संख्या)</th>
+            <th class="color-seized">अन्य (संख्या)</th>
+            <!-- Depo -->
+            <th class="color-depo">काष्ठ (m³)</th>
+            <th class="color-depo">बल्ली (संख्या)</th>
+            <th class="color-depo">जलाऊ (संख्या)</th>
+            <th class="color-depo">अन्य (संख्या)</th>
+            <!-- Closing -->
+            <th class="color-closing">काष्ठ (m³)</th>
+            <th class="color-closing">बल्ली (संख्या)</th>
+            <th class="color-closing">जलाऊ (संख्या)</th>
+            <th class="color-closing">अन्य (संख्या)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of processedRows">
+            <td class="sticky-col">{{row.circleName}}</td>
+            <!-- Opening -->
+            <td>{{row.opening.timber | number:'1.3-3'}}</td>
+            <td>{{row.opening.poles}}</td>
+            <td>{{row.opening.firewood}}</td>
+            <td>{{row.opening.other}}</td>
+            <!-- Seized -->
+            <td>{{row.seized.timber | number:'1.3-3'}}</td>
+            <td>{{row.seized.poles}}</td>
+            <td>{{row.seized.firewood}}</td>
+            <td>{{row.seized.other}}</td>
+            <!-- Depo -->
+            <td>{{row.depo.timber | number:'1.3-3'}}</td>
+            <td>{{row.depo.poles}}</td>
+            <td>{{row.depo.firewood}}</td>
+            <td>{{row.depo.other}}</td>
+            <!-- Closing -->
+            <td>{{row.closing.timber | number:'1.3-3'}}</td>
+            <td>{{row.closing.poles}}</td>
+            <td>{{row.closing.firewood}}</td>
+            <td>{{row.closing.other}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="totals-row">
+            <td class="sticky-col">योग -></td>
+            <!-- Opening -->
+            <td>{{totals.opening.timber | number:'1.3-3'}}</td>
+            <td>{{totals.opening.poles}}</td>
+            <td>{{totals.opening.firewood}}</td>
+            <td>{{totals.opening.other}}</td>
+            <!-- Seized -->
+            <td>{{totals.seized.timber | number:'1.3-3'}}</td>
+            <td>{{totals.seized.poles}}</td>
+            <td>{{totals.seized.firewood}}</td>
+            <td>{{totals.seized.other}}</td>
+            <!-- Depo -->
+            <td>{{totals.depo.timber | number:'1.3-3'}}</td>
+            <td>{{totals.depo.poles}}</td>
+            <td>{{totals.depo.firewood}}</td>
+            <td>{{totals.depo.other}}</td>
+            <!-- Closing -->
+            <td>{{totals.closing.timber | number:'1.3-3'}}</td>
+            <td>{{totals.closing.poles}}</td>
+            <td>{{totals.closing.firewood}}</td>
+            <td>{{totals.closing.other}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && processedRows.length === 0 && reportData" class="ion-text-center ion-padding no-data">
+    <ion-icon name="cloud-offline-outline" size="large"></ion-icon>
+    <p>चयनित अवधि के लिए कोई डेटा नहीं मिला |</p>
+  </div>
+</ion-content>

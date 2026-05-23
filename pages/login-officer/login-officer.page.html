@@ -1,0 +1,138 @@
+<ion-content [fullscreen]="true" [scrollEvents]="true">
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <div class="login-wrapper">
+    <!-- LEFT PANEL: Branding (Desktop only) -->
+    <div class="branding-panel">
+      <div class="branding-overlay"></div>
+      <div class="branding-content">
+        <div class="branding-logo-wrapper">
+          <img src="assets/img/cg_image.png" alt="Logo" class="branding-logo">
+        </div>
+        <h1 class="branding-title">छत्तीसगढ़ वन एवं जलवायु परिवर्तन विभाग</h1>
+        <p class="branding-subtitle">Chhattisgarh Forest & Climate Change Department</p>
+        <div class="branding-divider"></div>
+        <p class="branding-tagline">POR (Preliminary Offence Report)</p>
+        <p class="branding-tagline-sub">प्राथमिक अपराध सूचना</p>
+      </div>
+      <div class="branding-footer">
+        <p>© 2026 छत्तीसगढ़ शासन</p>
+      </div>
+    </div>
+
+    <!-- Mobile: diamond pattern overlay (same as desktop) -->
+    <div class="mobile-overlay"></div>
+
+    <!-- Mobile Logo (visible only on mobile, on green bg) -->
+    <div class="mobile-header">
+      <div class="mobile-logo-ring">
+        <img src="assets/img/cg_image.png" alt="Logo" class="logo-image">
+      </div>
+      <h2 class="mobile-title">छत्तीसगढ़ वन एवं जलवायु परिवर्तन विभाग</h2>
+      <p class="mobile-subtitle">अधिकारी लॉगिन</p>
+      <p class="mobile-por">POR (Preliminary Offence Report)</p>
+    </div>
+
+    <!-- RIGHT PANEL: Login Form -->
+    <div class="login-panel">
+      <div class="login-card">
+        <!-- Desktop form heading -->
+        <div class="desktop-form-header">
+          <h2 class="form-heading">अधिकारी लॉगिन</h2>
+          <p class="form-subheading">कृपया अपने क्रेडेंशियल्स दर्ज करें</p>
+        </div>
+
+        <form (ngSubmit)="clickToLogin()">
+          <div class="form-group">
+            <ng-select (change)="onSelectionDesignation()" class="nice-ng-select" [clearable]="false"
+              placeholder="पद चुनें" [(ngModel)]="selectedDesignation" name="selectedDesignation"
+              [items]="listOfDesignation" bindLabel="name" bindValue="id" [searchable]="false" />
+          </div>
+
+          <ion-row *ngIf="selectedDesignation">
+            <ion-col size="6" size-lg="6" *ngIf="showCircle">
+              <ion-label class="ion-label-small">वृत्त का नाम</ion-label>
+              <ng-select [(ngModel)]="selectedCircleId" name="selectedCircleId" (change)="onChangeCircle($event)"
+                class="nice-ng-select" [clearable]="false" [items]="listOfCircle" bindLabel="name" bindValue="id"
+                [searchable]="true">
+              </ng-select>
+            </ion-col>
+
+            <ion-col size="6" size-lg="6" *ngIf="showDivision">
+              <ion-label class="ion-label-small">वन मंडल</ion-label>
+              <ng-select [(ngModel)]="selectedDivisionId" name="selectedDivisionId" (change)="onChangeDivision($event)"
+                class="nice-ng-select" [clearable]="false" [items]="listOfDivision" bindLabel="name" bindValue="id"
+                [searchable]="true">
+              </ng-select>
+            </ion-col>
+
+            <ion-col size="6" size-lg="6" *ngIf="showSubDivision">
+              <ion-label class="ion-label-small">उप वन मंडल</ion-label>
+              <ng-select [(ngModel)]="selectedSubDivisionId" name="selectedSubDivisionId"
+                (change)="onChangeSubDivision($event)" class="nice-ng-select" [clearable]="false"
+                [items]="listOfSubDivision" bindLabel="name" bindValue="id" [searchable]="true">
+              </ng-select>
+            </ion-col>
+
+            <ion-col size="6" size-lg="6" *ngIf="showRang">
+              <ion-label class="ion-label-small">वन परिक्षेत्र </ion-label>
+              <ng-select [(ngModel)]="selectedRangId" name="selectedRangId" (change)="onChangeRange($event)"
+                class="nice-ng-select" [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id"
+                [searchable]="true">
+              </ng-select>
+            </ion-col>
+
+            <ion-col size="6" size-lg="6" *ngIf="showSubRang">
+              <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+              <ng-select [(ngModel)]="selectedSubRangId" name="selectedSubRangId" (change)="onChangeSubRange($event)"
+                class="nice-ng-select" [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id"
+                [searchable]="true">
+              </ng-select>
+            </ion-col>
+
+            <ion-col size="6" size-lg="6" *ngIf="showBeat">
+              <ion-label class="ion-label-small">बीट</ion-label>
+              <ng-select [(ngModel)]="selectedBitId" name="selectedBitId" (change)="onChangeBit($event)"
+                class="nice-ng-select" [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id"
+                [searchable]="true">
+              </ng-select>
+            </ion-col>
+          </ion-row>
+
+          <div class="form-group">
+            <ion-label class="input-label" position="stacked">अधिकारी का नाम</ion-label>
+            <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false"
+              [placeholder]="listofUserName.length > 1 ? ' अधिकारी का नाम' : 'अधिकारी का नाम'"
+              [(ngModel)]="selectedUsername" name="selectedUsername" [items]="listofUserName" bindLabel="name_to_show"
+              bindValue="user_name" [searchable]="true" />
+            <ion-text *ngIf="isNotValidUserName" color="danger" class="error-message">{{error_user_msg}}</ion-text>
+          </div>
+
+          <div class="form-group" *ngIf="showMobileNumberBox">
+            <ion-label class="input-label" position="stacked">रजिस्टर्ड मोबाइल नंबर</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="enterMobileNumber" name="enterMobileNumber" maxlength="10"
+              type="tel" (ionInput)="checkLength()" fill="outline" required>
+            </ion-input>
+            <ion-text *ngIf="isNotValidMobile" color="danger" class="error-message">{{error_mobile_msg}}</ion-text>
+          </div>
+
+          <div class="form-group">
+            <ion-label class="input-label" position="stacked">पासवर्ड</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="enterPassword" name="enterPassword" type="password"
+              fill="outline" required>
+            </ion-input>
+            <ion-text *ngIf="isNotValidPassword" color="danger" class="error-message">{{error_password_msg}}</ion-text>
+          </div>
+
+          <ion-button type="submit" expand="block" class="login-button">
+            Login
+          </ion-button>
+        </form>
+
+        <!-- <ion-text *ngIf="isNotValidLogin" color="danger" class="error-message server-error">
+          {{error_msg_from_server_if_not_login}}
+        </ion-text> -->
+      </div>
+    </div>
+  </div>
+</ion-content>

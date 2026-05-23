@@ -1,0 +1,49 @@
+.responsive-label {
+    font-size: 16px;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-label {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-label {
+        font-size: 26px;
+    }
+}
+
+.dialog-wrapper {
+    // background: #fff;
+    // border-radius: 16px;
+    padding: 24px 20px;
+    // box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 90vw;
+    margin: 0 auto;
+}
+
+.dialog-wrapper {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.dialog-card {
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.button-row {
+  margin-top: 16px;
+}
+
+.remark-textarea {
+  --padding-start: 10px;
+  --padding-end: 10px;
+}

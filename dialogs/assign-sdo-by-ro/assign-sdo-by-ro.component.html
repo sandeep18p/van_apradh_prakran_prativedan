@@ -1,0 +1,129 @@
+<div class="dialog-wrapper">
+
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="dialog-card">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <!-- <ion-label class="ion-text-extra-small">कृपया RA (Rang Assistant) चुने</ion-label> -->
+        <div class="select-with-icon">
+          <ng-select class="nice-ng-select" [clearable]="false"
+            [(ngModel)]="selectedSDOId" [items]="listOfRA" bindLabel="empName" bindValue="emp_id" [searchable]="true"
+            style="width: 100%;">
+          </ng-select>
+          <ion-icon name="chevron-down-outline" class="select-arrow-icon"></ion-icon>
+        </div>
+
+      </ion-col>
+
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">ठूंठ से प्राप्त होने वाले अनुमानित वनोपज की कुल राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="japt_saman_total_price" class="outlined-box" fill="outline" />
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">जप्त वनोपज की कुल राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="found_vanopaj_total_price" class="outlined-box"
+          fill="outline" />
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">वास्तविक हानि की कुल राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="actual_loss_total_price" class="outlined-box" fill="outline">
+        </ion-input>
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">वनोपज का मूल्य (महसूल) (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="mahsul_total_price" class="outlined-box" fill="outline"
+          (ionInput)="updateTotalOfMahsulAndMawja()">
+        </ion-input>
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">क्षतिपूर्ति राशि (मुआवजा) (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="mavja_total_price" class="outlined-box" fill="outline"
+          (ionInput)="updateTotalOfMahsulAndMawja()">
+        </ion-input>
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">योग राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="total_mavja_mahsul_rashi" class="outlined-box" fill="outline"
+          readonly>
+        </ion-input>
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">अग्रिम वसूली राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="pahle_ka_vasuli_rashi" class="outlined-box" fill="outline"
+          readonly>
+        </ion-input>
+      </ion-col>
+
+      <ion-col size="7" class="ion-align-self-center">
+        <ion-label class="instruction-label">वसूली हेतु शेष राशि (₹)</ion-label>
+      </ion-col>
+
+      <ion-col size="5" class="ion-align-self-center">
+        <ion-input style="margin-top: 5px;" [(ngModel)]="shesh_vasuli_rashi" class="outlined-box" fill="outline"
+          readonly>
+        </ion-input>
+      </ion-col>
+
+
+
+
+      <ion-col size="12">
+        <ion-textarea [(ngModel)]="ro_remark" fill="outline" label="वन परिक्षेत्र अधिकारी की अनुशंसा / टिप्पणी"
+          label-placement="floating" auto-grow="true" rows="5" class="remark-textarea"></ion-textarea>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-label class="ion-label-small"
+          style="display:flex; align-items:center; justify-content:flex-start; color: blue;">
+          अग्रेषण पत्र अपलोड करें
+        </ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <input type="file" accept="application/pdf" (change)="onFileSelected($event)" />
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-between ion-margin-top button-row">
+      <ion-col size="6">
+        <ion-button expand="block" color="success" shape="round" (click)="clickToAssignSDO()">
+          SUBMIT
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="danger" shape="round" (click)="cancel()">
+          CANCEL
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

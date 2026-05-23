@@ -1,0 +1,49 @@
+<div class="dialog-wrapper">
+
+  <ion-loading [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid class="dialog-card">
+    <ion-row class="ion-justify-content-center">
+
+      <ion-col size="6" style="display: flex; align-items: center;">
+        <ion-label class="ion-label-small" style="color: blue;">
+          कुल वसूली हेतु आदेशित राशि
+        </ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <ion-input class="ion-input" [(ngModel)]="shesh_vasuli_rashi" fill="outline" readonly />
+      </ion-col>
+
+      <ion-col size="12" style="margin-top: 20px;">
+
+        <div class="select-with-icon">
+          <ng-select class="nice-ng-select" [clearable]="false" placeholder="कृपया वसूली के लिए अधिकारी चुने"
+            [(ngModel)]="selectedRAId" [items]="listOfRA" bindLabel="empName" bindValue="emp_id" [searchable]="true"
+            style="width: 100%;">
+          </ng-select>
+          <ion-icon name="chevron-down-outline" class="select-arrow-icon"></ion-icon>
+        </div>
+
+      </ion-col>
+
+      <ion-col size="12" style="margin-top: 20px;">
+        <ion-textarea [(ngModel)]="ro_remark" fill="outline" label="अधिकारी के लिए कुछ टिप्पणी लिखना हो तो"
+          label-placement="floating" auto-grow="true" rows="5" class="remark-textarea"></ion-textarea>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row class="ion-justify-content-between ion-margin-top button-row">
+      <ion-col size="6">
+        <ion-button expand="block" color="success" shape="round" (click)="clickToAssignRA()">
+          सबमिट
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="danger" shape="round" (click)="cancel()">
+          समाप्त
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

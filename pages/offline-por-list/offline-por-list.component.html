@@ -1,0 +1,173 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('offline_data_list') }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid>
+    <ion-row *ngFor="let item of porDataList ; let i = index" class="ion-padding">
+      <ion-card>
+        <ion-card-content>
+          <ion-row>
+            <!-- Left Side: Info Columns -->
+            <ion-col size="9" size-md="10">
+              <ion-row>
+                <ion-col size="6" size-lg="4">
+                  <div>
+                    <ion-label class="ion-label-small label-block" color="primary">POR क्रमांक</ion-label>
+                    <ion-label class="ion-label-large label-block">{{ item.por_number }}</ion-label>
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="4">
+                  <div>
+                    <ion-label class="ion-label-small label-block" color="primary">पंजीयन दिनांक</ion-label>
+                    <ion-label class="ion-label-large label-block">{{ item.dateOfCrime }}</ion-label>
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="4">
+                  <div>
+                    <ion-label class="ion-label-small label-block" color="primary">अपराधी संख्या</ion-label>
+                    <ion-label class="ion-label-large label-block" style="color: #2dd36f; font-weight: bold;">
+                      {{ getAccusedDisplayText(item.id) }}
+                    </ion-label>
+                  </div>
+                </ion-col>
+
+                  <!-- Accused Persons Details -->
+<ion-col size="12" *ngIf="getAccusedCount(item.id) > 0">
+  <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin-top: 10px;">
+    <ion-label class="ion-label-small label-block" color="primary" style="margin-bottom: 8px;">
+      अपराधियों का विवरण:
+    </ion-label>
+    
+    <div *ngFor="let accused of getAccusedPersons(item.id); let idx = index" 
+         style="border-left: 3px solid #3880ff; padding-left: 10px; margin-bottom: 8px;">
+      
+      <ion-row>
+        <ion-col size="12" *ngIf="getAccusedCount(item.id) > 1">
+          <ion-label style="font-weight: 600; color: #3880ff; font-size: 14px;">
+            अपराधी {{ idx + 1 }}:
+          </ion-label>
+        </ion-col>
+        
+        <ion-col size="6">
+          <div>
+            <ion-label class="ion-label-small" style="color: #666; font-size: 12px;">अपराधी का नाम</ion-label>
+            <ion-label class="ion-label-medium" style="display: block; font-weight: 500;">
+              {{ accused.accused_name || 'अज्ञात' }}
+            </ion-label>
+          </div>
+        </ion-col>
+        
+        <ion-col size="6">
+          <div>
+            <ion-label class="ion-label-small" style="color: #666; font-size: 12px;">पिता का नाम</ion-label>
+            <ion-label class="ion-label-medium" style="display: block; font-weight: 500;">
+              {{ accused.accused_fathers_name || 'अज्ञात' }}
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      
+    </div>
+  </div>
+</ion-col>
+
+              </ion-row>
+            </ion-col>
+
+            <!-- Right Side: Image -->
+            <ion-col size="3" size-md="2" class="ion-text-center">
+              <div class="image-container">
+                <img [src]="showImage(item.full_photo_name_comma_separated) || 'assets/img/cg_image.png'"
+                  (click)="showImageAlert(item.full_photo_name_comma_separated)"
+                  style="width: 100%; height: auto; border-radius: 8px;" />
+              </div>
+            </ion-col>
+
+            <ion-col size="6" size-lg="2">
+              <ion-label style="display: inline-block; 
+         text-align: center; 
+         color: white; 
+         background-color: blue; 
+         border-radius: 8px; 
+         padding: 4px 12px; 
+         cursor: pointer;" (click)="viewDetail(i)">
+                VIEW
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="6" size-lg="2">
+              <ion-label style="display: inline-block; 
+         text-align: center; 
+         color: white; 
+         background-color: red; 
+         border-radius: 8px; 
+         padding: 4px 12px; 
+         cursor: pointer;" (click)="deleteData(item.por_number)">
+                DELETE
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="6" size-lg="2">
+              <ion-label style="display: inline-block; 
+         text-align: center; 
+         color: white; 
+         background-color: green; 
+         border-radius: 8px; 
+         padding: 4px 12px; 
+         cursor: pointer;" (click)="submitToOnline(i)">
+                SUBMIT
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="6" size-lg="2">
+              <ion-label style="display: inline-block; 
+         text-align: center; 
+         color: white; 
+         background-color: green; 
+         border-radius: 8px; 
+         padding: 4px 12px; 
+         cursor: pointer;" (click)="editData(i)">
+                EDIT
+              </ion-label>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row>
+      <!-- <ion-col size="6">
+        <ion-button (click)="submitCrimDetail(0)" class="submit-button" expand="full">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          ऑनलाइन सिंक करें
+        </ion-button>
+      </ion-col> -->
+      <ion-col size="6">
+        <ion-button (click)="cancel()" class="cancel-button" color="medium" expand="full">
+          <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+          समाप्त
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

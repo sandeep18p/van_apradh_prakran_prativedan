@@ -1,0 +1,169 @@
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.totals-container {
+    margin-top: 12px;
+    padding: 8px;
+
+    .total-card {
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .total-title {
+            font-weight: 600;
+            color: #222;
+            font-size: 14px;
+        }
+
+        .total-value {
+            font-weight: 700;
+            color: #1e88e5;
+            font-size: 15px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            font-size: 15px;
+            padding: 14px 18px;
+        }
+    }
+}
+
+.days-row {
+  align-items: center;
+  margin-top: 12px;
+
+  .label-col {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .input-col {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .days-item {
+    --background: #fff;
+    --border-radius: 8px;
+    --highlight-color-focused: #3880ff;
+    width: 100%;
+    max-width: 120px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
+
+  ion-input {
+    text-align: center;
+    font-size: 16px;
+  }
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #218838;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #c82333;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.totals-container {
+    margin-top: 12px;
+    padding: 8px;
+
+    .total-card {
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .total-title {
+            font-weight: 600;
+            color: #222;
+            font-size: 14px;
+        }
+
+        .total-value {
+            font-weight: 700;
+            color: #1e88e5;
+            font-size: 15px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            font-size: 15px;
+            padding: 14px 18px;
+        }
+    }
+}

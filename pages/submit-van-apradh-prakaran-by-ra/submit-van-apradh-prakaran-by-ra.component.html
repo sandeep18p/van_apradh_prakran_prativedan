@@ -1,0 +1,2620 @@
+<ion-header class="ion-header-toolbar">
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="cancel()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('van_apradh_prakan_prativedan') }} ({{toolbarTitle}})
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid>
+
+    <ion-row class="ion-justify-content-center">
+
+      <ion-col size-lg="1" />
+      <ion-col size-lg="10" size="12">
+
+        <!-- वन अपराध प्रकरण प्रतिवेदन Card -->
+        <ion-card class="custom-card">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="document-text-outline"></ion-icon>
+              <ion-text class="ion-text">वन अपराध प्रकरण प्रतिवेदन ({{por_number}})</ion-text>
+            </span>
+          </ion-card-title>
+
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="12" size-lg="6">
+                <ion-input class="ion-input" [(ngModel)]="apradh_prativend_kramank" label="क्रमांक"
+                  label-placement="floating" fill="outline" />
+              </ion-col>
+
+              <ion-col size="12" size-lg="6">
+                <div class="date-picker-card" (click)="selectPrativedanSubmissionDate()">
+                  <div class="date-picker-content">
+                    <ion-label class="date-title">दिनांक :</ion-label>
+                    <ion-label class="date-label">
+                      {{ apradh_prativend_jama_date ? (apradh_prativend_jama_date | date:'dd-MM-yyyy') : 'दिनांक चुनें'
+                      }}
+                    </ion-label>
+                  </div>
+
+                  <div class="date-picker-actions">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- जाँच हेतु प्रेषण एवं कार्य विवरण -->
+        <ion-card class="custom-card">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="document-text-outline"></ion-icon>
+              <ion-text class="ion-text">जाँच हेतु प्रेषण एवं कार्य विवरण</ion-text>
+            </span>
+          </ion-card-title>
+
+          <ion-card-content>
+            <!-- जाँच हेतु प्रेषण करने वाले अधिकारी -->
+            <ion-col size="12" *ngIf="whenAssignJanchkartaDetail && whenAssignJanchkartaDetail.length > 0">
+              <div class="themed-card crime-info-card">
+                <div class="crime-card-header">
+                  <ion-icon name="people-outline"></ion-icon>
+                  <span>जाँच हेतु प्रेषण करने वाले अधिकारी</span>
+                </div>
+                <div class="crime-card-body">
+                  <ion-card *ngFor="let item of whenAssignJanchkartaDetail" class="ion-margin">
+                    <ion-card-content>
+                      <ion-row>
+                        <ion-col size="12" size-lg="6">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जाँच हेतु प्रेषण करने वाले अधिकारी
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block;">
+                            {{ item.address || '--' }}
+                          </ion-text>
+                        </ion-col>
+                        <ion-col size="12" size-lg="6">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जांच हेतु प्रेषण करने का दिनक
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block;">
+                            {{ item.created_at || '--' }}
+                          </ion-text>
+                        </ion-col>
+                        <ion-col size="12" size-lg="6" *ngIf="item.work_log_text">
+                          <ion-text style="display: block;" class="label-title" color="primary">
+                            जाँच हेतु प्रेषण करने वाले अधिकारी की टिप्पणी
+                          </ion-text>
+                          <ion-text class="label-value" style="display: block; white-space: pre-line;">
+                            {{ item.work_log_text }}
+                          </ion-text>
+                        </ion-col>
+                      </ion-row>
+                    </ion-card-content>
+                  </ion-card>
+                </div>
+              </div>
+            </ion-col>
+
+            <ng-container *ngIf="workLogList && workLogList.length > 0; else noWorkLogData">
+              <ion-col size="12">
+                <div class="worklog-card" *ngFor="let item of workLogList; let i = index">
+                  <div class="worklog-card-header">
+                    <div class="worklog-card-title">
+                      <ion-icon name="document-text-outline"></ion-icon>
+                      <span>कार्य विवरण इन्द्राज {{ i + 1 }}</span>
+                    </div>
+                    <div class="worklog-card-badge">
+                      {{ i + 1 }}
+                    </div>
+                  </div>
+                  <div class="worklog-card-body">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="12" size-lg="6">
+                          <span class="worklog-label">कार्य विवरण की तिथि</span>
+                          <span class="worklog-value">{{ item.work_log_date }}</span>
+                        </ion-col>
+                        <ion-col size="12" size-lg="6">
+                          <span class="worklog-label">पता (स्थान)</span>
+                          <span class="worklog-value">{{ item.address }}</span>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col size="12">
+                          <span class="worklog-label">कार्य का विवरण</span>
+                          <span class="worklog-value">{{ item.work_log_text }}</span>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col size="12">
+                          <span class="worklog-label">सम्बंधित अभिलेख</span>
+                        </ion-col>
+                        <ion-col size="12">
+                          <ng-container *ngIf="item.work_log_images_array as prevPhotos">
+                            <div *ngIf="prevPhotos.length > 0; else noPrevWorkLogImages"
+                              class="horizontal-scroll-wrapper">
+                              <div class="photo-container" *ngFor="let photo of prevPhotos">
+                                <img [src]="getFullPathImage(photo)" class="worklog-image"
+                                  (click)="showImageAlert(photo)" />
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+              </ion-col>
+
+              <ng-template #noPrevWorkLogImages>
+                <p class="label-value" style="color: red;">कोई अभिलेख उपलब्ध नहीं है</p>
+              </ng-template>
+            </ng-container>
+
+            <ng-template #noWorkLogData>
+              <div class="themed-card info-empty-card">
+                <div class="themed-card-body" style="text-align: center;">
+                  <ion-text color="medium">
+                    <h2>कोई वर्क लॉग नहीं है</h2>
+                  </ion-text>
+                </div>
+              </div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- अपराध और घटना स्थल का विवरण Card -->
+        <ion-card class="custom-card">
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="location-outline"></ion-icon>
+              <ion-text class="ion-text">अपराध और घटना स्थल का विवरण</ion-text>
+            </span>
+            <ion-button *ngIf="!isShowEditDharaBox" fill="clear" size="small" (click)="editCrimeDhara('1')"
+              style="--color: #ffffff; margin-left: auto; --padding-start: 8px; --padding-end: 8px;">
+              <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+              <ion-label style="margin-left: 4px;">EDIT</ion-label>
+            </ion-button>
+            <ion-button *ngIf="isShowEditDharaBox" fill="clear" size="small" (click)="confirmCancelSectionEdit('1')"
+              style="--color: #ffd1d1; margin-left: auto; --padding-start: 8px; --padding-end: 8px;">
+              <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+              <ion-label style="margin-left: 4px;">CANCEL</ion-label>
+            </ion-button>
+          </ion-card-title>
+
+          <ion-card-content>
+            <ion-grid>
+              <!-- First Row -->
+              <ion-row>
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">POR क्रमांक</ion-label>
+                    <ion-text class="info-value">{{ por_number }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">अपराध पंजीयन दिनांक</ion-label>
+                    <ion-text class="info-value">{{ date_of_crime }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">अपराध की तिथि</ion-label>
+                    <div class="date-display" (click)="selectActualCrimeDate()">
+                      <ion-text class="info-value">
+                        {{ actual_crime_date && actual_crime_date !== '---' ? actual_crime_date : 'दिनांक' }}
+                      </ion-text>
+                      <ion-icon name="calendar-outline" class="calendar-icon-small"></ion-icon>
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">अपराध पंजीबद्ध करने वाले अधिकारी का नाम</ion-label>
+                    <ion-text class="info-value">{{ complainer_name }}</ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <!-- Second Row -->
+              <ion-row>
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">अपराधी का पता लगाने का दिनांक</ion-label>
+                    <div class="date-display" (click)="selectAccussedFoundDate()">
+                      <ion-text class="info-value">
+                        {{ accussed_found_date ? (accussed_found_date | date:'dd-MM-yyyy') : 'दिनांक' }}
+                      </ion-text>
+                      <ion-icon name="calendar-outline" class="calendar-icon-small"></ion-icon>
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">बीट का नाम</ion-label>
+                    <ion-text class="info-value">{{ beatName }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">कक्ष क्रमांक</ion-label>
+                    <ion-text class="info-value">{{ compartmentNumber }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">वनो का प्रकार -RF / PF / OA</ion-label>
+                    <ion-text class="info-value">{{ compartmentOption }}</ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <!-- Third Row -->
+              <ion-row>
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">घटना स्थल</ion-label>
+                    <ion-text class="info-value">{{ placeOfCrime }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3">
+                  <div class="info-field">
+                    <ion-label class="info-label">अपराध का प्रकार</ion-label>
+                    <ion-text class="info-value">{{ crimType }}</ion-text>
+                  </div>
+                </ion-col>
+
+                <ion-col size="12" size-lg="6">
+                  <div class="info-field">
+                    <ion-label class="info-label">अधिनियम / नियम एवं धाराएं जिसके अंतर्गत दण्डनीय है</ion-label>
+                    <ion-text class="info-value dhara-value">{{ crime_dhara }}</ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+
+        <!-- Edit Form (shown when isShowEditDharaBox is true) -->
+        <ion-card class="custom-card edit-form-card" *ngIf="isShowEditDharaBox" style="margin-top: 16px;">
+          <ion-card-title class="card-title" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+            <span class="icon-text-row">
+              <ion-icon name="create-outline"></ion-icon>
+              <ion-text class="ion-text">विवरण संपादित करें</ion-text>
+            </span>
+          </ion-card-title>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+
+
+
+                <ion-col size="12" size-lg="6">
+
+                  <ng-select class="nice-ng-select" (change)="selectedCompartment($event)" [clearable]="false"
+                    placeholder="कक्ष क्रमांक" [items]="listOfCompartment" bindLabel="name" bindValue="name"
+                    [searchable]="false" [(ngModel)]="selectedCompartmentValue" appendTo="body" />
+
+                  <ion-card *ngIf="clipboardCompartment.length > 0">
+
+                    <div class="card-row">
+
+                      <ion-row style="align-items:center;">
+
+                        <ion-col size="6" style="text-align:left;">
+                          <ion-label style="display:block;">
+                            चयनित कक्ष क्रमांक :
+                          </ion-label>
+                        </ion-col>
+
+                        <ion-col size="6" style="text-align:right; display:flex; justify-content:flex-end;">
+
+                          <div *ngIf="clipboardCompartment.length > 0"
+                            style="display:flex;  gap:6px; justify-content:flex-end;">
+
+                            <div *ngFor="let comparement_number of clipboardCompartment" class="clipboard-item">
+                              {{ comparement_number.name }}
+                            </div>
+
+                          </div>
+                        </ion-col>
+
+                      </ion-row>
+
+
+
+                    </div>
+
+                  </ion-card>
+
+                </ion-col>
+
+
+
+
+                <ion-col size="12" size-lg="6" *ngIf="clipboardCompartment.length > 0 && !hasNoneCompartment">
+                  <ion-label style="font-weight: 600;">वनो का प्रकार -RF / PF / OA</ion-label>
+
+                  <ion-radio-group [(ngModel)]="selectedCompartmentOption"
+                    (ionChange)="onCompartmentOptionChange($event)" style="margin-top: 8px;">
+                    <!-- sandeep start 1 jan 26 4 -->
+                    <ion-row>
+                      <ion-col size="4">
+                        <ion-radio value="RF"><ion-label>RF</ion-label></ion-radio>
+                      </ion-col>
+                      <ion-col size="4">
+                        <ion-radio value="PF"><ion-label>PF</ion-label></ion-radio>
+                      </ion-col>
+                      <ion-col size="4">
+                        <ion-radio value="OA"><ion-label>OA</ion-label></ion-radio>
+                      </ion-col>
+                    </ion-row>
+                  </ion-radio-group>
+                  <!-- sandeep end 1 jan 26 4 -->
+                </ion-col>
+
+                <ion-col size="12" size-lg="6">
+                  <ion-textarea [(ngModel)]="crimePlace" fill="outline" label="घटना स्थल" label-placement="floating"
+                    rows="3" auto-grow="true"></ion-textarea>
+                </ion-col>
+
+
+
+                <!-- Crime type -->
+                <ion-col size="12" size-lg="6">
+                  <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false"
+                    placeholder="अपराध का प्रकार" [(ngModel)]="selectedCrimType" (change)="onCrimTypeChange()"
+                    [items]="listOfCrimType" bindLabel="name" bindValue="id" [searchable]="false" appendTo="body">
+                  </ng-select>
+                </ion-col>
+
+                <!-- Dhara Multi-select Dropdown -->
+                <ion-col size="12" size-lg="6"
+                  *ngIf="selectedCrimType && (selectedCompartmentOption || hasNoneCompartment)">
+
+                  <ng-container *ngIf="dharaNewGroups.length > 0; else noDharaFound">
+
+                    <!-- Custom Grouped Multi-Select with Checkboxes -->
+                    <div
+                      style="border: 1px solid #e0e0e0; border-radius: 8px; max-height: 400px; overflow-y: auto; padding: 8px; background-color: #fff;">
+
+                      <div *ngFor="let group of dharaNewGroups" style="margin-bottom: 16px;">
+
+                        <!-- Group Header (Adhiniyam) -->
+                        <div
+                          style="background-color: #f5f5f5; padding: 10px 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #3880ff; margin-bottom: 8px; position: sticky; top: 0; z-index: 10; border-radius: 4px;">
+                          {{ group.adhiniyam }}
+                        </div>
+
+                        <!-- Group Items (Dharas) with Checkboxes -->
+                        <div *ngFor="let item of group.items" class="dhara-item-row"
+                          [class.selected]="isItemSelected(item)"
+                          style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background-color 0.2s;"
+                          (click)="onDharaNewToggle(item, !isItemSelected(item))">
+
+                          <!-- Checkbox on Left -->
+                          <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            <ion-checkbox [checked]="isItemSelected(item)"
+                              (ionChange)="onDharaNewToggle(item, $event.detail.checked)"
+                              (click)="$event.stopPropagation()" style="margin-right: 12px; flex-shrink: 0;">
+                            </ion-checkbox>
+                            <ion-label
+                              style="flex: 1; cursor: pointer; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                              {{ getDharaDisplayValue(item) }}
+                            </ion-label>
+                          </div>
+
+                          <!-- Info Icon on Right -->
+                          <ion-button fill="clear" size="small"
+                            (click)="openDharaInfo(item, group.adhiniyam); $event.stopPropagation()"
+                            style="--padding-start: 4px; --padding-end: 4px; margin: 0; min-height: auto; flex-shrink: 0;">
+                            <ion-icon name="information-circle-outline" slot="icon-only"
+                              style="font-size: 20px; color: #3880ff;"></ion-icon>
+                          </ion-button>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Show selected items grouped by adhiniyam -->
+                    <div *ngIf="selectedDharaItemsArray.length > 0" style="margin-top: 12px;">
+                      <!-- Title -->
+                      <div style="margin-bottom: 16px;">
+                        <ion-label style="font-size: 16px; font-weight: 700; color: #333;">
+                          चयनित अधिनियम/नियम और धाराएं
+                        </ion-label>
+                      </div>
+
+                      <div *ngFor="let group of selectedDharaGroupedByAdhiniyam"
+                        style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-bottom: 12px; background-color: #f9f9f9;">
+
+                        <!-- Adhiniyam Header -->
+                        <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #3880ff;">
+                          <ion-text style="font-size: 14px; font-weight: 700; color: #3880ff; display: block;">
+                            {{ group.adhiniyam }}
+                          </ion-text>
+                        </div>
+
+                        <!-- Dharas under this adhiniyam -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                          <ion-chip *ngFor="let item of group.items" color="primary" style="margin: 0;">
+                            <ion-label style="font-size: 13px;">{{ getDharaDisplayValue(item) }}</ion-label>
+                            <ion-button fill="clear" size="small" (click)="openDharaInfo(item, group.adhiniyam)"
+                              style="--padding-start: 4px; --padding-end: 4px; margin: 0;">
+                              <ion-icon name="information-circle-outline" slot="icon-only"
+                                style="font-size: 16px;"></ion-icon>
+                            </ion-button>
+                            <ion-button fill="clear" size="small" (click)="onDharaNewToggle(item, false)"
+                              style="--padding-start: 4px; --padding-end: 4px; margin: 0;">
+                              <ion-icon name="close-circle-outline" slot="icon-only"
+                                style="font-size: 16px;"></ion-icon>
+                            </ion-button>
+                          </ion-chip>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Show selected count -->
+                    <ion-text *ngIf="selectedDharaNewIds.size > 0" color="primary"
+                      style="display: block; margin-top: 8px; font-size: 12px;">
+                      {{ selectedDharaNewIds.size }} धारा चुनी गई
+                    </ion-text>
+
+                  </ng-container>
+
+                  <ng-template #noDharaFound>
+                    <ion-text color="medium">इस चयन के लिए कोई अधिनियम / धारा नहीं मिली</ion-text>
+                  </ng-template>
+
+                </ion-col>
+
+                <!-- Info modal -->
+                <ion-modal [isOpen]="isDharaInfoOpen" (didDismiss)="closeDharaInfo()" [cssClass]="'dhara-info-modal'">
+                  <ng-template>
+                    <ion-header>
+                      <ion-toolbar style="--min-height: 56px;">
+                        <ion-title style="font-size: 16px; font-weight: 600;">विवरण</ion-title>
+                        <ion-buttons slot="end">
+                          <ion-button (click)="closeDharaInfo()" fill="clear"
+                            style="--padding-start: 8px; --padding-end: 8px; margin: 0; --color: #ffffff;">
+                            <ion-icon name="close-circle-outline" slot="icon-only" style="font-size: 26px;"></ion-icon>
+                          </ion-button>
+                        </ion-buttons>
+                      </ion-toolbar>
+                    </ion-header>
+
+                    <ion-content class="ion-padding"
+                      style="--padding-start: 20px; --padding-end: 20px; --padding-top: 16px; --padding-bottom: 20px;">
+                      <!-- Adhiniyam as Heading -->
+                      <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #e8e8e8;">
+                        <ion-label
+                          style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; font-weight: 500;">
+                          अधिनियम
+                        </ion-label>
+                        <ion-text
+                          style="font-size: 14px; font-weight: 600; color: #3880ff; display: block; line-height: 1.4;">
+                          {{ dharaInfoAdhiniyam || 'अधिनियम जानकारी उपलब्ध नहीं' }}
+                        </ion-text>
+                        <ion-text
+                          style="font-size: 12px; font-weight: 600; color: #2d3436; display: block; line-height: 1.4;">
+                          {{ dharaInfoTitle || 'धारा जानकारी उपलब्ध नहीं' }}
+                        </ion-text>
+                      </div>
+
+
+
+                      <!-- Description -->
+                      <div style="margin-bottom: 8px;">
+                        <!-- <ion-label style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; font-weight: 500;">
+                      विवरण
+                    </ion-label> -->
+                        <ion-text
+                          style="font-size: 14px; line-height: 1.6; color: #444; display: block; text-align: justify;">
+                          {{ dharaInfoDescription || 'विवरण उपलब्ध नहीं है' }}
+                        </ion-text>
+                      </div>
+                    </ion-content>
+                  </ng-template>
+                </ion-modal>
+
+
+                <ion-col size="12">
+                  <ion-textarea [(ngModel)]="reasonToDeleteDhara" fill="outline"
+                    label="विवरण संपादित करने का कारण स्पष्ट करें |" label-placement="floating" rows="3"
+                    auto-grow="true"></ion-textarea>
+                </ion-col>
+
+                <ion-col size="12" *ngIf="isShowEditDharaBox" style="margin-top: 12px;">
+                  <ion-button expand="block" color="medium" (click)="confirmCancelSectionEdit('1')">
+                    CANCEL
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+
+        <!-- <ion-col size="12" size-lg="6" >
+
+
+          <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false" placeholder="अपराध का प्रकार चुनें"
+            [(ngModel)]="selectedCrimType" [items]="listOfCrimType" bindLabel="name" bindValue="id"
+            [searchable]="false" />
+
+          <ng-select (change)="setActualDharayenAccrodingToHeadSelection($event)" class="nice-ng-select"
+            [clearable]="false" placeholder="अपराध अधिनियम / नियम" [items]="localListOfDharaHead" bindLabel="name"
+            bindValue="id" [searchable]="false" />
+
+          <ng-select style="margin-top: 5px;" (change)="selectedDharayen($event)" class="nice-ng-select"
+            [clearable]="false" placeholder="अपराध की धाराएं" [items]="localListOfActualDhara" bindLabel="name"
+            bindValue="id" [searchable]="false" />
+
+          <div style="margin-top: 5px;" class="clipboard-container" *ngIf="clipboardDharas.length > 0">
+            <div class="clipboard-item" *ngFor="let dhara of clipboardDharas">
+              {{ dhara.extraInfo }} - {{ dhara.name }}
+              <button type="button" class="cancel-btn" (click)="removeDhara(dhara.id)">❌</button>
+            </div>
+          </div>
+
+        </ion-col>
+
+        <ion-col size="6" *ngIf="showDialogForReasonAfterDeleteDhara">
+          <ion-textarea [(ngModel)]="reasonToDeleteDhara" fill="outline"
+            label="धारा हटाने का कारण स्पष्ट रूप से प्रविष्ट करें " label-placement="floating" rows="3"
+            auto-grow="true"></ion-textarea>
+        </ion-col> -->
+
+
+        <!-- अपराधियों का विवरण Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header" [class.edit-active]="isEditAccussedDetail">
+                <ion-icon name="people-outline" style="color: #ffffff;"></ion-icon>
+                <span>अपराधियों का विवरण</span>
+                <ion-button *ngIf="!isEditAccussedDetail" fill="clear" (click)="editCrimeDhara('2')"
+                  style="margin-left: auto; --color: #ffffff;">
+                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffffff; font-size: 14px; font-weight: 600; margin-left: 4px;">EDIT</span>
+                </ion-button>
+                <ion-button *ngIf="isEditAccussedDetail" fill="clear" (click)="confirmCancelSectionEdit('2')"
+                  style="margin-left: auto; --color: #ffd1d1;">
+                  <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffd1d1; font-size: 14px; font-weight: 600; margin-left: 4px;">CANCEL</span>
+                </ion-button>
+              </div>
+
+              <div class="section-body">
+                <ion-radio-group [(ngModel)]="isAccussedFound" (ionChange)="onRadioChange($event)"
+                  class="accused-radio-group">
+                  <ion-row>
+                    <ion-col size="6" size-lg="3">
+                      <ion-radio [value]="true" [disabled]="!isEditAccussedDetail">
+                        <ion-label>ज्ञात अपराधी</ion-label>
+                      </ion-radio>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="3">
+                      <ion-radio [value]="false" [disabled]="!isEditAccussedDetail">
+                        <ion-label>अज्ञात अपराधी</ion-label>
+                      </ion-radio>
+                    </ion-col>
+                  </ion-row>
+                </ion-radio-group>
+
+                <!-- Unknown Accused Message -->
+                <div *ngIf="!isAccussedFound" class="no-accused-container">
+                  <ion-label class="no-accused-title">अपराधी अज्ञात</ion-label>
+                  <ion-label class="no-accused-subtitle">इस मामले में अपराधी की पहचान नहीं की जा सकी है</ion-label>
+                </div>
+
+                <!-- Accused Persons List -->
+                <ng-container *ngIf="isAccussedFound">
+                  <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; margin-top: 16px;">
+                    <ion-label style="font-weight: 600; color: #333;">
+                      अपराधियों का विवरण
+                      <span style="color: #666; font-weight: 500;">(कुल {{ accusedCount }} व्यक्ति)</span>
+                    </ion-label>
+                    <ion-button fill="clear" (click)="addAccusedPerson()" *ngIf="isEditAccussedDetail"
+                      style="--color: #2E7D32;">
+                      <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+                      <span style="margin-left: 4px; font-weight: 600;">जोड़ें</span>
+                    </ion-button>
+                  </div>
+
+                  <div *ngFor="let person of accusedPersons; let i = index" class="accused-person-card">
+                    <!-- Person header with remove button -->
+                    <div class="accused-person-header" *ngIf="accusedPersons.length > 1">
+                      <ion-label>अपराधी {{i + 1}}</ion-label>
+                      <ion-button fill="clear" (click)="removeAccusedPerson(i)" *ngIf="isEditAccussedDetail"
+                        style="--color: #d32f2f;">
+                        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                      </ion-button>
+                    </div>
+
+                    <!-- Person form fields - readonly when not editing -->
+                    <ion-row>
+                      <ion-col size="12" size-lg="6">
+                        <ion-input class="ion-input" [(ngModel)]="person.name"
+                          [label]="accusedPersons.length > 1 ? 'नाम' : 'नाम'" label-placement="floating" fill="outline"
+                          [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="person.fathersName"
+                          [label]="accusedPersons.length > 1 ? 'पिता का नाम' : 'पिता का नाम'" label-placement="floating"
+                          fill="outline" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="person.age" [label]="accusedPersons.length > 1 ? 'उम्र ' : 'उम्र'"
+                          label-placement="floating" fill="outline" type="number" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ng-select style="width: 100%;" class="nice-ng-select" [clearable]="false"
+                          [placeholder]="accusedPersons.length > 1 ? 'जाति वर्ग' : 'जाति वर्ग'"
+                          [(ngModel)]="person.cast" [items]="listOfCast" bindLabel="name" bindValue="id"
+                          [searchable]="false" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="person.jati_name" [label]="accusedPersons.length > 1 ? 'जाति ' : 'जाति'"
+                          label-placement="floating" fill="outline" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="person.mobile_number"
+                          [label]="accusedPersons.length > 1 ? 'मोबाइल नंबर' : 'मोबाइल नंबर'" label-placement="floating"
+                          fill="outline" type="number" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-input [(ngModel)]="person.aadhaar_number"
+                          [label]="accusedPersons.length > 1 ? 'आधार नंबर' : 'आधार नंबर'" label-placement="floating"
+                          fill="outline" maxlength="12" inputmode="numeric" [readonly]="!isEditAccussedDetail" />
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="6">
+                        <ion-textarea [(ngModel)]="person.address" fill="outline"
+                          [label]="accusedPersons.length > 1 ? 'पता' : 'पता'" label-placement="floating" rows="3"
+                          auto-grow="true" [readonly]="!isEditAccussedDetail"></ion-textarea>
+                      </ion-col>
+                    </ion-row>
+                  </div>
+
+                  <!-- Reason for change textarea (only when editing) -->
+                  <ion-col size="12" *ngIf="isEditAccussedDetail" style="margin-top: 16px;">
+                    <ion-textarea [(ngModel)]="reasonToDeleteOrAddAccussed" fill="outline"
+                      label="अपराधियों के विवरण संपादित करने का कारण प्रविष्ट करें " label-placement="floating" rows="3"
+                      auto-grow="true"></ion-textarea>
+                  </ion-col>
+
+                  <ion-col size="12" *ngIf="isEditAccussedDetail" style="margin-top: 12px;">
+                    <ion-button expand="block" color="medium" (click)="confirmCancelSectionEdit('2')">
+                      CANCEL
+                    </ion-button>
+                  </ion-col>
+                </ng-container>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- साक्षियों का विवरण Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header" [class.edit-active]="isEditWitnessDetail">
+                <ion-icon name="people-outline" style="color: #ffffff;"></ion-icon>
+                <span>साक्षियों का विवरण</span>
+                <ion-button *ngIf="!isEditWitnessDetail" fill="clear" (click)="editCrimeDhara('3')"
+                  style="margin-left: auto; --color: #ffffff;">
+                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffffff; font-size: 14px; font-weight: 600; margin-left: 4px;">EDIT</span>
+                </ion-button>
+                <ion-button *ngIf="isEditWitnessDetail" fill="clear" (click)="confirmCancelSectionEdit('3')"
+                  style="margin-left: auto; --color: #ffd1d1;">
+                  <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffd1d1; font-size: 14px; font-weight: 600; margin-left: 4px;">CANCEL</span>
+                </ion-button>
+              </div>
+
+              <div class="section-body">
+                <!-- Witnesses List -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                  <ion-label style="font-weight: 600; color: #333;">
+                    साक्षियों का विवरण
+                    <span style="color: #666; font-weight: 500;" *ngIf="listOfWitness">(कुल {{ listOfWitness.length || 0
+                      }} व्यक्ति)</span>
+                  </ion-label>
+                  <ion-button fill="clear" (click)="addWitnessPerson()" *ngIf="isEditWitnessDetail"
+                    style="--color: #2E7D32;">
+                    <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+                    <span style="margin-left: 4px; font-weight: 600;">जोड़ें</span>
+                  </ion-button>
+                </div>
+
+                <div *ngFor="let person of listOfWitness; let i = index" class="accused-person-card">
+                  <!-- Person header with remove button -->
+                  <div class="accused-person-header">
+                    <ion-label>साक्षी {{i + 1}}</ion-label>
+                    <ion-button fill="clear" (click)="removeWitness(i)" *ngIf="isEditWitnessDetail"
+                      style="--color: #d32f2f;">
+                      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                  </div>
+
+                  <!-- Person form fields - readonly when not editing -->
+                  <ion-row>
+                    <ion-col size="12" size-lg="6">
+                      <ion-input class="ion-input" [(ngModel)]="person.naam"
+                        [label]="listOfWitness.length > 1 ? 'नाम' : 'नाम'" label-placement="floating" fill="outline"
+                        [readonly]="!isEditWitnessDetail" />
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="person.pita_ka_naam"
+                        [label]="listOfWitness.length > 1 ? 'पिता का नाम' : 'पिता का नाम'" label-placement="floating"
+                        fill="outline" [readonly]="!isEditWitnessDetail" />
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="person.age" [label]="listOfWitness.length > 1 ? 'उम्र ' : 'उम्र'"
+                        label-placement="floating" fill="outline" type="number" [readonly]="!isEditWitnessDetail" />
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-input [(ngModel)]="person.jaati" [label]="listOfWitness.length > 1 ? 'जाति ' : 'जाति'"
+                        label-placement="floating" fill="outline" [readonly]="!isEditWitnessDetail" />
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="6">
+                      <ion-textarea [(ngModel)]="person.pata" fill="outline"
+                        [label]="listOfWitness.length > 1 ? 'पता' : 'पता'" label-placement="floating" rows="3"
+                        auto-grow="true" [readonly]="!isEditWitnessDetail"></ion-textarea>
+                    </ion-col>
+                  </ion-row>
+                </div>
+
+                <!-- Reason for change textarea (only when editing) -->
+                <ion-col size="12" *ngIf="isEditWitnessDetail" style="margin-top: 16px;">
+                  <ion-textarea [(ngModel)]="reasonToUpdateWitnessDetail" fill="outline"
+                    label="साक्षियों के विवरण संपादित करने का कारण प्रविष्ट करें " label-placement="floating" rows="3"
+                    auto-grow="true"></ion-textarea>
+                </ion-col>
+
+                <ion-col size="12" *ngIf="isEditWitnessDetail" style="margin-top: 12px;">
+                  <ion-button expand="block" color="medium" (click)="confirmCancelSectionEdit('3')">
+                    CANCEL
+                  </ion-button>
+                </ion-col>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
+
+
+        <!-- <ion-col size="12" class="totals-container">
+          <ion-row class="ion-text-center ion-text-lg-start">
+            <ion-col size="12" size-lg="6" class="total-card">
+              <ion-label class="total-title">प्रथम साक्षी का नाम/पिता का नाम</ion-label>
+              <ion-label class="total-value">{{ witnessFirstName }}</ion-label>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" class="total-card">
+              <ion-label class="total-title">प्रथम साक्षी का पता</ion-label>
+              <ion-label class="total-value">{{ witnessFirstAddress }}</ion-label>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" class="total-card">
+              <ion-label class="total-title">द्वितीय साक्षी का नाम/पिता का नाम</ion-label>
+              <ion-label class="total-value">{{ witnessSecondName }}</ion-label>
+            </ion-col>
+
+            <ion-col size="12" size-lg="6" class="total-card">
+              <ion-label class="total-title">द्वितीय साक्षी का पता</ion-label>
+              <ion-label class="total-value">{{ witnessSecondAddress }}</ion-label>
+            </ion-col>
+
+          </ion-row>
+        </ion-col> -->
+
+
+
+        <!-- अतिरिक्त विवरण Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header">
+                <ion-icon name="document-text-outline" style="color: #ffffff;"></ion-icon>
+                <span>अतिरिक्त विवरण</span>
+              </div>
+
+              <div class="section-body">
+                <ion-grid>
+                  <!-- First Row: Surrender, Investigation Officer, Investigation Period -->
+                  <ion-row>
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="japtsuda_saman_supurd_emp_name"
+                        label="जप्तशुदा सामग्रियों को जिसके सुपुर्द किया गया" label-placement="floating" fill="outline"
+                        class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="janch_adhikari_ka_name" label="जाँच अधिकारी का नाम एवं पद"
+                        label-placement="floating" fill="outline" class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="janch_ki_awadhi" label="जाँच की अवधि (दिनों में)"
+                        label-placement="floating" fill="outline" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Second Row: Previous Crime Details -->
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-textarea [(ngModel)]="apradhi_ke_purv_apradh_ka_vivran" fill="outline"
+                        label="अपराधी के पूर्व अपराध का विवरण (यदि कोई हो)" label-placement="stacked" rows="5"
+                        auto-grow="true" class="ion-input">
+                      </ion-textarea>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Third Row: Investigation Willingness -->
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-label class="info-label"
+                        style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">
+                        अपराधी प्रकरण को अभिसन्धानित करने का ईक्छुक है अथवा नही
+                      </ion-label>
+
+                      <ion-radio-group [(ngModel)]="isAccusedWantToAbhisandhanit"
+                        class="accused-radio-group decision-choice-group">
+                        <ion-row>
+                          <ion-col size="12" size-lg="6">
+                            <ion-radio [value]="true">
+                              <ion-label>हाँ</ion-label>
+                            </ion-radio>
+                          </ion-col>
+
+                          <ion-col size="12" size-lg="6">
+                            <ion-radio [value]="false">
+                              <ion-label>नहीं</ion-label>
+                            </ion-radio>
+                          </ion-col>
+                        </ion-row>
+                      </ion-radio-group>
+
+                      <!-- Rajinama Photo Section (shown when Yes is selected) -->
+                      <div *ngIf="isAccusedWantToAbhisandhanit" style="margin-top: 16px;">
+                        <ion-row>
+                          <ion-col size="12" size-lg="6">
+                            <div class="rajinama-section">
+                              <div class="rajinama-header">
+                                <ion-label class="info-label"
+                                  style="margin-bottom: 8px; display: block; font-weight: 600; color: #333;">
+                                  राजी नामा अपलोड करें
+                                </ion-label>
+                                <ion-button size="small" class="camera-btn" (click)="takeRajiNamaPhoto()"
+                                  style="--background: #2E7D32; --color: #ffffff;">
+                                  <ion-icon name="camera-outline" slot="icon-only" size="large"></ion-icon>
+                                </ion-button>
+                              </div>
+
+                              <!-- ss120326start -->
+                              <div class="horizontal-scroll-wrapper"
+                                *ngIf="rajinamaPhoto && rajinamaPhoto.trim() !== ''">
+                                <div class="photo-container">
+                                  <img [src]="rajinamaPhoto" class="scroll-image"
+                                    (click)="showBase64ImageAlert(rajinamaPhoto)" />
+                                  <ion-button fill="clear" size="small" (click)="showBase64ImageAlert(rajinamaPhoto)">
+                                    View
+                                  </ion-button>
+                                  <ion-button fill="clear" size="small" color="danger" (click)="rajinamaPhoto = ''">
+                                    Remove
+                                  </ion-button>
+                                  <ion-icon name="close-circle" class="remove-icon" color="danger"
+                                    (click)="rajinamaPhoto = ''">
+                                  </ion-icon>
+                                </div>
+                              </div>
+                              <!-- ss120326end -->
+                            </div>
+                          </ion-col>
+
+                          <ion-col size="12" size-lg="6" *ngIf="rajinamaPhotoUrl && rajinamaPhotoUrl.trim() !== ''">
+                            <div class="rajinama-section">
+                              <div class="photo-container">
+                                <img [src]="getFullPathImage(rajinamaPhotoUrl)" class="complain-image"
+                                  (click)="showImageAlert(rajinamaPhotoUrl)" />
+                              </div>
+                            </div>
+                          </ion-col>
+                        </ion-row>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Fourth Row: Financial Condition -->
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-textarea [(ngModel)]="accussedFinancialCondition" fill="outline"
+                        label="अपराधी की आर्थिक परिस्थिति का विवरण" label-placement="stacked" rows="5" auto-grow="true"
+                        class="ion-input">
+                      </ion-textarea>
+                    </ion-col>
+                  </ion-row>
+
+                  <!-- Janchkarta decision (0/1) -->
+                  <ion-row style="margin-top: 8px;">
+                    <ion-col size="12">
+                      <ion-label class="info-label"
+                        style="display: block; margin-bottom: 12px; font-weight: 600; color: #333;">
+                        जाँचकर्ता अधिकारी की अनुशंषा
+                      </ion-label>
+
+                      <ion-radio-group [(ngModel)]="jachkartaDecision"
+                        class="accused-radio-group decision-choice-group">
+                        <ion-row>
+                          <ion-col size="12" size-lg="6">
+                            <ion-radio [value]="0">
+                              <ion-label>अभिसन्धानित/अपलेखित</ion-label>
+                            </ion-radio>
+                          </ion-col>
+
+                          <ion-col size="12" size-lg="6">
+                            <ion-radio [value]="1">
+                              <ion-label>न्यायालय में देने हेतु अनुशंषा</ion-label>
+                            </ion-radio>
+                          </ion-col>
+                        </ion-row>
+                      </ion-radio-group>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- वनोपज एवं अन्य वस्तुओं का विवरण Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header" [class.edit-active]="isEditDarDetail">
+                <ion-icon name="leaf-outline" style="color: #ffffff;"></ion-icon>
+                <span>वनोपज एवं अन्य वस्तुओं का विवरण एवं गैर वाणिज्यिक दर/बाजार भाव से उसका मूल्य</span>
+                <ion-button *ngIf="!isEditDarDetail" fill="clear" (click)="editCrimeDhara('4')"
+                  style="margin-left: auto; --color: #ffffff;">
+                  <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffffff; font-size: 14px; font-weight: 600; margin-left: 4px;">EDIT</span>
+                </ion-button>
+                <ion-button *ngIf="isEditDarDetail" fill="clear" (click)="confirmCancelSectionEdit('4')"
+                  style="margin-left: auto; --color: #ffd1d1;">
+                  <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+                  <span style="color: #ffd1d1; font-size: 14px; font-weight: 600; margin-left: 4px;">CANCEL</span>
+                </ion-button>
+              </div>
+
+              <div class="section-body">
+
+                <ion-col size="12">
+
+                  <ion-row class="kastha-card">
+
+                    <ion-col size="10">
+                      <ion-label class="instruction-label">ठूंठ से प्राप्त होने वाले अनुमानित वनोपज का विवरण</ion-label>
+                    </ion-col>
+
+                    <ion-col size="2" class="ion-text-end">
+                      <ion-button fill="clear" size="small" (click)="addThunthInfo()" class="add-btn">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                    <ion-col size="12">
+                      <ion-list lines="none">
+                        <ion-grid *ngFor="let row of listOfThunthDetail; let i = index" class="kastha-row">
+
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">प्रजाति</ion-label>
+                                <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select"
+                                  [clearable]="false" [readonly]="isReadOnly(row)" placeholder="प्रजाति चुने"
+                                  [(ngModel)]="row.prajati_type" bindLabel="name" bindValue="id" [searchable]="false"
+                                  appendTo="body" [items]="woodListForExceptJalau" (change)="setThunthGolai(row)">
+                                </ng-select>
+                              </div>
+
+                            </ion-col>
+
+                            <!-- <ion-col size="6" size-lg="3">
+                      <div>
+                        <ion-label class="ion-text-extra-small">ऊंचाई (मीटर)</ion-label>
+                        <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;" [(ngModel)]="row.unchai"
+                          type="number">
+                        </ion-input>
+                      </div>
+
+                    </ion-col> -->
+
+
+
+                            <!-- <ion-col size="6" size-lg="3">
+                      <div>
+                        <ion-label class="ion-text-extra-small">गोलाई वर्ग (सेंटी मीटर)</ion-label>
+                        <ion-input [readonly]="isReadOnly(row)" class="outlined-box" fill="outline"
+                          style="margin-top: 5px;" [(ngModel)]="row.golai" (ionInput)="validateGolai(row)"
+                          (keypress)="allowOnlyRangePatternForThunthGolai($event)">
+                        </ion-input>
+                      </div>
+
+                    </ion-col> -->
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">गोलाई वर्ग (सेंटी मीटर)</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" fill="outline"
+                                  class="nice-ng-select" [clearable]="false" placeholder="गोलाई वर्ग चुने"
+                                  [(ngModel)]="row.golai" [items]="listOfGolaiValue" bindLabel="name" bindValue="name"
+                                  [searchable]="false" appendTo="body" (change)="getOneGolaiVargKamKarke(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+
+                              <div>
+                                <ion-label class="ion-text-extra-small">1 गोलाई वर्ग कम करने पर गोलाई वर्ग (सेंटी
+                                  मीटर)</ion-label>
+                                <!-- <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                          [(ngModel)]="row.one_golai_less" (ionInput)="validateOneLessGolai(row)"
+                          (keypress)="allowOnlyRangePatternForThunthGolai($event)" readonly>
+                        </ion-input> -->
+                                <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.one_golai_less" readonly>
+                                </ion-input>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" type="number"
+                                  (ionInput)="calculateGhanMeter(row)" [(ngModel)]="row.nag" class="outlined-box"
+                                  fill="outline">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">स्थल गुण श्रेंणी</ion-label>
+                                <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select"
+                                  [clearable]="false" placeholder="स्थल गुण श्रेंणी चुने" [(ngModel)]="row.site_quality"
+                                  [items]="listOfSiteQuality" bindLabel="name" bindValue="id" [searchable]="false"
+                                  appendTo="body" (change)="getFormFactorAccordingToSelectedValues(row)">
+                                </ng-select>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3" *ngIf="isThunthCalculationFromFormFactor">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">हालात</ion-label>
+                                <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                                  placeholder="हालात चुने" [(ngModel)]="row.kasth_halat" [items]="kasthHalatList"
+                                  bindLabel="name" bindValue="id" [searchable]="false" appendTo="body"
+                                  (change)="getFormFactorAccordingToSelectedValues(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3" *ngIf="isThunthCalculationFromFormFactor">
+                              <div>
+                                <ion-label class="ion-text-extra-small">फॉर्म फैक्टर</ion-label>
+                                <ion-input class="outlined-box" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.form_factor" (ionInput)="calculateGhanMeter(row)" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3" *ngIf="isThunthCalculationFromFormFactor">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">आयतन (घ.मी.)</ion-label>
+                                <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                                  [value]="row.ghan_meter" readonly></ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+
+                                <ion-input [readonly]="isDarReadOnly(row)" [readonly]="isThunthDarReadable()"
+                                  class="outlined-box" type="number" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.dar" (ionInput)="updateTotal(row)">
+                                </ion-input>
+
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+
+                                <ion-input class="outlined-box" type="number" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.total_cost" readonly>
+                                </ion-input>
+
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeThunthInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+
+                        </ion-grid>
+                      </ion-list>
+                    </ion-col>
+
+                    <ion-col size="12" class="totals-container">
+                      <ion-row *ngIf="listOfThunthDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल ठूंठ संख्या</ion-label>
+                          <ion-label class="total-value">{{ totalThunthNag }}</ion-label>
+                        </ion-col>
+
+
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">ठूंठ से प्राप्त होने वाले अनुमानित वनोपज की कुल
+                            राशि</ion-label>
+                          <ion-label class="total-value">{{ totalThunthRashi }}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-row>
+
+                </ion-col>
+
+                <ion-col size="12">
+                  <ion-row class="kastha-card">
+
+                    <ion-col size="12" class="ion-justify-content-between ion-align-items-center"
+                      style="display: flex;">
+                      <ion-label class="instruction-label">लट्ठा का विवरण</ion-label>
+
+                      <ion-button fill="clear" size="small" (click)="addKasthaInfo()" class="add-btn">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                    <ion-col size="12">
+                      <ion-list lines="none">
+                        <ion-grid *ngFor="let row of listOfKashthaDetail; let i = index" class="kastha-row">
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="nice-ng-select"
+                                  [clearable]="false" placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type"
+                                  [items]="woodListForExceptJalau" bindLabel="name" bindValue="id" [searchable]="false"
+                                  appendTo="body" (change)="setLambaiOrGolaiValidation(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">लम्बाई (मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" type="number" [(ngModel)]="row.lambai"
+                                  (ionInput)="checkMinMaxForRowLatthaLambai(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">गोलाई (सेंटी
+                                  मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" [(ngModel)]="row.golai" type="number"
+                                  (ionBlur)="checkMinMaxForRowLatthaGolai(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" type="number" (ionInput)="calculateGhanMeterKastha(row)"
+                                  [(ngModel)]="row.nag">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">आयतन (घ.मी.)</ion-label>
+                                <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                                  [value]="row.ghan_meter" readonly></ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" (ionInput)="updateCostKasth(row)"
+                                  [(ngModel)]="row.dar" type="number" class="outlined-box" fill="outline"
+                                  [readonly]="isDarReadOnly(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                                  fill="outline" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+
+
+                            <ion-col size="12" size-lg="8">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="9" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [readonly]="isReadOnly(row)" [(ngModel)]="row.if_not_yogya_then_reason"
+                                    fill="outline" label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating"
+                                    rows="3" auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeKashthaInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+
+                          </ion-row>
+
+                        </ion-grid>
+                      </ion-list>
+                    </ion-col>
+
+                    <ion-col size="12" class="totals-container">
+                      <ion-row *ngIf="listOfKashthaDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल लट्ठा संख्या</ion-label>
+                          <ion-label class="total-value">{{ totalKashthNag }}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल आयतन (घ.मी.)</ion-label>
+                          <ion-label class="total-value">{{ totalKashthGhanMeter }}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल लट्ठा राशि</ion-label>
+                          <ion-label class="total-value">{{ totalKashthRashi }}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-col>
+
+                <!-- Balli ki jankari -->
+
+                <ion-col size="12">
+                  <ion-row class="kastha-card">
+
+                    <ion-col size="12" class="ion-justify-content-between ion-align-items-center"
+                      style="display: flex;">
+                      <ion-label class="instruction-label">बल्ली का विवरण</ion-label>
+
+                      <ion-button fill="clear" size="small" (click)="addBalliInfo()" class="add-btn">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                    <ion-col size="12">
+                      <ion-list lines="none">
+                        <ion-grid *ngFor="let row of listOfBalliDetail; let i = index" class="kastha-row">
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="nice-ng-select"
+                                  [clearable]="false" placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type"
+                                  bindLabel="name" bindValue="id" [searchable]="false" appendTo="body"
+                                  [items]="woodListForExceptJalau"
+                                  (change)="setListOfLambaiAndGolaiAccordingToYearAndPrajatiSelection(row)"
+                                  (ngModelChange)="getBalliPriceSingleValue(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <!-- <ion-col size="6" size-lg="3">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">लम्बाई वर्ग (मी.)</ion-label>
+                        <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                          fill="outline" [(ngModel)]="row.lambai" (ionInput)="validateBalliLambai(row)"
+                          (keypress)="allowOnlyRangePatternForWarg($event)">
+                        </ion-input>
+                      </div>
+                    </ion-col> -->
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">लम्बाई वर्ग(मी.)</ion-label>
+                                <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select"
+                                  [clearable]="false" [readonly]="isReadOnly(row)" placeholder="लम्बाई वर्ग चुने"
+                                  [(ngModel)]="row.lambai" [items]="listOfLambaiValueBalli" bindLabel="name"
+                                  bindValue="name" [searchable]="false" appendTo="body"
+                                  (change)="getBalliPriceSingleValue(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <!-- <ion-col size="6" size-lg="3">
+                      <div>
+                        <ion-label class="ion-text-extra-small" position="stacked">गोलाई वर्ग (से.मी.)</ion-label>
+                        <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                          fill="outline" [(ngModel)]="row.golai" (ionInput)="validateBalliGolai(row)"
+                          (keypress)="allowOnlyRangePatternForWarg($event)">
+                        </ion-input>
+                      </div>
+                    </ion-col> -->
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">गोलाई वर्ग
+                                  (से.मी.)</ion-label>
+                                <ng-select style="margin-top: 5px;" fill="outline" class="nice-ng-select"
+                                  [clearable]="false" [readonly]="isReadOnly(row)" placeholder="गोलाई वर्ग चुने"
+                                  [(ngModel)]="row.golai" [items]="listOfGolaiValueBalli" bindLabel="name"
+                                  bindValue="name" [searchable]="false" appendTo="body"
+                                  (change)="getBalliPriceSingleValue(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" type="number" (ionInput)="calculateTotalBalliRashi(row)"
+                                  [(ngModel)]="row.nag">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" (ionInput)="calculateTotalBalliRashi(row)"
+                                  [(ngModel)]="row.dar" type="number" class="outlined-box" fill="outline" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                                  fill="outline" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="8">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="9" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeBalliInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+
+                          </ion-row>
+
+                        </ion-grid>
+                      </ion-list>
+                    </ion-col>
+
+                    <ion-col size="12" class="totals-container">
+                      <ion-row *ngIf="listOfBalliDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल बल्ली संख्या</ion-label>
+                          <ion-label class="total-value">{{ totalBalliNag }}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल बल्ली राशि</ion-label>
+                          <ion-label class="total-value">{{ totalBalliRashi }}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-col>
+
+                <!-- End balli ki jankari -->
+
+                <ion-col size="12">
+                  <ion-row class="kastha-card">
+
+                    <ion-col size="12" class="ion-justify-content-between ion-align-items-center"
+                      style="display: flex;">
+                      <ion-label class="instruction-label">चिरान का विवरण</ion-label>
+
+                      <ion-button fill="clear" size="small" (click)="addChiranInfo()" class="add-btn">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                      </ion-button>
+                    </ion-col>
+
+                    <ion-col size="12">
+                      <ion-list lines="none">
+                        <ion-grid *ngFor="let row of listOfChiranaDetail; let i = index" class="kastha-row">
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="nice-ng-select"
+                                  [clearable]="false" placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type"
+                                  bindLabel="name" bindValue="id" [searchable]="false" appendTo="body"
+                                  [items]="woodListForExceptJalau" (change)="setAllchiraanFieldsBlank(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">लम्बाई (मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.lambai"
+                                  type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">चौड़ाई (सेंटी
+                                  मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.golai"
+                                  type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">मोटाई (सेंटी
+                                  मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.motai"
+                                  type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" class="outlined-box"
+                                  fill="outline" (ionInput)="calculateGhanMeterChiran(row)" [(ngModel)]="row.nag"
+                                  type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">आयतन (घ.मी.)</ion-label>
+                                <ion-input style="margin-top: 5px;" class="outlined-box" fill="outline"
+                                  [value]="row.ghan_meter" readonly></ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input [readonly]="isDarReadOnly(row)" style="margin-top: 5px;"
+                                  [(ngModel)]="row.dar" type="number" class="outlined-box" fill="outline"
+                                  (ionInput)="calculateGhanMeterChiran(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                                  fill="outline" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="8">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="9" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="8" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeChiranInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+                        </ion-grid>
+                      </ion-list>
+                    </ion-col>
+
+                    <ion-col size="12" class="totals-container" *ngIf="listOfChiranaDetail.length > 0">
+                      <ion-row *ngIf="listOfChiranaDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल चिरान संख्या</ion-label>
+                          <ion-label class="total-value">{{ totalChiranNag }}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल आयतन (घ.मी.)</ion-label>
+                          <ion-label class="total-value">{{ totalChiranGhanMeter }}</ion-label>
+                        </ion-col>
+
+                        <ion-col size="12" size-lg="4" class="total-card">
+                          <ion-label class="total-title">कुल चिरान राशि</ion-label>
+                          <ion-label class="total-value">{{ totalChiranRashi }}</ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+
+                  </ion-row>
+                </ion-col>
+
+                <ion-row class="kastha-card">
+
+                  <ion-col size="10">
+                    <ion-label class="instruction-label">जलाऊ का विवरण</ion-label>
+                  </ion-col>
+
+                  <ion-col size="2" class="ion-text-end">
+                    <ion-button fill="clear" size="small" (click)="addChattaInfo()" class="add-btn">
+                      <ion-icon name="add-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-item *ngFor="let row of listOfChattaDetail; let i = index">
+
+                        <ion-grid class="kastha-row">
+
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">प्रजाति</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" fill="outline"
+                                  class="nice-ng-select" [clearable]="false" placeholder="प्रजाति चुने"
+                                  [(ngModel)]="row.prajati_type" bindLabel="name" bindValue="id"
+                                  [items]="woodListForJalau" [searchable]="false" appendTo="body"
+                                  (change)="setAllJalauChattaFieldsBlank(row)">
+                                </ng-select>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">चट्टा संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" [(ngModel)]="row.nag"
+                                  class="outlined-box" fill="outline" type="number"
+                                  (ionInput)="updateTotalChattaRashi(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input class="outlined-box" type="number" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.dar" [readonly]="isDarReadOnly(row)"
+                                  (ionInput)="updateTotalChattaRashi(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input class="outlined-box" type="number" fill="outline" style="margin-top: 5px;"
+                                  [(ngModel)]="row.total_cost" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="8">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="9" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeChattaInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+
+                        </ion-grid>
+
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+                  <ion-col size="12" class="totals-container">
+                    <ion-row *ngIf="listOfChattaDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                      <ion-col size="12" size-lg="4" class="total-card">
+                        <ion-label class="total-title">कुल चट्टा संख्या</ion-label>
+                        <ion-label class="total-value">{{ totalChattaNag }}</ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4" class="total-card">
+                        <ion-label class="total-title">कुल चट्टा राशि</ion-label>
+                        <ion-label class="total-value">{{ totalChattaRashi }}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+
+                </ion-row>
+
+
+
+
+
+
+                <ion-row class="kastha-card">
+
+                  <ion-col size="10">
+                    <ion-label class="instruction-label">बाँस का विवरण</ion-label>
+                  </ion-col>
+
+                  <ion-col size="2" class="ion-text-end">
+                    <ion-button fill="clear" size="small" (click)="addBanshInfo()" class="add-btn">
+                      <ion-icon name="add-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-item *ngFor="let row of listOfBanshDetail; let i = index">
+
+                        <ion-grid>
+
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">बाँस का प्रकार</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" fill="outline"
+                                  class="nice-ng-select" [clearable]="false" placeholder="बाँस का प्रकार चुने"
+                                  [(ngModel)]="row.prajati_type" [items]="listOfBanshType" bindLabel="name"
+                                  bindValue="id" [searchable]="false" appendTo="body"
+                                  (change)="resetAllBanshEntry(row)">
+                                </ng-select>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">लम्बाई (मी.)</ion-label>
+                                <ng-select [readonly]="isReadOnly(row)" style="margin-top: 5px;" fill="outline"
+                                  class="nice-ng-select" [clearable]="false" placeholder="बाँस की लम्बाई चुने"
+                                  [(ngModel)]="row.lambai" [items]="setBanshList(row.prajati_type)" bindLabel="name"
+                                  bindValue="name" [searchable]="false" appendTo="body"
+                                  (change)="calculateNosionalTon(row)">
+                                </ng-select>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">संख्या</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" [(ngModel)]="row.nag"
+                                  class="outlined-box" fill="outline" type="number"
+                                  (ionInput)="calculateNosionalTon(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">मात्रा (नोशनल टन)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.ghan_meter" class="outlined-box"
+                                  fill="outline" readonly>
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input [readonly]="isDarReadOnly(row)" style="margin-top: 5px;"
+                                  [(ngModel)]="row.dar" class="outlined-box" fill="outline" type="number"
+                                  (ionInput)="calculateTotalBanshRashi(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;"
+                                  [(ngModel)]="row.total_cost" class="outlined-box" fill="outline" type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+
+
+                            <ion-col size="12">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeBanshInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+
+                        </ion-grid>
+
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+
+                  <ion-col size="12" class="totals-container">
+                    <ion-row *ngIf="listOfBanshDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल व्यापारिक बाँस संख्या</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalVyaparikBanshNag }}
+                        </ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल व्यापारिक बाँस राशि</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalVyaparikBanshRashi }}
+                        </ion-label>
+                      </ion-col>
+
+
+
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल औद्योगिक बाँस संख्या</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalOdyogicBanshNag }}
+                        </ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल औद्योगिक बाँस राशि</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalOdyogicBanshRashi }}
+                        </ion-label>
+                      </ion-col>
+
+                    </ion-row>
+                  </ion-col>
+
+                </ion-row>
+
+
+
+
+                <ion-row class="kastha-card">
+
+                  <ion-col size="10">
+                    <ion-label class="instruction-label">फेंसिंग पोल का विवरण</ion-label>
+                  </ion-col>
+
+                  <ion-col size="2" class="ion-text-end">
+                    <ion-button fill="clear" size="small" (click)="addFencingPolInfo()" class="add-btn">
+                      <ion-icon name="add-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-item *ngFor="let row of listOfFencingPolDetail; let i = index">
+
+                        <ion-grid>
+
+                          <ion-row>
+
+                            <!-- प्रजाति चुने -->
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small" position="stacked">प्रजाति</ion-label>
+                                <ng-select style="margin-top: 5px;" class="nice-ng-select" [clearable]="false"
+                                  placeholder="प्रजाति चुने" [(ngModel)]="row.prajati_type"
+                                  [items]="woodListForExceptJalau" bindLabel="name" bindValue="id" [searchable]="false"
+                                  appendTo="body" [readonly]="isReadOnly(row)"
+                                  (change)="getFencingPolPriceSingleValue(row)">
+                                </ng-select>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">संख्या</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.nag" class="outlined-box"
+                                  fill="outline" type="number" [readonly]="isReadOnly(row)"
+                                  (ionInput)="calculateTotalFencingPolRashi(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">दर (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.dar" class="outlined-box"
+                                  fill="outline" type="number" [readonly]="isDarReadOnly(row)"
+                                  (ionInput)="calculateTotalFencingPolRashi(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">राशि (₹)</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                                  fill="outline" type="number" [readonly]="isReadOnly(row)">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="12">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeFencingPolInfo(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+
+                        </ion-grid>
+
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+
+
+                  <ion-col size="12" class="totals-container">
+                    <ion-row *ngIf="listOfFencingPolDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल फेंसिंग पोल संख्या</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalFencingPolNag }}
+                        </ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="3" class="total-card">
+                        <ion-label class="instruction-label">कुल फेंसिंग पोल राशि</ion-label>
+                        <ion-label class="instruction-label" style="color: blue;">
+                          {{ totalFencingPolRashi }}
+                        </ion-label>
+                      </ion-col>
+
+
+                    </ion-row>
+                  </ion-col>
+
+
+                </ion-row>
+
+
+
+
+
+                <!-- OTHER JAPT SAMAN -->
+
+                <ion-row class="kastha-card">
+
+                  <ion-col size="10">
+                    <ion-label class="instruction-label">अन्य सामग्रियों का विवरण</ion-label>
+                  </ion-col>
+
+                  <ion-col size="2" class="ion-text-end">
+                    <ion-button fill="clear" size="small" (click)="addOtherJaptSamanDetail()" class="add-btn">
+                      <ion-icon name="add-circle-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-item *ngFor="let row of listOfOtherJaptSamanDetail; let i = index">
+
+                        <ion-grid class="kastha-row">
+
+                          <ion-row>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">सामाग्री का विवरण</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;"
+                                  [(ngModel)]="row.if_other_then_detail" class="outlined-box"
+                                  fill="outline"></ion-input>
+                              </div>
+
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">संख्या (नग)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;" [(ngModel)]="row.nag"
+                                  class="outlined-box" fill="outline" type="number">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="3">
+                              <div>
+                                <ion-label class="ion-text-extra-small">मात्रा (घन मीटर)</ion-label>
+                                <ion-input [readonly]="isReadOnly(row)" style="margin-top: 5px;"
+                                  [(ngModel)]="row.ghan_meter" class="outlined-box" fill="outline"
+                                  type="number"></ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="6" size-lg="2">
+                              <div>
+                                <ion-label class="ion-text-extra-small">अनुमानित मूल्य</ion-label>
+                                <ion-input style="margin-top: 5px;" [(ngModel)]="row.total_cost" class="outlined-box"
+                                  fill="outline" type="number" (ionInput)="updateAnumanitRashi()">
+                                </ion-input>
+                              </div>
+                            </ion-col>
+
+                            <ion-col size="12" size-lg="8">
+                              <ion-row class="ion-align-items-center">
+                                <ion-col size="12" size-lg="6">
+                                  <ion-label class="ion-text-extra-small">
+                                    क्या वनोपज काष्ठागार में परिवहन किया जाना है?
+                                  </ion-label>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="6">
+                                  <ion-radio-group [(ngModel)]="row.is_yogya_to_parivahan" class="accused-radio-group">
+                                    <ion-row>
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="1" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>हाँ</ion-label>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col size="6" size-lg="3">
+                                        <ion-item>
+                                          <ion-radio value="0" [disabled]="!row.can_delete">
+                                          </ion-radio>
+                                          <ion-label>नहीं</ion-label>
+                                        </ion-item>
+
+                                      </ion-col>
+                                    </ion-row>
+                                  </ion-radio-group>
+                                </ion-col>
+
+                                <ion-col size="12" size-lg="9" *ngIf="row.is_yogya_to_parivahan == '0'">
+                                  <ion-textarea [(ngModel)]="row.if_not_yogya_then_reason" fill="outline"
+                                    label="यदि नहीं, तो कारण दर्ज करें " label-placement="floating" rows="3"
+                                    auto-grow="true"></ion-textarea>
+                                </ion-col>
+
+                              </ion-row>
+
+                            </ion-col>
+
+                            <ion-col size="12" class="ion-text-end" *ngIf="row.can_delete">
+                              <ion-button fill="clear" color="danger" (click)="removeOtherJaptiSaman(i)">
+                                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                              </ion-button>
+                            </ion-col>
+
+                          </ion-row>
+
+                        </ion-grid>
+
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+
+                  <ion-col size="12" class="totals-container">
+                    <ion-row *ngIf="listOfOtherJaptSamanDetail.length > 0" class="ion-text-center ion-text-lg-start">
+                      <ion-col size="12" size-lg="4" class="total-card">
+                        <ion-label class="total-title">कुल अन्य सामग्रियों की संख्या (नग)</ion-label>
+                        <ion-label class="total-value">{{ totalOtherJaptSamanNag }}</ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4" class="total-card">
+                        <ion-label class="total-title">कुल अन्य सामग्रियों की मात्रा (घ.मी.)</ion-label>
+                        <ion-label class="total-value">{{ totalOtherJaptSamanGhanMeter }}</ion-label>
+                      </ion-col>
+
+                      <ion-col size="12" size-lg="4" class="total-card">
+                        <ion-label class="total-title">कुल अन्य सामग्रियों का अनुमानित मूल्य</ion-label>
+                        <ion-label class="total-value">{{ totalAnumanitRashi }}</ion-label>
+                      </ion-col>
+
+                    </ion-row>
+                  </ion-col>
+
+                </ion-row>
+
+
+
+
+
+                <ion-row class="kastha-card" *ngIf="listOfJaptVahanDetail.length > 0">
+
+                  <ion-col size="10">
+                    <ion-label class="instruction-label">वाहन का विवरण</ion-label>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-item *ngFor="let row of listOfJaptVahanDetail; let i = index">
+
+                        <div [class.disabled-section]="!isEditDarDetail">
+
+                          <ion-grid class="kastha-row">
+
+                            <ion-row>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">वाहन का प्रकार / मॉडल / विवरण</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.vahan_prakar"
+                                    class="outlined-box" fill="outline"></ion-input>
+                                </div>
+
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">वाहन क्रमांक</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.vahan_kramank"
+                                    class="outlined-box" fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">अनुमानित मूल्य</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.anumanit_mulya"
+                                    class="outlined-box" fill="outline"></ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">मालिक का नाम</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.malik_ka_name"
+                                    class="outlined-box" fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">पिता का नाम</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.malik_k_father_ka_name"
+                                    class="outlined-box" fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">पूरा पता</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.pata" class="outlined-box"
+                                    fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">तहसील</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.tahsil" class="outlined-box"
+                                    fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                              <ion-col size="12" size-lg="4">
+                                <div>
+                                  <ion-label class="ion-text-extra-small">जिला</ion-label>
+                                  <ion-input style="margin-top: 5px;" [(ngModel)]="row.jila" class="outlined-box"
+                                    fill="outline">
+                                  </ion-input>
+                                </div>
+                              </ion-col>
+
+                            </ion-row>
+
+                          </ion-grid>
+                        </div>
+
+
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+                </ion-row>
+
+                <!-- Edit Form for वनोपज Section -->
+                <div *ngIf="isEditDarDetail" class="edit-form-card" style="margin-top: 16px;">
+                  <div class="section-header" style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);">
+                    <ion-icon name="create-outline" style="color: #ffffff;"></ion-icon>
+                    <span>विवरण संपादित करने का कारण</span>
+                  </div>
+                  <div class="section-body">
+                    <ion-textarea [(ngModel)]="reasonToUpdateDar" fill="outline"
+                      label="वनोपज एवं अन्य वस्तुओं के विवरण संपादित करने का कारण प्रविष्ट करें "
+                      label-placement="floating" rows="3" auto-grow="true" class="ion-input">
+                    </ion-textarea>
+
+                    <ion-col size="12" style="margin-top: 12px;">
+                      <ion-button expand="block" color="medium" (click)="confirmCancelSectionEdit('4')">
+                        CANCEL
+                      </ion-button>
+                    </ion-col>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
+        <!-- Summary Totals Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header">
+                <ion-icon name="calculator-outline" style="color: #ffffff;"></ion-icon>
+                <span>कुल राशि का विवरण</span>
+              </div>
+
+              <div class="section-body">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalThunthRashi"
+                        label="ठूंठ से प्राप्त होने वाले अनुमानित वनोपज की कुल राशि (₹)" label-placement="floating"
+                        fill="outline" type="number" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalVanopajRashi" label="जप्त वनोपज की कुल राशि (₹)"
+                        label-placement="floating" fill="outline" type="number" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalCostOfVastawikHani" label="वास्तविक हानि की कुल राशि (₹)"
+                        label-placement="floating" fill="outline" type="number" class="ion-input">
+                      </ion-input>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalCostOfMahsul" (ionInput)="updateTotalOfMahsulAndMawja()"
+                        label="वनोपज का मूल्य (महसूल) (₹)" label-placement="floating" fill="outline" type="number"
+                        class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalCostOfMuwavja" (ionInput)="updateTotalOfMahsulAndMawja()"
+                        label="क्षतिपूर्ति राशि (मुआवजा) (₹)" label-placement="floating" fill="outline" type="number"
+                        class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalOfMahsulAndMawja" label="योग राशि (₹)" label-placement="floating"
+                        fill="outline" type="number" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="totalVasuliRashi" label="अग्रिम वसूली राशि (₹)" label-placement="floating"
+                        fill="outline" type="number" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="4">
+                      <ion-input [(ngModel)]="sheshVasuliRashi" label="वसूली हेतु शेष राशि (₹)"
+                        label-placement="floating" fill="outline" type="number" readonly class="ion-input">
+                      </ion-input>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
+        <!-- जाँच अधिकारी की अनुशंसा Card -->
+        <ion-row style="margin-top: 16px;">
+          <ion-col size="12">
+            <div class="section-card">
+              <div class="section-header">
+                <ion-icon name="document-text-outline" style="color: #ffffff;"></ion-icon>
+                <span>जाँच अधिकारी की अनुशंसा</span>
+              </div>
+
+              <div class="section-body">
+                <ion-textarea [(ngModel)]="ra_ki_anushanasha" fill="outline" label="जाँच अधिकारी की अनुशंसा"
+                  label-placement="floating" rows="5" auto-grow="true" class="ion-input">
+                </ion-textarea>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6" size-lg="6">
+            <ion-button expand="block" class="submit-button" (click)="submitPativedan()">
+              <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+              SUBMIT
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" size-lg="6">
+            <ion-button expand="block" (click)="cancel()" class="cancel-button">
+              <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+              CANCEL
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+      <ion-col size-lg="1" />
+
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- Image Preview/Edit Modal (CropperJS) - used for "राजी नामा" -->
+  <ion-modal [isOpen]="isImagePreviewModalOpen" (willDismiss)="closeRajinamaCropper()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Photo Crop</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeRajinamaCropper()">
+              <ion-icon name="close-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="image-preview-container">
+          <div #cropperContainer class="cropper-container">
+            <img #imagePreview [src]="previewImageDataUrl" class="preview-image" />
+          </div>
+
+          <div class="action-buttons">
+            <ion-button color="danger" fill="outline" (click)="rejectRajinamaImage()" class="action-btn">
+              <ion-icon name="close-circle" slot="start"></ion-icon>
+              अस्वीकार करें
+            </ion-button>
+            <ion-button color="success" fill="solid" (click)="approveRajinamaImage()" class="action-btn">
+              <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+              स्वीकार करें
+            </ion-button>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

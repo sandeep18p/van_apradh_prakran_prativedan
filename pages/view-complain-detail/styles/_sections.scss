@@ -1,0 +1,1871 @@
+// ============================================
+// Section Styles - All Section Components
+// ============================================
+
+// Summary Row
+.summary-row {
+  background: #f4f6fb;
+  border-radius: 6px;
+  padding: 8px 10px 8px 16px; // Increased left padding from 10px to 16px
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-value {
+  color: $color-case-700;
+  font-weight: 600;
+}
+
+.no-accused-container {
+  text-align: center;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #dee2e6;
+}
+
+.no-accused-title {
+  display: block;
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.no-accused-subtitle {
+  display: block;
+  color: #868e96;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+// Witness Section
+.witness-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-people-700;
+  padding: 6px 0;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.witness-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  @media (min-width: 576px) {
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
+.witness-box {
+  flex: 1;
+  min-width: 140px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  
+  @media (min-width: 480px) {
+    min-width: 180px;
+  }
+}
+
+.witness-box-header {
+  background: $grad-people-header;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 8px;
+  letter-spacing: 0.2px;
+  
+  @media (min-width: 480px) {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+.witness-box-body {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+  background: #fafafa;
+  
+  @media (min-width: 360px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    padding: 12px;
+  }
+}
+
+.witness-info {
+  flex: 1;
+  font-size: 11px;
+  color: #000;
+  line-height: 1.5;
+  padding-left: 4px;
+  
+  div {
+    margin-bottom: 2px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  @media (min-width: 480px) {
+    font-size: 12px;
+    line-height: 1.6;
+    padding-left: 6px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+    padding-left: 8px;
+  }
+}
+
+.w-label {
+  color: $color-people-700;
+  font-weight: 600;
+  margin-right: 4px;
+  font-size: 10px;
+  
+  @media (min-width: 480px) {
+    margin-right: 6px;
+    font-size: inherit;
+  }
+}
+
+.w-value {
+  color: #000;
+  font-weight: 500;
+}
+
+.witness-sign {
+  flex-shrink: 0;
+  
+  img {
+    width: 45px;
+    height: 35px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: $color-people-600;
+      transform: scale(1.05);
+    }
+    
+    @media (min-width: 480px) {
+      width: 55px;
+      height: 45px;
+    }
+    
+    @media (min-width: 768px) {
+      width: 80px;
+      height: 60px;
+    }
+  }
+}
+
+// Witness Items
+.witness-item {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.witness-badge {
+  background: $color-people-600;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  
+  @media (min-width: 768px) {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+}
+
+.witness-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px 12px 16px;
+  gap: 12px;
+  
+  @media (min-width: 768px) {
+    padding: 14px 16px 14px 20px;
+  }
+}
+
+// Seized Goods Section
+.seized-goods-section {
+  margin: 10px;
+}
+
+.seized-main-header {
+  background: $grad-inventory-header;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 17px;
+    padding: 14px 20px;
+  }
+}
+
+.seized-goods-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.seized-card-header {
+  background: $grad-inventory-header;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+}
+
+.seized-card-body {
+  padding: 0;
+}
+
+// Override PrimeNG table styles for seized goods
+.seized-goods-card {
+  ::ng-deep .p-datatable {
+    margin: 0;
+    box-shadow: none;
+    
+    .p-datatable-header {
+      background: $color-inventory-700;
+      color: white;
+    }
+    
+    .p-datatable-thead > tr > th {
+      background: $color-inventory-700;
+      color: white;
+      padding: 10px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      border-right: 1px solid rgba(255,255,255,0.2);
+      
+      &:last-child {
+        border-right: none;
+      }
+      
+      @media (min-width: 768px) {
+        font-size: 13px;
+        padding: 12px 10px;
+      }
+      
+      ion-label {
+        color: white;
+      }
+    }
+    
+    .p-datatable-tbody > tr {
+      border-bottom: 2px solid $color-inventory-600;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      &:nth-child(odd) {
+        background: #ffffff;
+      }
+      
+      &:nth-child(even) {
+        background: $color-inventory-tint;
+      }
+      
+      &:hover {
+        background: #dcfce7;
+      }
+      
+      > td {
+        padding: 10px 8px;
+        font-size: 13px;
+        color: #000;
+        border: none;
+        border-right: 1px solid #e0e0e0;
+        font-weight: 500;
+        
+        &:first-child {
+          font-weight: 600;
+          color: $color-inventory-dark;
+        }
+        
+        &:last-child {
+          border-right: none;
+        }
+        
+        @media (min-width: 768px) {
+          padding: 12px 10px;
+          font-size: 14px;
+        }
+        
+        ion-label {
+          color: #000;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 767px) {
+    ::ng-deep .p-datatable {
+      .p-datatable-tbody > tr {
+        border-bottom: 3px solid $color-inventory-600;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        
+        &:last-child {
+          border-bottom: 3px solid $color-inventory-600;
+          margin-bottom: 0;
+        }
+      }
+      
+      .p-datatable-tbody > tr > td {
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 8px 12px;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .p-column-title {
+          font-weight: 600;
+          color: $color-inventory-700;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.seized-summary-box {
+  background: #fafafa;
+  border-top: 2px solid $color-inventory-600;
+  padding: 10px 14px;
+  
+  @media (min-width: 768px) {
+    padding: 12px 16px;
+  }
+}
+
+.summary-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.summary-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-inventory-700;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+// Japtinama Section
+.japtinama-section {
+  margin: 0;
+}
+
+.japtinama-main-header {
+  background: $grad-japtinama-master;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 17px;
+    padding: 14px 20px;
+  }
+}
+
+.japtinama-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  overflow: hidden;
+  
+  &:last-child {
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+// Individual Japtinama — header row matches master "जप्तिनामा का विवरण" (gradient + light type)
+.japtinama-item-card {
+  border: 1px solid $color-japtinama-border-strong;
+  border-radius: 12px;
+  overflow: visible;
+  margin-bottom: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, $color-japtinama-tint 100%);
+  box-shadow: 0 2px 10px rgba(4, 120, 87, 0.1);
+  border-left: 4px solid #10b981;
+}
+
+.japtinama-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: $grad-japtinama-item;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.28);
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+  h3 {
+    margin: 0;
+    margin-right: auto;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    color: #ecfdf5;
+    line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+    width: max-content;
+    max-width: min(100%, 22rem);
+  }
+
+  h3 .japtinama-title-sub {
+    font-size: 0.78em;
+    font-weight: 600;
+    opacity: 0.92;
+  }
+
+  ion-button.button {
+    --background: #ffffff;
+    --background-activated: #eff6ff;
+    --background-hover: #f8fafc;
+    --color: #065f46;
+    --border-color: #6ee7b7;
+    --border-width: 1px;
+    --border-style: solid;
+    --box-shadow: 0 1px 3px rgba(6, 95, 70, 0.14);
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0;
+    text-transform: none;
+  }
+
+  ion-button.button ion-icon {
+    color: #047857;
+  }
+
+  @media (min-width: 768px) {
+    padding: 12px 14px;
+
+    h3 {
+      font-size: 15px;
+    }
+
+    ion-button.button {
+      font-size: 13px;
+    }
+  }
+}
+
+// Below sticky master "जप्तिनामा का विवरण" (offset defined on .japtinama-master-card in _cards.scss)
+.japtinama-master-card .japtinama-item-header {
+  top: var(--japtinama-master-sticky-offset, 52px);
+  z-index: 8;
+}
+
+.japtinama-index-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ecfdf5;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.first-japtinama-card {
+  border-left: 4px solid #10b981;
+}
+
+// Keep inner sections visually connected to item card
+.japtinama-item-card .japtinama-card {
+  border-left: none;
+  border-right: none;
+}
+
+.japtinama-item-card .japtinama-card:first-of-type {
+  border-top: 1px solid $color-japtinama-border;
+}
+
+.japtinama-item-card .seized-goods-section {
+  margin: 8px 10px 10px;
+}
+
+// White inner panels so अपराधी / officer blocks read like POR (not washed out on mint card gradient)
+.japtinama-item-card .japtinama-card .japtinama-card-body {
+  background: #fff;
+}
+
+// Alternate japtinama blocks — deeper mint vs light mint (still emerald family)
+.japtinama-section .japtinama-items-list .japtinama-item-card:nth-child(odd) {
+  border-left: 4px solid #10b981;
+}
+
+.japtinama-section .japtinama-items-list .japtinama-item-card:nth-child(even) {
+  border-left: 4px solid #047857;
+  border-color: $color-japtinama-border-strong;
+  box-shadow: 0 2px 10px rgba(4, 120, 87, 0.09);
+  background: linear-gradient(180deg, #ffffff 0%, $color-japtinama-tint-deep 100%);
+}
+
+.japtinama-section .japtinama-items-list .japtinama-item-card:nth-child(even) .japtinama-item-header {
+  background: $grad-japtinama-item-alt;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.28);
+
+  h3 {
+    color: #ecfdf5;
+  }
+}
+
+.japtinama-section .japtinama-items-list .japtinama-item-card:nth-child(even) .japtinama-index-badge {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ecfdf5;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+}
+
+.japtinama-card-header,
+.column-header {
+  background: $color-japtinama-tint-deep;
+  color: $color-japtinama-text;
+  border-bottom: 1px solid $color-japtinama-border-strong;
+}
+
+.hammer-mark-signature-two-columns {
+  border: 1px solid $color-japtinama-border;
+  border-radius: 10px;
+}
+
+.japtinama-card-header {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid #6ee7b7;
+  border-left: 4px solid #10b981;
+  letter-spacing: 0.2px;
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}
+
+.japtinama-card-body {
+  padding: 12px 14px 12px 18px;
+  
+  @media (min-width: 768px) {
+    padding: 16px 18px 16px 22px;
+  }
+}
+
+// Hammer Mark and Signature in Two Columns
+.hammer-mark-signature-two-columns {
+  .hammer-signature-two-col-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+  }
+
+  .hammer-mark-column,
+  .signature-column {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    @media (max-width: 767px) {
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .column-header {
+    background: linear-gradient(135deg, $color-japtinama-tint 0%, $color-japtinama-border 100%);
+    color: $color-japtinama-text;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid $color-japtinama-border-strong;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 14px;
+      padding: 12px 16px;
+    }
+  }
+
+  .column-content {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+
+    @media (min-width: 768px) {
+      padding: 20px;
+      min-height: 180px;
+    }
+  }
+
+  .signature-img-inline {
+    max-width: 180px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 2px dashed $color-case-border;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba($color-case-700, 0.18);
+    }
+
+    @media (min-width: 768px) {
+      max-width: 200px;
+      max-height: 120px;
+      padding: 14px;
+    }
+  }
+}
+
+.info-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  
+  @media (min-width: 576px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+.info-box {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 10px;
+  padding: 10px 12px 10px 16px;
+  border-left: 3px solid $color-case-accent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  }
+  
+  @media (min-width: 768px) {
+    padding: 12px 14px 12px 18px;
+  }
+}
+
+.info-box-span-2 {
+  @media (min-width: 576px) {
+    grid-column: 1 / -1;
+  }
+}
+
+// अपराधी detail: row1 = 5 fields, row2 = मोबाइल + पता (POR व जप्तिनामा दोनों)
+.accused-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .accused-info-grid .accused-field-mobile {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .accused-info-grid .accused-field-pata {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+}
+
+.info-label {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.info-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.japtinama-photos-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: start;
+}
+
+.japtinama-img {
+  width: 100%;
+  max-width: 220px;
+  height: 150px;
+  object-fit: contain;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: #94a3b8;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+  }
+  
+  @media (min-width: 768px) {
+    height: 160px;
+  }
+}
+
+// Accused Items
+.accused-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.accused-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.accused-number {
+  width: 28px;
+  height: 28px;
+  background: $color-people-600;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.accused-details {
+  flex: 1;
+}
+
+.accused-details-full {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.accused-item:has(.accused-info-grid) {
+  align-items: flex-start;
+
+  // Compact strip so the field grid keeps width (matches POR density vs अन्य जप्तिनामा)
+  .accused-sign {
+    align-self: center;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    padding: 2px 0 2px 10px;
+    margin-left: 8px;
+    border-left: 1px dotted #bdbdbd;
+    align-items: center;
+    max-width: 72px;
+  }
+
+  .mini-sign-img {
+    width: 56px;
+    height: 36px;
+
+    @media (min-width: 768px) {
+      width: 64px;
+      height: 42px;
+    }
+  }
+}
+
+.accused-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sign-label {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.mini-sign-img {
+  width: 60px;
+  height: 40px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  
+  @media (min-width: 768px) {
+    width: 80px;
+    height: 50px;
+  }
+}
+
+.other-details-text {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+// Work Log Section
+.worklog-section {
+  margin: 16px 10px;
+  // Allow sticky header; overflow clipping breaks position:sticky
+  overflow: visible;
+}
+
+.worklog-por-card {
+  margin: 16px 10px;
+  border-color: rgba(10, 61, 74, 0.38);
+  box-shadow: 0 4px 14px rgba(10, 61, 74, 0.12);
+
+  &.por-section-card > .por-section-header {
+    background: $grad-worklog-header;
+    border-bottom: 3px solid $gov-gold;
+    box-shadow: 0 1px 8px rgba(10, 61, 74, 0.2);
+  }
+
+  &.por-section-card > .por-section-body {
+    background: linear-gradient(180deg, $color-worklog-tint 0%, #ffffff 100%);
+  }
+
+  .worklog-container {
+    background: transparent;
+    border: 0;
+    border-top: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+}
+
+.worklog-main-header {
+  background: $grad-case-header;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px 10px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+  
+  ion-icon {
+    font-size: 22px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 17px;
+    padding: 14px 20px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  @media (min-width: 480px) {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+.worklog-container {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 12px;
+  
+  @media (min-width: 480px) {
+    border-radius: 0 0 12px 12px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+.worklog-item {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(10, 61, 74, 0.08);
+  border: 1px solid #dce9ea;
+  transition: box-shadow 0.2s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 14px rgba(10, 61, 74, 0.14);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.worklog-item-header {
+  background: $grad-case-header-soft;
+  color: #fff;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  
+  @media (min-width: 768px) {
+    padding: 12px 16px;
+  }
+}
+
+.worklog-entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.worklog-entry-label {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.worklog-number {
+  flex-shrink: 0;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.worklog-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  
+  ion-icon {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.worklog-item-body {
+  padding: 14px;
+  
+  @media (min-width: 768px) {
+    padding: 16px;
+  }
+}
+
+.worklog-info-row {
+  margin-bottom: 14px;
+}
+
+.worklog-info-box {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 10px 12px;
+  border-left: 3px solid $color-case-accent;
+}
+
+.worklog-label {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.worklog-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.worklog-description {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #e8e8e8;
+}
+
+.worklog-text {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.7;
+  
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.worklog-photos {
+  background: $color-case-tint;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px dashed $color-case-border;
+}
+
+.worklog-photos-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-case-700;
+  margin-bottom: 10px;
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.worklog-photos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.worklog-photo {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba($color-case-700, 0.2);
+  }
+  
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 75px;
+  }
+}
+
+.no-photos-text {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  margin: 0;
+  text-align: center;
+  padding: 10px;
+}
+
+// Final Sections - Submission, Transport, Recovery
+.final-sections-wrapper {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  @media (min-width: 480px) {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px;
+    gap: 20px;
+    max-width: 950px;
+    margin: 0 auto;
+  }
+}
+
+.section-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid $border-neutral;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 768px) {
+    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Final submission — formal report (ink band)
+.final-submission-card {
+  overflow: visible;
+  border: 1px solid rgba(26, 26, 24, 0.35);
+  box-shadow: 0 4px 14px rgba(26, 26, 24, 0.12);
+}
+
+.final-submission-card > .section-header {
+  background: $grad-prativedan-header;
+  border-bottom: 3px solid $gov-gold;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+
+.section-header {
+  background: $grad-case-header;
+  color: #ffffff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  ion-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  
+  span {
+    line-height: 1.3;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px 20px;
+    font-size: 18px;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.section-body {
+  padding: 10px;
+  
+  @media (min-width: 480px) {
+    padding: 12px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px;
+  }
+}
+
+// POR section card — navy header
+.por-section-card {
+  overflow: visible;
+  border: 1px solid rgba(10, 35, 66, 0.38);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(10, 35, 66, 0.12);
+  margin-bottom: 14px;
+}
+
+.por-section-card > .por-section-header {
+  background: $grad-por-master-header;
+  border-bottom: 3px solid $gov-gold;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 1px 8px rgba(10, 35, 66, 0.22);
+}
+
+.por-section-card > .por-section-body {
+  background: linear-gradient(180deg, $color-por-tint 0%, #ffffff 100%);
+}
+
+// Photos (अभिलेख) — archival teal header
+.photos-section-card {
+  overflow: visible;
+  border: 1px solid rgba(12, 61, 58, 0.38);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(12, 61, 58, 0.12);
+  margin-bottom: 14px;
+}
+
+.photos-section-card > .photos-section-header {
+  background: $grad-abhilekh-header;
+  border-bottom: 3px solid $gov-gold;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 1px 8px rgba(12, 61, 58, 0.18);
+}
+
+.photos-section-card > .photos-section-body {
+  background: linear-gradient(180deg, $color-abhilekh-tint 0%, #ffffff 100%);
+}
+
+// Abhilekh (अभिलेख) inner layout — match width & density with POR/Japtinama cards
+.photos-section-body {
+  .abhilekh-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+  }
+
+  .abhilekh-tile {
+    background: #ffffff;
+    border: 1px solid $border-neutral;
+    border-radius: 12px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    min-width: 0;
+
+    @media (min-width: 480px) {
+      padding: 12px 14px;
+    }
+
+    @media (min-width: 768px) {
+      padding: 14px 16px;
+      border-radius: 14px;
+    }
+  }
+
+  .abhilekh-tile--full {
+    margin-top: 12px;
+  }
+
+  .abhilekh-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    padding-top: 4px;
+  }
+}
+
+// Court challan (कोर्ट चालान) — judicial burgundy
+.court-challan-section-card {
+  overflow: visible;
+  border: 1px solid rgba(107, 28, 36, 0.42);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(63, 13, 18, 0.14);
+  margin-bottom: 14px;
+}
+
+.court-challan-section-card > .court-challan-section-header {
+  background: $grad-court-header;
+  color: #fff;
+  border-bottom: 3px solid $gov-gold;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  box-shadow: 0 1px 8px rgba(63, 13, 18, 0.25);
+
+  ion-icon {
+    color: #f5e6a8;
+  }
+
+  span {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+}
+
+.court-challan-section-card > .court-challan-section-body {
+  background: linear-gradient(180deg, $color-court-tint 0%, #ffffff 100%);
+}
+
+.court-challan-info-grid {
+  display: grid;
+  gap: 12px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+.court-challan-info-item {
+  background: #fff;
+  border: 1px solid $border-neutral;
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-width: 0;
+
+  &--action {
+    @media (min-width: 768px) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.court-challan-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b1c24;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.court-challan-value {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+// Info Grid 3 Column
+.info-grid-3col {
+  margin-bottom: 12px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 14px;
+  }
+}
+
+// Financial Grid
+.financial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+.fin-item {
+  background: linear-gradient(135deg, rgba(22, 101, 52, 0.06), #fff 65%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-left: 5px solid rgba(22, 101, 52, 0.65);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    border-color: $color-case-border;
+    box-shadow: 0 10px 22px rgba($color-case-700, 0.10);
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 768px) {
+    padding: 12px 14px;
+  }
+}
+
+.fin-item:nth-child(2) {
+  border-left-color: rgba(30, 64, 175, 0.70);
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.06), #fff 65%);
+}
+
+.fin-item:nth-child(3) {
+  border-left-color: rgba(220, 38, 38, 0.65);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), #fff 65%);
+}
+
+.fin-item:nth-child(4) {
+  border-left-color: rgba(180, 83, 9, 0.70);
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.06), #fff 65%);
+}
+
+.fin-item:nth-child(5) {
+  border-left-color: rgba(168, 85, 247, 0.65);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), #fff 65%);
+}
+
+.fin-item:nth-child(6) {
+  border-left-color: rgba(20, 184, 166, 0.65);
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), #fff 65%);
+}
+
+.fin-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.fin-value {
+  font-size: 15px;
+  font-weight: 900;
+  color: $color-case-accent;
+  letter-spacing: 0.2px;
+
+  &.negative {
+    color: #d32f2f;
+  }
+
+  &.positive {
+    color: $color-case-accent;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 17px;
+  }
+}
+
+// Pending Recovery Box
+.pending-recovery-box {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  border: 1px solid #ef9a9a;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+
+  @media (min-width: 768px) {
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+}
+
+.recovery-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #c62828;
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.recovery-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #b71c1c;
+
+  @media (min-width: 768px) {
+    font-size: 22px;
+  }
+}
+
+// Recommendation Box
+.recommendation-box {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+
+  @media (min-width: 768px) {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.rec-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: $color-case-700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+}
+
+.rec-value {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  word-break: break-word;
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+// Additional Info Grid
+.additional-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+
+  @media (min-width: 576px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    margin-bottom: 14px;
+  }
+}
+
+.add-info-item {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  flex: 1;
+  min-width: 200px;
+
+  @media (min-width: 768px) {
+    padding: 12px 14px;
+  }
+}
+
+.add-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 4px;
+
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.add-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.photo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f8fafc 0%, $color-case-tint 100%);
+  border-color: $color-case-border;
+  color: $color-case-700;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 20px;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, $color-case-tint 0%, #e2e8f0 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba($color-case-700, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+
+    ion-icon {
+      font-size: 22px;
+    }
+  }
+}
+
+// Transport Summary
+.transport-summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  background: linear-gradient(135deg, #fffbeb 0%, $color-por-tint 100%);
+  border: 1px solid $color-por-border;
+  border-radius: 10px;
+  padding: 12px;
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    padding: 14px 16px;
+    gap: 16px;
+  }
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid $color-por-border;
+
+  @media (min-width: 768px) {
+    padding: 10px 12px;
+  }
+}
+
+.sum-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+}
+
+.sum-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: $color-por-muted;
+
+  @media (min-width: 768px) {
+    font-size: 17px;
+  }
+}
+
+// Recovery Total Box
+.recovery-total-box {
+  background: $grad-geo-cta;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    padding: 16px 20px;
+  }
+}
+
+.total-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.total-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
+}

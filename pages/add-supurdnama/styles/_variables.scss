@@ -1,0 +1,19 @@
+// ============================================
+// CSS Variables and Base Settings
+// ============================================
+:host {
+  --primary-green: #2E7D32;
+  --primary-green-light: #43A047;
+  --primary-green-dark: #1B5E20;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --bg-light: #f8f9fa;
+  --bg-card: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}

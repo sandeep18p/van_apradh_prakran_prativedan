@@ -1,0 +1,566 @@
+<ion-split-pane contentId="main-content" when="lg">
+
+  <ion-menu class="custom-menu" side="start" content-id="main-content">
+
+    <ion-header class="ion-header-class-for-menu">
+      <div class="bg"></div>
+
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="assets/img/cg_image.png" />
+        </ion-avatar>
+        <ion-label class="ion-label">
+          {{ getTranslation('app_name')}}
+          <p class="p">
+            <ion-text>
+              {{ getTranslation('state_name')}}
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-header>
+
+    <ion-content>
+
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item *ngFor="let page of pages; let i = index" class="no-gap-item" lines="none">
+
+            <ng-container>
+              <ion-text class="responsive-menu-title" style="width: 100%; margin-left: 20px;"
+                (click)="onMenuItemClick(page.url)">{{ page.title }}</ion-text>
+            </ng-container>
+
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+    </ion-content>
+
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-header class="ion-header-toolbar">
+      <div class="div-color">
+        <ion-toolbar>
+          <ion-title class="ion-text-center">{{ loginedOffierName }}</ion-title>
+          <ion-menu-button style="color: blue;" slot="start"></ion-menu-button>
+          <ion-buttons slot="end">
+
+            <ion-button *ngIf="isOfflineDataExist" (click)="showOfflineData()" color="warning" shape="round"
+              size="default" fill="solid">
+              <ion-icon slot="start" name="cloud-offline-outline"></ion-icon>
+              ऑफ़लाइन डेटा ({{ offlineDataCount }})
+            </ion-button>
+
+            <ion-button *ngIf="isImpersonating" (click)="exitLoginAs()" color="danger" shape="round" size="default"
+              fill="solid">
+              Exit Login As
+            </ion-button>
+
+            <!-- Logo Image -->
+            <img src="assets/img/cg_image.png" alt="Logo" class="toolbar-logo" />
+          </ion-buttons>
+        </ion-toolbar>
+      </div>
+    </ion-header>
+
+    <ion-content>
+
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-down" refreshingSpinner="circles" pullingText="Pull to refresh"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+      <ion-grid>
+
+        <!-- SUPER ADMIN LEVEL START -->
+        <ion-row class="ion-align-items-end" *ngIf="isSUPER_ADMIN">
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">वृत्त का नाम</ion-label>
+            <ng-select [(ngModel)]="selectedCircleId" (change)="onChangeCircle($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfCircle" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">वन मंडल</ion-label>
+            <ng-select [(ngModel)]="selectedDivisionId" (change)="onChangeDivision($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfDivision" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">उप वन मंडल</ion-label>
+            <ng-select [(ngModel)]="selectedSubDivisionId" (change)="onChangeSubDivision($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfSubDivision" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">वन परिक्षेत्र </ion-label>
+            <ng-select [(ngModel)]="selectedRangId" (change)="onChangeRange($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+            <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">बीट</ion-label>
+            <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+              [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+            </ng-select>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+            <div style="position: relative; height: 55px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+              <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                style="pointer-events: none; height: 100%;"></ion-input>
+              <ion-button fill="clear" size="small" color="medium"
+                style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                <ion-icon name="calendar-outline" color="medium"></ion-icon>
+              </ion-button>
+              <input #startDatePicker type="date" [(ngModel)]="startDate"
+                style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+            </div>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2.4">
+            <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+            <div style="position: relative; height: 55px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+              <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                style="pointer-events: none; height: 100%;"></ion-input>
+              <ion-button fill="clear" size="small" color="medium"
+                style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                <ion-icon name="calendar-outline" color="medium"></ion-icon>
+              </ion-button>
+              <input #endDatePicker type="date" [(ngModel)]="endDate"
+                style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+            </div>
+          </ion-col>
+
+          <!-- <ion-col size="6" size-lg="2.4">
+            <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+              (ionInput)="filterPorList()">
+            </ion-input>
+          </ion-col> -->
+
+          <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="filterData()">
+                <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                FILTER
+              </ion-button>
+
+              <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                REFRESH
+              </ion-button>
+            </div>
+          </ion-col>
+
+          <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" color="success" class="filter-button" (click)="downloadBoxDataExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                BOX DATA EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+          <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+        </ion-row>
+        <!-- CCF LEVEL END -->
+
+        <ion-row>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('')">
+              <ion-card-content class="ion-text-center" style="background: #001a6e; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">कुल POR</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalComplains }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '111' }"
+              (click)="getListOfComplainsgyatAndAgyat('111')">
+              <ion-card-content class="ion-text-center" style="background: #001a6e; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नामजद प्रकरण
+                </div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ gyatAccussedFromTotalPOR }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '222' }"
+              (click)="getListOfComplainsgyatAndAgyat('222')">
+              <ion-card-content class="ion-text-center" style="background: #001a6e; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">अज्ञात प्रकरण
+                </div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ agyatAccussedFromTotalPOR }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '333' }"
+              (click)="getListOfComplainsgyatAndAgyat('333')">
+              <ion-card-content class="ion-text-center" style="background: #811b67; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">बीट निरीक्षण
+                </div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPORBeatNirikshan }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <!-- <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '444' }"
+              (click)="getListOfComplainsgyatAndAgyat('444')">
+              <ion-card-content class="ion-text-center"
+                style="background: linear-gradient(135deg, #de07a8 0%, #de07a8 100%); color: white; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <div class="card-number" style="font-size: 1.5rem; font-weight: bold;">{{
+                  gyatAccussedFromBeatNirikhanPOR }}
+                </div>
+                <div class="card-label" style="font-size: 1rem; font-weight: 500;">कुल ज्ञात</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '555' }"
+              (click)="getListOfComplainsgyatAndAgyat('555')">
+              <ion-card-content class="ion-text-center"
+                style="background: linear-gradient(135deg, #de07a8 0%, #de07a8 100%); color: white; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <div class="card-number" style="font-size: 1.5rem; font-weight: bold;">{{
+                  agyatAccussedFromBeatNirikhanPOR }}
+                </div>
+                <div class="card-label" style="font-size: 1rem; font-weight: 500;">कुल अज्ञात</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col> -->
+
+          <ion-col size="6" size-lg="2" *ngIf="isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '4' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('4')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच अधिकारी
+                  नियुक्ति हेतु लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Assign_RA
+                  }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '6' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('6')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच हेतु लंबित
+                </div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{
+                  totalPendingPOR_To_Complete_At_RA_Level }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '5' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('5')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी
+                  को प्रेषण हेतु लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Forward_SDO
+                  }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '7' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('7')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी
+                  स्तर पर लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{
+                  totalPendingPOR_To_Complete_At_SDO_Level }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '8' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('8')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">वनमंडलाधिकारी
+                  स्तर पर लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingComplains }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '8' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('8')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">वनमंडलाधिकारी
+                  स्तर पर लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{
+                  totalPendingPOR_To_Complete_At_DFO_Level }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '2' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('2')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">मुख्य वन
+                  संरक्षक स्तर पर लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{
+                  totalPendingComplainsAtCCFLevel }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '9' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('9')">
+              <ion-card-content class="ion-text-center" style="background: #3e4604; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">
+                  अभिसंधानित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalAbhisandhanComplains }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '1' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('1')">
+              <ion-card-content class="ion-text-center" style="background: #3e4604; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">अपलेखित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalAplekhitComplains }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '10' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('10')">
+              <ion-card-content class="ion-text-center" style="background: #3e4604; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">कोर्ट चालान
+                </div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalCourtChallanComplains }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '21' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('21')">
+              <ion-card-content class="ion-text-center" style="background: #c50909; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नस्तीबध्द हेतु
+                  लंबित</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPORPendingToNastibadh }}
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '11' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('11')">
+              <ion-card-content class="ion-text-center" style="background: #c50909; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नस्तीबध्द</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalNastibadhPOR }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6" size-lg="2" *ngIf="!isBG && !isCCF && !isSUPER_ADMIN">
+            <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '2' }"
+              (click)="getListOfComplainsAfterClickOnBoxes('2')">
+              <ion-card-content class="ion-text-center" style="background: #6a0b0b; color: white; padding: 12px;">
+                <div class="card-label"
+                  style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">स्वयं स्तर पर
+                  कुल लंबित POR</div>
+                <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingComplains }}</div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+
+          <ion-col size="12">
+
+            <ion-row *ngIf="listOfPorCountData?.length" class="table-toolbar">
+              <ion-col size="12" class="table-toolbar__right">
+                <ion-button size="small" color="secondary" class="filter-button" (click)="downloadTableDataExcel()">
+                  <ion-icon name="download-outline" slot="start"></ion-icon>
+                  Download Excel
+                </ion-button>
+              </ion-col>
+            </ion-row>
+
+            <p-table *ngIf="listOfPorCountData?.length"
+              class="por-p-table"
+              [value]="listOfPorCountData"
+              [scrollable]="true"
+              scrollDirection="both"
+              scrollHeight="calc(100vh - 100px)"
+              responsiveLayout="scroll"
+              [rowHover]="true">
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th class="text-center" style="width: 60px; min-width: 60px;">क्र.</th>
+                  <th style="width: 180px; min-width: 180px;">वृत्त का नाम</th>
+                  <th style="width: 220px; min-width: 220px;">वन मंडल का नाम</th>
+                  <th class="text-center" style="min-width: 110px;">कुल POR</th>
+                  <th class="text-center" style="min-width: 140px;">नामजद प्रकरण</th>
+                  <th class="text-center" style="min-width: 140px;">अज्ञात प्रकरण</th>
+                  <th class="text-center" style="min-width: 120px;">बीट निरीक्षण</th>
+                  <th class="text-center" style="min-width: 280px;">जाँच अधिकारी नियुक्ति हेतु लंबित</th>
+                  <th class="text-center" style="min-width: 150px;">जाँच हेतु लंबित</th>
+                  <th class="text-center" style="min-width: 300px;">उपवनमंडलाधिकारी को प्रेषण हेतु लंबित</th>
+                  <th class="text-center" style="min-width: 260px;">उपवनमंडलाधिकारी स्तर पर लंबित</th>
+                  <th class="text-center" style="min-width: 240px;">वनमंडलाधिकारी स्तर पर लंबित</th>
+                  <th class="text-center" style="min-width: 260px;">मुख्य वन संरक्षक स्तर पर लंबित</th>
+                  <th class="text-center" style="min-width: 140px;">अभिसंधानित</th>
+                  <th class="text-center" style="min-width: 120px;">अपलेखित</th>
+                  <th class="text-center" style="min-width: 120px;">कोर्ट चालान</th>
+                  <th class="text-center" style="min-width: 190px;">नस्तीबद्ध हेतु लंबित</th>
+                  <th class="text-center" style="min-width: 110px;">नस्तीबद्ध</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr [class.total-row]="isTotalRow(item)">
+                  <ng-container *ngIf="!isTotalRow(item); else totalMergedCell">
+                    <td class="text-center serial-cell">{{ rowIndex + 1 }}</td>
+                    <td class="clickable-text"
+                      (click)="onRowClick(item, 1)">
+                      {{ item.circleName }}
+                    </td>
+                    <td class="clickable-text"
+                      (click)="onRowClick(item, 2)">
+                      {{ item.divisionName }}
+                    </td>
+                  </ng-container>
+                  <ng-template #totalMergedCell>
+                    <td colspan="3" class="total-merged-cell">TOTAL</td>
+                  </ng-template>
+                  <td class="text-center">{{ item.totalPOR }}</td>
+                  <td class="text-center">{{ item.totalGyatPOR }}</td>
+                  <td class="text-center">{{ item.totalAGyatPOR }}</td>
+                  <td class="text-center">{{ item.totalBeatNirikshan }}</td>
+                  <td class="text-center">{{ item.roLevelPendingToAssignRA }}</td>
+                  <td class="text-center">{{ item.raLevel }}</td>
+                  <td class="text-center">{{ item.roLevelOPendingToForwardSDO }}</td>
+                  <td class="text-center">{{ item.sdoLevelPending }}</td>
+                  <td class="text-center">{{ item.dfoLevelPending }}</td>
+                  <td class="text-center">{{ item.ccfLevelPending }}</td>
+                  <td class="text-center">{{ item.totalAbhisandhanit }}</td>
+                  <td class="text-center">{{ item.totalAplekhit }}</td>
+                  <td class="text-center">{{ item.totalCourtCase }}</td>
+                  <td class="text-center"><strong>{{ item.totalPendingToNastibadh }}</strong></td>
+                  <td class="text-center">{{ item.nastibadhaPOR }}</td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="footer">
+                <tr class="mahayog-row">
+                  <td colspan="3" class="mahayog-merged-cell">महायोग</td>
+                  <td class="text-center">{{ mahayogTotalPOR }}</td>
+                  <td class="text-center">{{ mahayogTotalGyatPOR }}</td>
+                  <td class="text-center">{{ mahayogTotalAGyatPOR }}</td>
+                  <td class="text-center">{{ mahayogTotalBeatNirikshan }}</td>
+                  <td class="text-center">{{ mahayogRoLevelPendingToAssignRA }}</td>
+                  <td class="text-center">{{ mahayogRaLevel }}</td>
+                  <td class="text-center">{{ mahayogRoLevelOPendingToForwardSDO }}</td>
+                  <td class="text-center">{{ mahayogSdoLevelPending }}</td>
+                  <td class="text-center">{{ mahayogDfoLevelPending }}</td>
+                  <td class="text-center">{{ mahayogCcfLevelPending }}</td>
+                  <td class="text-center">{{ mahayogTotalAbhisandhanit }}</td>
+                  <td class="text-center">{{ mahayogTotalAplekhit }}</td>
+                  <td class="text-center">{{ mahayogTotalCourtCase }}</td>
+                  <td class="text-center"><strong>{{ mahayogTotalPendingToNastibadh }}</strong></td>
+                  <td class="text-center">{{ mahayogNastibadhaPOR }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <ion-infinite-scroll #infiniteScroll threshold="100px" (ionInfinite)="loadNextPage($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="अधिक डेटा लोड हो रहा है...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+
+      <ion-fab *ngIf="isBG || isRA" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addComplaint()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+    </ion-content>
+
+
+  </div>
+
+</ion-split-pane>

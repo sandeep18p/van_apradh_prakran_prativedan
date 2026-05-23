@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" fill="clear" class="back-button">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="toolbar-title">{{toolbarTitle}}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="pdf-content" [scrollY]="false">
+
+  <div *ngIf="platform.is('hybrid')" class="pinch-wrapper" (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
+    <pdf-viewer [src]="pdfUrl" [render-text]="true" [original-size]="false" [show-all]="true" [zoom]="zoom"
+      style="display:block; height:100vh;" (on-progress)="onPdfProgress($event)"
+      (after-load-complete)="onPdfLoadComplete($event)" (error)="onPdfError($event)"></pdf-viewer>
+  </div>
+
+  <iframe *ngIf="!platform.is('hybrid') && safePdfUrl" [src]="safePdfUrl" class="pdf-frame">
+  </iframe>
+
+</ion-content>

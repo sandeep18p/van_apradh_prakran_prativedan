@@ -1,0 +1,625 @@
+.custom-toolbar {
+    --background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --border-color: #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ion-text-large {
+    font-size: 1.2rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-large {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-large {
+        font-size: 20px;
+    }
+}
+
+.ion-text-small {
+    font-size: 1rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-small {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-small {
+        font-size: 18px;
+    }
+}
+
+.ion-text-extra-small {
+    font-size: 12px; // Default mobile size
+
+    @media (min-width: 600px) {
+        font-size: 14px; // Tablet
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 16px; // Desktop
+    }
+}
+
+
+
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.custom-card {
+    padding: 10px;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .card-title .icon-text-row {
+        display: flex;
+        align-items: center; // vertical centering
+        justify-content: flex-start; // align to start
+        gap: 8px; // spacing between icon and text
+    }
+
+    .card-title ion-icon {
+        font-size: 24px; // optional: adjust icon size
+        color: blue;
+    }
+
+    .officer-info {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+}
+
+.responsive-img {
+    width: 60%; // Base width
+    max-width: 60px; // Prevents it from getting too large
+    height: auto;
+    cursor: pointer;
+
+    //filter: invert(36%) sepia(100%) saturate(1000%) hue-rotate(90deg); /* green tint example */
+
+    @media (max-width: 600px) {
+        width: 60%; // Smaller devices
+        max-width: 60px;
+    }
+
+    @media (min-width: 768px) {
+        width: 50px; // Tablets or larger
+        max-width: 50px;
+    }
+}
+
+.center-img-col {
+    display: flex;
+    justify-content: center;
+    align-items: center; // optional if vertical alignment needed
+}
+
+.custom-back-button {
+    color: black;
+}
+
+.ion-label-large {
+    font-size: 1.2rem;
+}
+
+@media (min-width: 600px) {
+    .ion-label-large {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-label-large {
+        font-size: 20px;
+    }
+}
+
+
+// /* Match ng-select with Ionic outline inputs */
+// ::ng-deep .nice-ng-select .ng-select-container {
+//     height: 48px;
+//     /* same as ion-input */
+//     border: 1px solid var(--ion-color-medium);
+//     border-radius: 8px;
+//     padding: 0 12px;
+//     display: flex;
+//     align-items: center;
+//     font-size: 14px;
+//     background: #fff;
+//     box-shadow: none;
+//     transition: border-color 0.2s ease-in-out;
+// }
+
+// /* Placeholder / selected text */
+// ::ng-deep .nice-ng-select .ng-value,
+// ::ng-deep .nice-ng-select .ng-placeholder {
+//     font-size: 14px;
+//     color: var(--ion-color-dark);
+// }
+
+// /* Focus/hover states like ion-input outline */
+// ::ng-deep .nice-ng-select.ng-select-focused .ng-select-container,
+// ::ng-deep .nice-ng-select .ng-select-container:hover {
+//     border-color: var(--ion-color-primary);
+//     box-shadow: 0 0 0 1px var(--ion-color-primary) inset;
+// }
+
+// /* Dropdown panel styling */
+// ::ng-deep .nice-ng-select .ng-dropdown-panel {
+//     border-radius: 8px;
+//     border: 1px solid var(--ion-color-medium);
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     font-size: 14px;
+// }
+
+// ::ng-deep .nice-ng-select .ng-placeholder {
+//     color: var(--ion-color-medium);
+//     opacity: 1;
+//     font-size: 14px;
+// }
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+    display: block !important;
+    /* Ensure block-level for margin to apply */
+    padding: 10px 14px !important;
+    /* Add internal spacing */
+    margin: 6px 8px !important;
+    /* Add space between each item */
+    background-color: #f9f5e6 !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+    padding: 10px 14px !important;
+    /* Padding inside each item */
+    margin: 4px 6px !important;
+    /* Space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option:hover {
+    background-color: #f0f0f0 !important;
+    /* optional hover effect */
+}
+
+// Date picker card styling
+.date-picker-card {
+    border-radius: 6px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+
+    &:hover {}
+
+    ion-icon {
+        color: #2e7d32;
+        font-size: 20px;
+    }
+
+    .date-label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+ion-input.ion-valid {
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+ion-textarea.ion-valid {
+    display: block;
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+// Button container
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #218838;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #c82333;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+ion-content {
+    --keyboard-offset: 250px; // optional tweak
+}
+
+.spin-animation {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.photo-scroll-container {
+    display: flex;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+
+    .photo-thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 10px;
+    }
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+
+    .photo-container {
+        position: relative;
+        margin-right: 10px;
+
+        .scroll-image {
+            height: 100px;
+            border-radius: 8px;
+        }
+
+        .remove-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 20px;
+            color: red;
+            background: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    }
+}
+
+.scroll-image {
+    height: 100px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.instruction-label {
+    margin: 10px 0 5px 10px;
+    font-weight: 600;
+    display: block;
+    color: #333;
+
+    @media (min-width: 600px) {
+        font-size: 100px !important;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 20px !important;
+    }
+}
+
+.custom-content {
+    height: 100%;
+    width: 100%;
+
+    // Default size (mobile)
+    max-width: 100%;
+    padding: 16px;
+
+    // Large screens (e.g., tablets/desktops)
+    @media (min-width: 768px) {
+        max-width: 600px; // You can use 'size-lg' here as custom
+        margin: 0 auto;
+        padding: 24px;
+    }
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+}
+
+.label-icon-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    /* optional left/right padding */
+    border-radius: 6px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+
+    &:hover {}
+
+    ion-icon {
+        font-size: 25px;
+    }
+
+    .date-label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+.clipboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* ✅ allows going to next line when space ends */
+    gap: 6px;
+    /* space between items */
+}
+
+.clipboard-item {
+    display: flex;
+    align-items: center;
+    background: #f2f2f2;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 4px;
+    font-size: 14px;
+}
+
+.accused-radio-group {
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.accused-radio-group ion-radio {
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+::ng-deep .custom-ng-select .ng-dropdown-panel .ng-option {
+    background-color: #fafafa;
+}
+
+::ng-deep .custom-ng-select .ng-dropdown-panel .ng-option:nth-child(odd) {
+    background-color: #eef7ff;
+    /* alternate row color */
+}
+
+.ionic-ng-select {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #dcdcdc; // light gray border
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 16px;
+    color: #333;
+
+    ::ng-deep .ng-select-container {
+        min-height: 45px;
+        border-radius: 12px;
+        padding: 0.2rem 0.5rem;
+    }
+
+    ::ng-deep .ng-select-container .ng-value {
+        color: #000;
+    }
+
+    ::ng-deep .ng-select-dropdown {
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    ::ng-deep .ng-select-container .ng-placeholder {
+        color: #888;
+    }
+}
+
+
+
+.kastha-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 10px;
+    margin: 8px 0;
+    background: #fff;
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .kastha-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .add-btn {
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+            font-size: 24px;
+            color: var(--ion-color-primary);
+        }
+    }
+
+    .kastha-row {
+        margin-bottom: 8px;
+        padding: 6px;
+        border-radius: 6px;
+        background: #fafafa;
+    }
+
+    ion-input,
+    ng-select {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+.outlined-box {
+    border: 2px solid #ece9df;
+    /* Ionic primary color or your choice */
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.outlined-box ion-input {
+    --padding-start: 5px;
+    --padding-end: 5px;
+}
+
+.round-input {
+  --border-radius: 25px;      /* makes it round */
+  --background: #f0f0f0;      /* light gray background */
+  --padding-start: 15px;      /* padding inside input */
+  --padding-end: 15px;
+  --min-height: 40px;         /* adjust height if needed */
+}
+
+
+.kastha-card ion-grid, 
+.kastha-card ion-col, 
+.kastha-card ion-row {
+  overflow: visible !important;
+}

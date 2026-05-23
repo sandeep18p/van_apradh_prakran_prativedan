@@ -1,0 +1,29 @@
+<ion-grid class="image-modal-wrapper">
+  <!-- Close button row -->
+  <ion-row class="close-row">
+    <ion-col class="close-col">
+      <img src="assets/img/ic_cancel.png" alt="Close" class="close-img" (click)="dismiss()" />
+    </ion-col>
+  </ion-row>
+
+  <!-- Image row -->
+  <ion-row class="image-row">
+    <ion-col class="image-col">
+      <div class="image-preview-container">
+        <img #imageRef [src]="imageUrl" class="zoom-img" (mousedown)="startDrag($event)" (mousemove)="onDrag($event)"
+          (mouseup)="endDrag()" (mouseleave)="endDrag()" (touchstart)="startDrag($event)" (touchmove)="onDrag($event)"
+          (touchend)="endDrag()" />
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+  <!-- Zoom controls -->
+  <ion-row class="zoom-controls">
+    <ion-col class="zoom-col">
+      <ion-button fill="clear" (click)="zoomIn()">➕</ion-button>
+      <ion-button fill="clear" (click)="zoomOut()">➖</ion-button>
+      <ion-button fill="clear" (click)="resetZoom()">🔄</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

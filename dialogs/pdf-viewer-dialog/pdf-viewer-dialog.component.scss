@@ -1,0 +1,79 @@
+/* Ion content handles vertical scroll */
+.pdf-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  --overflow: auto;
+  /* Ionic vertical scroll */
+}
+
+/* Outer wrapper */
+.scroll-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  /* scroll handled by ion-content */
+}
+
+/* Container we apply zoom on */
+.pinch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+}
+
+
+/* PDF container */
+/* PDF container */
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Each page wrapper */
+.pdf-page-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  /* horizontal scroll if needed */
+}
+
+/* Canvas styling */
+.pdf-container canvas {
+  display: block;
+  width: auto;
+  /* original width */
+  height: auto;
+  margin-bottom: 16px;
+}
+
+
+/* Wrapper ensures ion-content sees correct height */
+.zoom-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pinch-wrapper {
+  height: 100vh;
+  overflow: auto;
+  touch-action: none; // THIS enables pinch detection
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}

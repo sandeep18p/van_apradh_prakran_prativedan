@@ -1,0 +1,114 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar class="custom-toolbar">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="responsive-toolbar-title">
+            साक्षियों की सूची
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+    <div class="glass-container">
+
+        <!-- Page Title & Header info -->
+        <div class="info-top-center" *ngIf="sys_gen_por_number">
+            ({{ sys_gen_por_number }})
+        </div>
+
+        <div class="header-info-row">
+            <div class="info-left">
+                POR क्रमांक : {{ por_number }}
+            </div>
+            <div class="info-right">
+                पंजीयन दिनांक : {{ date_of_crime }}
+            </div>
+        </div>
+
+        <!-- साक्षियों का विवरण Card -->
+        <ion-row style="margin-top: 10px;">
+            <ion-col size="12">
+                <div class="section-card">
+                    <div class="section-header">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span>साक्षियों का विवरण</span>
+                        <ion-button fill="clear" (click)="addWitness()" style="margin-left: auto; --color: #ffffff;">
+                            <span style="color: #ffffff; font-size: 16px; font-weight: 600;">जोड़ें</span>
+                        </ion-button>
+                    </div>
+                    <div class="section-body">
+                        <!-- Loop through all witness persons -->
+                        <div *ngFor="let person of listOfWitness; let i = index" class="accused-person-card">
+
+                            <!-- Person header with remove button -->
+                            <div class="accused-person-header" *ngIf="listOfWitness.length > 0">
+                                <ion-label>साक्षी {{i + 1}}</ion-label>
+                                <ion-button *ngIf="person.isNew" fill="clear" (click)="removeWitness(i)"
+                                    style="--color: #d32f2f;">
+                                    <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                                </ion-button>
+                            </div>
+
+                            <!-- Person form fields -->
+                            <ion-row>
+                                <ion-col size="12" size-lg="6">
+                                    <ion-input class="ion-input" [(ngModel)]="person.naam" label="नाम"
+                                        label-placement="floating" fill="outline" />
+                                </ion-col>
+                                <ion-col size="12" size-lg="6">
+                                    <ion-input [(ngModel)]="person.pita_ka_naam" label="पिता का नाम"
+                                        label-placement="floating" fill="outline" />
+                                </ion-col>
+                                <ion-col size="12" size-lg="6">
+                                    <ion-textarea [(ngModel)]="person.pata" fill="outline" label="पूर्ण पता"
+                                        label-placement="floating" rows="2" auto-grow="true"></ion-textarea>
+                                </ion-col>
+                                <ion-col size="12" size-lg="6">
+                                    <ion-input [(ngModel)]="person.jaati" label="जाति" label-placement="floating"
+                                        fill="outline" />
+                                </ion-col>
+                                <ion-col size="12" size-lg="6">
+                                    <ion-input [(ngModel)]="person.age" label="आयु" label-placement="floating"
+                                        fill="outline" type="number" min="0" />
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <!-- Final Actions -->
+        <ion-grid>
+            <ion-row class="ion-justify-content-center">
+
+                <ion-col size="6" size-lg="4">
+                    <ion-button expand="block" class="submit-btn" (click)="submitData()">
+                        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                        SUBMIT
+                    </ion-button>
+                </ion-col>
+
+                <ion-col size="6" size-lg="4">
+                    <ion-button expand="block" class="submit-btn" (click)="downloadPdf()">
+                        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                        डाउनलोड साक्षियों की सूची PDF
+                    </ion-button>
+                </ion-col>
+
+                <ion-col size="6" size-lg="4">
+                    <ion-button expand="block" (click)="goBack()" class="cancel-button">
+                        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                        CANCEL
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-content>

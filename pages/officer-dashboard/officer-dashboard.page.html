@@ -1,0 +1,1247 @@
+<ion-split-pane contentId="main-content" when="lg">
+
+  <ion-menu class="custom-menu" side="start" content-id="main-content">
+
+    <ion-header class="ion-header-class-for-menu">
+      <div class="bg"></div>
+
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="assets/img/cg_image.png" />
+        </ion-avatar>
+        <ion-label class="ion-label">
+          {{ getTranslation('app_name')}}
+          <p class="p">
+            <ion-text>
+              {{ getTranslation('state_name')}}
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-header>
+
+    <ion-content>
+
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item *ngFor="let page of pages; let i = index" class="no-gap-item" lines="none"
+            [ngClass]="{ 'menu-active-item': activeMenuUrl === page.url }">
+
+            <ng-container>
+              <ion-text class="responsive-menu-title"
+                [ngClass]="{ 'menu-active-text': activeMenuUrl === page.url }"
+                style="width: 100%; margin-left: 20px;"
+                (click)="onMenuItemClick(page.url, $event)">{{ page.title }}</ion-text>
+            </ng-container>
+
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+    </ion-content>
+
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-header class="ion-header-toolbar">
+      <div class="div-color">
+        <ion-toolbar>
+          <ion-title class="ion-text-center">{{ loginedOffierName }} ({{loginedOriginalName}})</ion-title>
+          <ion-menu-button style="color: blue;" slot="start"></ion-menu-button>
+          <ion-buttons slot="end">
+            <!-- <ion-button *ngIf="isOfflineDataExist" (click)="showOfflineData()">
+              {{offlineDataCount}}
+            </ion-button> -->
+
+            <ion-button *ngIf="isOfflineDataExist" (click)="showOfflineData()" color="warning" shape="round"
+              size="default" fill="solid">
+              <ion-icon slot="start" name="cloud-offline-outline"></ion-icon>
+              ऑफ़लाइन डेटा ({{ offlineDataCount }})
+            </ion-button>
+
+            <ion-button *ngIf="isImpersonating" (click)="exitLoginAs()" color="danger" shape="round" size="default"
+              fill="solid">
+              Exit Login As
+            </ion-button>
+
+            <!-- Logo Image -->
+            <img src="assets/img/cg_image.png" alt="Logo" class="toolbar-logo" />
+          </ion-buttons>
+        </ion-toolbar>
+      </div>
+    </ion-header>
+
+    <ion-content>
+
+      <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+
+
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-down" refreshingSpinner="circles" pullingText="Pull to refresh"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <ion-button class="green-btn fixed-submit-btn" slot="fixed" *ngIf="(isBG || isRA) && !isSpecialDutyLogin"
+        (click)="addComplaint()">
+        नया POR यहाँ दर्ज करें
+      </ion-button>
+
+      <ion-grid [class.main-grid]="isBG || isRA">
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-grid>
+
+              <!-- SUPER ADMIN LEVEL START -->
+              <ion-row class="ion-align-items-end" *ngIf="isSUPER_ADMIN">
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">वृत्त का नाम</ion-label>
+                  <ng-select [(ngModel)]="selectedCircleId" (change)="onChangeCircle($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfCircle" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">वन मंडल</ion-label>
+                  <ng-select [(ngModel)]="selectedDivisionId" (change)="onChangeDivision($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfDivision" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">उप वन मंडल</ion-label>
+                  <ng-select [(ngModel)]="selectedSubDivisionId" (change)="onChangeSubDivision($event)"
+                    class="nice-ng-select" [clearable]="false" [items]="listOfSubDivision" bindLabel="name"
+                    bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedRangId" (change)="onChangeRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">बीट</ion-label>
+                  <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+                    <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                      style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #startDatePicker type="date" [(ngModel)]="startDate"
+                      style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+                    <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                      style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #endDatePicker type="date" [(ngModel)]="endDate"
+                      style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+                    (ionInput)="filterPorList()">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="2.4" class="button-group-col">
+                  <div class="button-group">
+                    <ion-button expand="block" class="filter-button" (click)="filterData()">
+                      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                      FILTER
+                    </ion-button>
+
+                    <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                      REFRESH
+                    </ion-button>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                DOWNLOAD EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+              </ion-row>
+              <!-- CCF LEVEL END -->
+
+
+
+
+
+
+
+              <!-- CCF LEVEL START -->
+              <ion-row class="ion-align-items-end" *ngIf="isCCF">
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">वन मंडल</ion-label>
+                  <ng-select [(ngModel)]="selectedDivisionId" (change)="onChangeDivision($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfDivision" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">उप वन मंडल</ion-label>
+                  <ng-select [(ngModel)]="selectedSubDivisionId" (change)="onChangeSubDivision($event)"
+                    class="nice-ng-select" [clearable]="false" [items]="listOfSubDivision" bindLabel="name"
+                    bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">वन परिक्षेत्र</ion-label>
+                  <ng-select [(ngModel)]="selectedRangId" (change)="onChangeRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">बीट</ion-label>
+                  <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+                    <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #startDatePicker type="date" [(ngModel)]="startDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+                    <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #endDatePicker type="date" [(ngModel)]="endDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="1.5">
+                  <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+                    (ionInput)="filterPorList()">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="3" class="button-group-col">
+                  <div class="button-group">
+                    <ion-button expand="block" class="filter-button" (click)="filterData()">
+                      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                      FILTER
+                    </ion-button>
+
+                    <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                      REFRESH
+                    </ion-button>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                DOWNLOAD EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+              </ion-row>
+              <!-- CCF LEVEL END -->
+
+
+
+              <!-- DFO LEVEL START -->
+              <ion-row class="ion-align-items-end" *ngIf="isDFO">
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">उप वन मंडल</ion-label>
+                  <ng-select [(ngModel)]="selectedSubDivisionId" (change)="onChangeSubDivision($event)"
+                    class="nice-ng-select" [clearable]="false" [items]="listOfSubDivision" bindLabel="name"
+                    bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">वन परिक्षेत्र</ion-label>
+                  <ng-select [(ngModel)]="selectedRangId" (change)="onChangeRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">बीट</ion-label>
+                  <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+                    <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #startDatePicker type="date" [(ngModel)]="startDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+                    <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #endDatePicker type="date" [(ngModel)]="endDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+                    (ionInput)="filterPorList()">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="2" class="button-group-col">
+                  <div class="button-group">
+                    <ion-button expand="block" class="filter-button" (click)="filterData()">
+                      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                      FILTER
+                    </ion-button>
+
+                    <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                      REFRESH
+                    </ion-button>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                DOWNLOAD EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+              </ion-row>
+              <!-- DFO LEVEL END -->
+
+              <!-- SDO LEVEL START -->
+              <ion-row class="ion-align-items-end" *ngIf="isSDO">
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">वन परिक्षेत्र</ion-label>
+                  <ng-select [(ngModel)]="selectedRangId" (change)="onChangeRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">बीट</ion-label>
+                  <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+                    <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #startDatePicker type="date" [(ngModel)]="startDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+                    <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline" style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #endDatePicker type="date" [(ngModel)]="endDate" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+                    (ionInput)="filterPorList()">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="2.4" class="button-group-col">
+                  <div class="button-group">
+                    <ion-button expand="block" class="filter-button" (click)="filterData()">
+                      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                      FILTER
+                    </ion-button>
+
+                    <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                      REFRESH
+                    </ion-button>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                DOWNLOAD EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+              </ion-row>
+              <!-- SDO LEVEL END -->
+
+
+              <!-- RO LEVEL START -->
+              <ion-row class="ion-align-items-end" *ngIf="isRO">
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">उप वन परिक्षेत्र </ion-label>
+                  <ng-select [(ngModel)]="selectedSubRangId" (change)="onChangeSubRange($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfSubRang" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">बीट</ion-label>
+                  <ng-select [(ngModel)]="selectedBitId" (change)="onChangeBit($event)" class="nice-ng-select"
+                    [clearable]="false" [items]="listOfBit" bindLabel="name" bindValue="id" [searchable]="true">
+                  </ng-select>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन प्रारंभ तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(startDatePicker)">
+                    <ion-input type="text" [value]="startDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                      style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(startDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #startDatePicker type="date" [(ngModel)]="startDate"
+                      style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-label class="ion-label-small">पंजीयन समाप्ति तिथि</ion-label>
+                  <div style="position: relative; height: 50px; cursor: pointer;" (click)="openDatePicker(endDatePicker)">
+                    <ion-input type="text" [value]="endDate | date: 'dd-MM-yyyy'" readonly fill="outline"
+                      style="pointer-events: none; height: 100%;"></ion-input>
+                    <ion-button fill="clear" size="small" color="medium"
+                      style="position:absolute; right:6px; top:50%; transform:translateY(-50%); z-index:5;"
+                      (click)="$event.stopPropagation(); openDatePicker(endDatePicker)">
+                      <ion-icon name="calendar-outline" color="medium"></ion-icon>
+                    </ion-button>
+                    <input #endDatePicker type="date" [(ngModel)]="endDate"
+                      style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
+                  </div>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2.4">
+                  <ion-input fill="outline" placeholder="POR क्रमांक से खोजें" [(ngModel)]="porSearchTerm"
+                    (ionInput)="filterPorList()">
+                  </ion-input>
+                </ion-col>
+
+                <ion-col size="12" size-lg="2.4" class="button-group-col">
+                  <div class="button-group">
+                    <ion-button expand="block" class="filter-button" (click)="filterData()">
+                      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                      FILTER
+                    </ion-button>
+
+                    <ion-button expand="block" color="medium" class="clear-button" (click)="clearFilter()">
+                      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                      REFRESH
+                    </ion-button>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadExcel()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                DOWNLOAD EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="getPorCountRangWise()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                POR COUNT EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+                <!-- <ion-col size="12" size-lg="2.4" class="button-group-col">
+            <div class="button-group">
+              <ion-button expand="block" class="filter-button" (click)="downloadDataOf_FOCR_Panji()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                FOCR EXCEL
+              </ion-button>
+            </div>
+          </ion-col> -->
+
+              </ion-row>
+              <!-- RO LEVEL END -->
+
+              <ion-row>
+
+                <!-- Total POR -->
+                <ion-col size="6" [attr.size-lg]="(isBG || isRA) ? '3' : '2'">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #001a6e; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">कुल POR</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalComplains }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" [attr.size-lg]="(isBG || isRA) ? '3' : '2'">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '111' }"
+                    (click)="getListOfComplainsgyatAndAgyat('111')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #001a6e; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नामजद प्रकरण</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ gyatAccussedFromTotalPOR }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" [attr.size-lg]="(isBG || isRA) ? '3' : '2'">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '222' }"
+                    (click)="getListOfComplainsgyatAndAgyat('222')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #001a6e; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">अज्ञात प्रकरण</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ agyatAccussedFromTotalPOR }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" [attr.size-lg]="(isBG || isRA) ? '3' : '2'">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '333' }"
+                    (click)="getListOfComplainsgyatAndAgyat('333')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #811b67; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">बीट निरीक्षण</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPORBeatNirikshan }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <!-- <ion-col size="6" size-lg="2">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '444' }"
+                    (click)="getListOfComplainsgyatAndAgyat('444')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: linear-gradient(135deg, #de07a8 0%, #de07a8 100%); color: white; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                      <div class="card-number" style="font-size: 1.5rem; font-weight: bold;">{{
+                        gyatAccussedFromBeatNirikhanPOR }}
+                      </div>
+                      <div class="card-label" style="font-size: 1rem; font-weight: 500;">कुल ज्ञात</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '555' }"
+                    (click)="getListOfComplainsgyatAndAgyat('555')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: linear-gradient(135deg, #de07a8 0%, #de07a8 100%); color: white; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                      <div class="card-number" style="font-size: 1.5rem; font-weight: bold;">{{
+                        agyatAccussedFromBeatNirikhanPOR }}
+                      </div>
+                      <div class="card-label" style="font-size: 1rem; font-weight: 500;">कुल अज्ञात</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col> -->
+
+
+                                <!-- Pending POR at RO (Assign RA) -->
+                                <ion-col size="6" size-lg="2" *ngIf="isRO">
+                                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '4' }"
+                                    (click)="getListOfComplainsAfterClickOnBoxes('4')">
+                                    <ion-card-content class="ion-text-center"
+                                      style="background: #6a0b0b; color: white; padding: 12px;">
+                                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच अधिकारी नियुक्ति हेतु लंबित</div>
+                                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Assign_RA }}</div>
+                                    </ion-card-content>
+                                  </ion-card>
+                                </ion-col>
+
+                                                <!-- TO SHOW IN SDO/DFO LOGIN SECTION -->
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO || isDFO || isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '4' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('4')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच अधिकारी नियुक्ति हेतु लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Assign_RA }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                
+                                    <!-- Pending POR at SDO/DFO (RA Level (Pending To Complete)) -->
+                                    <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+                                      <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '6' }"
+                                        (click)="getListOfComplainsAfterClickOnBoxes('6')">
+                                        <ion-card-content class="ion-text-center"
+                                          style="background: #6a0b0b; color: white; padding: 12px;">
+                                          <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच हेतु लंबित</div>
+                                          <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Complete_At_RA_Level }}</div>
+                                        </ion-card-content>
+                                      </ion-card>
+                                    </ion-col>
+
+
+                                                                                        <!-- Show Pending Extension Requeset -->
+                <ion-col size="6" size-lg="2" *ngIf="isRO">
+                  <ion-card class="custom-card" (click)="getListOfRequestToExtendJanchAwdadhi()">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">जाँच समयवृद्धि हेतु प्राप्त आवेदन</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalRequestToExtension }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                 <!-- Pending POR -->
+                 <ion-col size="6" size-lg="2" *ngIf="isSDO">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '2' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('2')">
+                    <ion-card-content class="ion-text-center" style="background: #710e10; color: white;">
+                      <div class="card-label">{{ loginedOffierDesignationId == '6' ? 'जाँच हेतु लंबित' :
+                        loginedOffierDesignationId == '3' ? 'उपवनमंडलाधिकारी स्तर पर लंबित' :
+                        loginedOffierDesignationId == '2' ? 'वनमंडलाधिकारी स्तर पर लंबित' :
+                        'स्वयं स्तर पर कुल लंबित' }}</div>
+
+                      <div class="card-number">{{ totalPendingComplains }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+
+
+
+
+                             <!-- Pending POR at RO (Forward to SDO) -->
+                <ion-col size="6" size-lg="2" *ngIf="isRO">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '5' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('5')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी को प्रेषण हेतु लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Forward_SDO }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+                      <!-- Pending POR at SDO/DFO (RO Level (Pending To Forward To SDO)) -->
+                      <ion-col size="6" size-lg="2" *ngIf="isSDO || isDFO || isCCF || isSUPER_ADMIN">
+                        <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '5' }"
+                          (click)="getListOfComplainsAfterClickOnBoxes('5')">
+                          <ion-card-content class="ion-text-center"
+                            style="background: #6a0b0b; color: white; padding: 12px;">
+                            <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी को प्रेषण हेतु लंबित</div>
+                            <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Forward_SDO }}</div>
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+
+
+                      <ion-col size="6" size-lg="2" *ngIf="isRO">
+                        <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '7' }"
+                          (click)="getListOfComplainsAfterClickOnBoxes('7')">
+                          <ion-card-content class="ion-text-center"
+                            style="background: #6a0b0b; color: white; padding: 12px;">
+                            <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी स्तर पर लंबित</div>
+                            <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Complete_At_SDO_Level }}</div>
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+
+
+                                      <!-- Pending POR at RO (SDO Level (Pending To Complete)) -->
+                <ion-col size="6" size-lg="2" *ngIf="isDFO || isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '7' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('7')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">उपवनमंडलाधिकारी स्तर पर लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Complete_At_SDO_Level }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+                                    <!-- Pending POR -->
+                                    <ion-col size="6" size-lg="2" *ngIf="!isBG && !isCCF && !isSUPER_ADMIN && !isRO && !isSDO">
+                                      <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '2' }"
+                                        (click)="getListOfComplainsAfterClickOnBoxes('2')">
+                                        <ion-card-content class="ion-text-center" style="background: #710e10; color: white;">
+                                          <div class="card-label">{{ loginedOffierDesignationId == '6' ? 'जाँच हेतु लंबित' :
+                                            loginedOffierDesignationId == '3' ? 'उपवनमंडलाधिकारी स्तर पर लंबित' :
+                                            loginedOffierDesignationId == '2' ? 'वनमंडलाधिकारी स्तर पर लंबित' :
+                                            'स्वयं स्तर पर कुल लंबित' }}</div>
+                    
+                                          <div class="card-number">{{ totalPendingComplains }}</div>
+                                        </ion-card-content>
+                                      </ion-card>
+                                    </ion-col>
+
+
+
+                 
+                                                    <!-- Pending POR -->
+                <ion-col size="6" size-lg="2" *ngIf="isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '8' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('8')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">वनमंडलाधिकारी स्तर पर लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingComplains }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                
+                <!-- Pending POR at RO (DFO Level (Pending To Complete)) -->
+                <ion-col size="6" size-lg="2" *ngIf="isSDO">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '8' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('8')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">वनमंडलाधिकारी स्तर पर लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Complete_At_DFO_Level }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2" *ngIf="isRO">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '8' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('8')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">वनमंडलाधिकारी स्तर पर लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingPOR_To_Complete_At_DFO_Level }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '22' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('22')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #6a0b0b; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">मुख्य वन संरक्षक स्तर पर लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPendingComplainsAtCCFLevel }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+
+
+
+
+
+
+
+               
+
+            
+
+                <!-- Completed POR -->
+                <ion-col size="6" size-lg="2" *ngIf="isRA">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '200' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('200')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: linear-gradient(135deg, #e61010 0%, #e61010 100%); color: white;">
+                      <div class="card-label">कुल जाँच पूर्ण</div>
+                      <div class="card-number">{{ totalKarywahiDoneByRA }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+            
+
+
+                               <!-- Abhisandhan POR -->
+                               <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+                                <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '9' }"
+                                  (click)="getListOfComplainsAfterClickOnBoxes('9')">
+                                  <ion-card-content class="ion-text-center"
+                                    style="background: #3e4604; color: white; padding: 12px;">
+                                    <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">अभिसंधानित</div>
+                                    <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalAbhisandhanComplains }}</div>
+                                  </ion-card-content>
+                                </ion-card>
+                              </ion-col>    
+
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '1' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('1')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #3e4604; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">अपलेखित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalAplekhitComplains }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '10' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('10')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #3e4604; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">कोर्ट चालान</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalCourtChallanComplains }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO ||  isDFO || isRO || isCCF ">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '21' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('21')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #c50909; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नस्तीबध्द हेतु लंबित</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalPORPendingToNastibadh }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+                <ion-col size="6" size-lg="2" *ngIf="isSDO || isRO || isDFO || isCCF || isSUPER_ADMIN">
+                  <ion-card class="custom-card" [ngClass]="{ 'selected-card': selectedBox === '11' }"
+                    (click)="getListOfComplainsAfterClickOnBoxes('11')">
+                    <ion-card-content class="ion-text-center"
+                      style="background: #c50909; color: white; padding: 12px;">
+                      <div class="card-label" style="font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; white-space: nowrap;">नस्तीबध्द</div>
+                      <div class="card-number" style="font-size: 1.3rem; font-weight: bold;">{{ totalNastibadhPOR }}</div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+
+
+
+
+
+
+
+
+              </ion-row>
+            </ion-grid>
+
+            <ion-grid>
+              <ion-card *ngFor="let item of filteredPorList" class="ion-margin">
+                <ion-card-content>
+                  <ion-row class="ion-align-items-start">
+
+                    <ion-col size="12" size-lg="11">
+                      <ion-row>
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">POR क्रमांक</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <p class="ion-label-large">
+                                {{item.por_number}} (<span
+                                  style="color: red; font-size: 15px;">{{item.sys_gen_por_number}}</span>)
+                              </p>
+                              <!-- <div>
+                          <ion-label ></ion-label>
+                          <ion-label ></ion-label>
+                        </div> -->
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">पंजीयन दिनांक</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">{{item.date_of_crime}}</ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">बीट का नाम</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">{{item.beat_name}}</ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">वर्तमान स्थिति</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">{{getStageNameAccordingToProgress(item)}}</ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">
+                                {{
+                                item.complain_progress_stage === "1"
+                                ? 'पंजीबद्ध प्रकरण की अवधि'
+                                : (item.complain_progress_stage === "2" || item.complain_progress_stage === "8"
+                                ? 'जाँच हेतु शेष अवधि'
+                                : 'जाँच अवधि')
+                                }}
+                              </ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large"
+                                [ngStyle]="{'color': getColor(item.left_days_to_resolve_por, item.complain_progress_stage)}">
+                                {{item.left_days_to_resolve_por}} दिन
+                              </ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">अपराधी का नाम</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">
+                                {{ item.accused_name && item.accused_name.trim() !== '' ? item.accused_name : 'अज्ञात'
+                                }}
+                              </ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">पिता का नाम</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">
+                                {{ item.accused_fathers_name && item.accused_fathers_name.trim() !== '' ?
+                                item.accused_fathers_name : 'अज्ञात' }}
+                              </ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                        <ion-col size="6" size-lg="3">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">कुल ज्ञात अपराधी</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">
+                                <ion-icon name="people-outline" style="margin-right: 3px;"></ion-icon>
+                                {{ item?.accused_count }}
+                              </ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+
+
+                        <ion-col size="6" size-lg="4">
+                          <ion-row>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-small" style="color: blue;">टिप्पणी</ion-label>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-label class="ion-label-large">{{ item.assigner_remark || '------' }}</ion-label>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+
+                      </ion-row>
+                    </ion-col>
+
+                    <ion-col size="12" size-lg="1" class="image-col">
+                      <div class="image-container">
+                        <img [src]="getFullPathImage(item.imageUrl)" class="complain-image"
+                          (click)="showImageAlert(item.imageUrl)" (error)="onImageError($event)" />
+                      </div>
+                    </ion-col>
+
+                  </ion-row>
+
+                  <!-- Buttons Section -->
+                  <ion-row>
+                    <!-- POR विवरण -->
+                    <ion-col size="6" size-lg="3">
+                      <ion-label (click)="detailOrAcceptOrReject(item,'')" class="status-label-detail">
+                        POR विवरण
+                      </ion-label>
+                    </ion-col>
+
+                    <!-- कार्यवाही विवरण -->
+                    <ion-col size="6" size-lg="3">
+                      <ion-label (click)="showComplainHistory(item)" class="status-label-detail">
+                        POR हस्तांतरण
+                      </ion-label>
+                    </ion-col>
+
+                    <!-- Approve Button -->
+                    <ion-col size="6" size-lg="3">
+                      <ion-label (click)="detailOrAcceptOrReject(item,'1')" class="status-label-accepted"
+                        *ngIf="isItInMyLevel(item)" [ngClass]="{'overflow-text': true}"
+                        [ngStyle]="{'background-color': getActionBackgroundColor(item)}">
+                        {{getButtonText(item)}}
+                      </ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="3">
+                      <ion-label (click)="backToConcernOfficer(item)" class="status-label-accepted"
+                        *ngIf="showPradhikritAdhikariSendBackButton(item)" [ngClass]="{'overflow-text': true}"
+                        style="background-color: blue;">
+                        प्रकरण वापिस भेजें
+                      </ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="3" *ngIf="raiseVasuliRequestButton(item)">
+                      <ion-label (click)="assignAdhikariForVasuli(item)" class="status-label-accepted"
+                        *ngIf="isItInMyLevel(item)" style="background-color: green;">
+                        {{ getTextForVasuliOrNastibadh(item) }}
+                      </ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="3" *ngIf="should_show_button_pradhikrit_adhikari_ko_suchna(item)">
+                      <ion-label (click)="pradhikritAhikariKoSuchna(item)" class="status-label-accepted"
+                        [ngClass]="{'overflow-text': true}" style="background-color: grey;">
+                        प्राधिकृत अधिकारी को सूचना
+                      </ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-lg="3" *ngIf="should_show_button_to_sdo_to_generate_order_for_rajsaat(item)">
+                      <ion-label (click)="suchnaToMajistret(item)" class="status-label-accepted"
+                        [ngClass]="{'overflow-text': true}" style="background-color: grey;">
+                        न्यायिक दण्डाधिकारी को सूचना
+                      </ion-label>
+                    </ion-col>
+
+
+                    <ion-col size="6" size-lg="3" *ngIf="shouldShowExtendJanchAwedanButton(item)">
+                      <ion-label (click)="requestToExtendDaysForJanch(item)" class="status-label-accepted"
+                        *ngIf="isItInMyLevel(item)" [ngClass]="{'overflow-text': true}" style="background-color: grey;">
+                        जाँच समयवृद्धि हेतु आवेदन
+                      </ion-label>
+                    </ion-col>
+
+                  </ion-row>
+
+
+                </ion-card-content>
+              </ion-card>
+            </ion-grid>
+
+
+            <ion-infinite-scroll #infiniteScroll threshold="100px" (ionInfinite)="loadNextPage($event)">
+              <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="अधिक डेटा लोड हो रहा है...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
+
+
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+      <!-- <ion-fab *ngIf="isBG || isRA" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="addComplaint()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> -->
+
+    </ion-content>
+
+
+  </div>
+
+</ion-split-pane>

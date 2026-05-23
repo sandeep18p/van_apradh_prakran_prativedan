@@ -1,0 +1,252 @@
+<ion-header class="ion-header-toolbar">
+    <ion-toolbar class="custom-toolbar">
+        <ion-buttons slot="start">
+            <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="responsive-toolbar-title">
+            रिमांड फॉर्म ({{ por_number }})
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding center-content">
+    <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+    <ion-grid class="center-content">
+        <ion-row style="display: flex; justify-content: center;">
+            <ion-col size="12" size-lg="10" class="main-content-col">
+
+                <!-- Card 1: रिमांड फॉर्म - Case & incident info -->
+                <ion-card class="custom-card giraftari-parent-card">
+                    <ion-card-title class="card-title">
+                        <span class="icon-text-row">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                            <ion-text class="ion-text">रिमांड फॉर्म</ion-text>
+                        </span>
+                    </ion-card-title>
+                    <ion-card-content>
+                        <!-- Sub-card: POR विवरण -->
+                        <div class="sub-card crime-info-card">
+                            <div class="sub-card-header">
+                                <span class="icon-text-row">
+                                    <ion-icon name="information-circle-outline"></ion-icon>
+                                    <ion-text class="ion-text">POR विवरण</ion-text>
+                                </span>
+                            </div>
+                            <div class="sub-card-content info-card">
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">POR क्रमांक</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ por_number }}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">पंजीयन दिनांक</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ comingComplaintData.date_of_crime }}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">परिक्षेत्र</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ rangName }}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">जिला दर्ज करें</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <ion-input fill="outline" label="जिला दर्ज करें" label-placement="floating"
+                                            [(ngModel)]="district_name">
+                                        </ion-input>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                        <!-- Sub-card: घटना विवरण -->
+                        <div class="sub-card crime-info-card">
+                            <div class="sub-card-header">
+                                <span class="icon-text-row">
+                                    <ion-icon name="calendar-outline"></ion-icon>
+                                    <ion-text class="ion-text">घटना विवरण</ion-text>
+                                </span>
+                            </div>
+                            <div class="sub-card-content info-card">
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">अपराध का दिनांक</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <ion-input fill="outline" label="अपराध का दिनांक" label-placement="floating" type="date"
+                                            [(ngModel)]="actual_crime_date" [max]="maxDate">
+                                        </ion-input>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">घटना स्थल</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ comingComplaintData.place_of_crime }}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">कक्ष क्रमांक</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ comingComplaintData.compartment_number }}</span>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+
+                        <!-- Sub-card: अपराध एवं धाराएं -->
+                        <div class="sub-card crime-info-card">
+                            <div class="sub-card-header">
+                                <span class="icon-text-row">
+                                    <ion-icon name="shield-checkmark-outline"></ion-icon>
+                                    <ion-text class="ion-text">अपराध एवं धाराएं</ion-text>
+                                </span>
+                            </div>
+                            <div class="sub-card-content info-card">
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">अपराध का प्रकार</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ comingComplaintData.crime_type }}</span>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col size="12" size-md="3">
+                                        <span class="label">अधिनियम / नियम एवं धाराएं</span>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="9">
+                                        <span class="value">{{ crime_dhara }}</span>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+
+                <!-- Card 2: अभियुक्त विवरण -->
+                <ion-card class="custom-card accused-section-card" *ngIf="comingComplaintData && comingComplaintData.is_accused_found != '0'">
+                    <ion-card-title class="card-title">
+                        <span class="icon-text-row">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <ion-text class="ion-text">अभियुक्त विवरण</ion-text>
+                        </span>
+                    </ion-card-title>
+                    <ion-card-content>
+                        <div *ngFor="let accused of accusedPersonsList; let i = index" class="accused-person-card">
+                            <div class="accused-person-header">
+                                <ion-label class="accused-title">
+                                    <span class="accused-info accused-number">अभियुक्त {{ i + 1 }} </span>
+                                    <span class="accused-info"><strong>नाम :</strong> {{ accused.name || '--' }}</span>
+                                    <span class="accused-info"><strong>पिता का नाम :</strong> {{ accused.fathersName || '--' }}</span>
+                                    <span class="accused-info"><strong>उम्र :</strong> {{ accused.age || '--' }}</span>
+                                    <span class="accused-info"><strong>जाति वर्ग :</strong> {{ accused.cast || '--' }}</span>
+                                    <span class="accused-info"><strong>जाति :</strong> {{ accused.jati_name || '--' }}</span>
+                                    <span class="accused-info"><strong>मोबाइल :</strong> {{ accused.mobile_number || '--' }}</span>
+                                    <span class="accused-info"><strong>पता :</strong> {{ accused.address || '--' }}</span>
+                                </ion-label>
+                            </div>
+                            <div class="accused-person-body">
+                                <ion-row class="days-row">
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input fill="outline" label="गिरफ्तारी स्थान" label-placement="floating"
+                                            [(ngModel)]="accused.gir_sthan" readonly>
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input fill="outline" label="गिरफ्तारी दिनांक" label-placement="floating" type="date"
+                                            [(ngModel)]="accused.gir_date" readonly>
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input fill="outline" label="गिरफ्तारी समय" label-placement="floating"
+                                            [(ngModel)]="accused.gir_time" readonly>
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input label="गिरफ्तार करने वाला अधिकारी" labelPlacement="floating" fill="outline"
+                                            [(ngModel)]="accused.gir_adhikari" readonly></ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input fill="outline" label="पूर्व रिमांड" label-placement="floating" type="date"
+                                            [(ngModel)]="accused.previous_remand"
+                                            (ionChange)="onDateChange($event.detail.value, accused, '1')"
+                                            [max]="maxDate">
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-md="3">
+                                        <ion-input fill="outline" label="चाहने रिमांड" label-placement="floating" type="date"
+                                            [(ngModel)]="accused.want_remand"
+                                            (ionChange)="onDateChange($event.detail.value, accused, '2')">
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col size="12" size-lg="6">
+                                        <ion-textarea label="कैफियत" labelPlacement="floating" fill="outline" rows="3"
+                                            [(ngModel)]="accused.kafiyat"></ion-textarea>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+
+                <!-- Card 3: निवेदन -->
+                <ion-card class="custom-card">
+                    <ion-card-title class="card-title">
+                        <span class="icon-text-row">
+                            <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                            <ion-text class="ion-text">निवेदन</ion-text>
+                        </span>
+                    </ion-card-title>
+                    <ion-card-content>
+                        <div class="nivedan-box">
+                            <span class="nivedan-text">निवेदन है कि ......</span>
+                            <ion-textarea [(ngModel)]="detail_msg" fill="outline" rows="4" placeholder="यहाँ संदेश लिखें...">
+                            </ion-textarea>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+
+                <!-- Final Actions -->
+                <ion-row class="button-row ion-justify-content-center ion-align-items-center">
+                    <ion-col size="12" size-md="4">
+                        <ion-button expand="block" class="submit-button" (click)="submitData()">
+                            <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                            SUBMIT
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="12" size-md="4" *ngIf="showDownloadPdf">
+                        <ion-button expand="block" class="submit-button" (click)="downloadPdf()">
+                            <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                            डाउनलोड रिमांड फॉर्म PDF
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="12" size-md="4">
+                        <ion-button expand="block" (click)="goBack()" class="cancel-button">
+                            <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+                            CANCEL
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

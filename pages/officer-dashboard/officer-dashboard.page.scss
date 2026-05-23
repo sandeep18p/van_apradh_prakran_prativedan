@@ -1,0 +1,723 @@
+.custom-menu {
+    @media (min-width: 1024px) {
+        width: 280px;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+
+}
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+.ion-header-class-for-menu {
+    height: 10rem;
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, #2ecc71 100%);
+
+    div.bg {
+        height: 60%;
+        width: 140%;
+        border-radius: 15px;
+        margin-top: 4rem;
+        margin-left: -1rem;
+    }
+
+    ion-item {
+        width: 100%;
+        --background: transparent;
+        position: absolute;
+        top: 1.5rem;
+        left: 0;
+        padding: 0 1rem;
+
+        ion-avatar {
+            height: 5rem;
+            width: 5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        ion-label {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            p {
+                color: rgba(255, 255, 255, 0.9);
+                margin-top: 4px;
+                font-weight: 400;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
+
+// .div-color {
+//     background: linear-gradient(135deg, var(--ion-color-primary) 0%, #2ecc71 100%);
+//     padding-top: 10px;
+//     color: blue;
+// }
+
+.toolbar-logo {
+    display: block; // Use block for <img> for better layout control
+    height: 32px; // Consistent toolbar height
+    width: auto; // Maintain aspect ratio
+    margin-inline-start: auto; // Push to the right within ion-buttons
+    object-fit: contain;
+    padding-right: 8px;
+
+    @media (max-width: 600px) {
+        height: 40px; // Smaller height on small devices
+        padding-right: 4px;
+    }
+
+    @media (min-width: 768px) {
+        height: 50px; // Slightly larger on tablets+
+    }
+}
+
+ion-menu-button {
+    --color: white;
+    font-size: 1.5rem;
+}
+
+.ion-header-class-for-menu {
+    height: 9rem;
+
+    ion-item {
+        top: 1rem;
+        padding: 0 0.5rem;
+        margin-top: 20px;
+
+        ion-avatar {
+            height: 4rem;
+            width: 4rem;
+        }
+
+        ion-label {
+            font-size: 1.1rem;
+
+            p {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+// Extra small devices
+@media (max-width: 360px) {
+    // .officials-row {
+    //   gap: 1rem;
+    // }
+
+    .official-card {
+        padding: 0.5rem;
+    }
+
+    .app-name-label {
+        font-size: 1.1rem;
+    }
+
+    .department-label {
+        font-size: 0.8rem;
+    }
+
+    .background-image-row {
+        height: 20vh;
+    }
+
+    .ion-header-class-for-menu {
+        height: 9rem;
+
+        ion-item {
+
+            ion-avatar {
+                height: 3rem;
+                width: 3rem;
+            }
+
+            ion-label {
+                font-size: 1rem;
+
+                p {
+                    font-size: 0.7rem;
+                }
+            }
+        }
+    }
+}
+
+.custom-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &:not(.selected-card):hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    ion-grid {
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    // Uniform card content styling
+    ion-card-content {
+        flex: 1;
+        height: 100%;
+        min-height: 60px;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 12px !important;
+        gap: 8px;
+
+        @media (min-width: 600px) {
+            min-height: 65px;
+            padding: 9px 14px !important;
+        }
+
+        @media (min-width: 1024px) {
+            min-height: 70px;
+            padding: 10px 16px !important;
+        }
+    }
+
+    // Card label (text on left) - smaller font
+    .card-label {
+        font-size: clamp(0.65rem, 1.2vw, 0.85rem) !important;
+        font-weight: 500;
+        line-height: 1.3;
+        text-align: center;
+        white-space: nowrap;
+        word-wrap: normal;
+        margin: 0;
+    }
+
+    // Card number (number on right) - smaller font
+    .card-number {
+        font-size: clamp(1rem, 2vw, 1.3rem) !important;
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+        margin: 0;
+    }
+}
+
+// Ensure all columns in the card row have equal height
+ion-row:has(.custom-card) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    ion-col {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.selected-card {
+    border: 4px solid #ffffff;
+    position: relative;
+    z-index: 5;
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.35),
+        0 0 22px rgba(255, 213, 79, 0.85),
+        0 16px 30px rgba(0, 0, 0, 0.28);
+}
+
+.selected-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255, 213, 79, 0.18); // visible “selected” tint
+    pointer-events: none;
+}
+
+.selected-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 6px;
+    background: #ffd54f; // strong accent bar
+    pointer-events: none;
+}
+
+.selected-card ion-card-content {
+    filter: brightness(1.12) contrast(1.05);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.menu-active-item {
+    --background: rgba(25, 142, 219, 0.12);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+.menu-active-text {
+    color: #198edb;
+    font-weight: 700;
+}
+
+.responsive-label-count {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+
+    @media (min-width: 600px) {
+        font-size: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 48px;
+    }
+}
+
+.responsive-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 18px;
+    }
+}
+
+
+/* Small label (field title) */
+.ion-label-small {
+    font-size: 0.85rem;
+    /* ~13.6px on default browser setting */
+    line-height: 1.3;
+    font-weight: 500;
+    color: blue;
+}
+
+@media (min-width: 600px) {
+    .ion-label-small {
+        font-size: 0.9rem;
+        /* ~14.4px */
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-label-small {
+        font-size: 1rem;
+        /* ~16px */
+    }
+}
+
+/* Large label (field value) */
+.ion-label-large {
+    font-size: 1rem;
+    /* ~16px */
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+@media (min-width: 600px) {
+    .ion-label-large {
+        font-size: 1.1rem;
+        /* ~17.6px */
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-label-large {
+        font-size: 1.25rem;
+        /* ~20px */
+    }
+}
+
+
+
+
+// .ion-label-large {
+//     font-size: 1.2rem;
+// }
+
+// @media (min-width: 600px) {
+//     .ion-label-large {
+//         font-size: 16px;
+//     }
+// }
+
+// @media (min-width: 1024px) {
+//     .ion-label-large {
+//         font-size: 20px;
+//     }
+// }
+
+// .ion-label-small {
+//     font-size: 1rem;
+// }
+
+// @media (min-width: 600px) {
+//     .ion-label-small {
+//         font-size: 13px;
+//     }
+// }
+
+// @media (min-width: 1024px) {
+//     .ion-label-small {
+//         font-size: 17px;
+//     }
+// }
+
+.image-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    height: 100%;
+    padding: 10px;
+}
+
+.complain-image {
+    width: 100%;
+    height: 100px;
+    max-height: 250px;
+    object-fit: contain;
+    /* prevents cropping */
+    /* keep as needed */
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tablet screens */
+@media (min-width: 600px) {
+    .complain-image {
+        max-width: 250px;
+        /* fixed reasonable width */
+        max-height: 250px;
+    }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+    .complain-image {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+
+.status-label-rejected {
+    display: block;
+    /* Take full width inside column */
+    width: 100%;
+    /* Stretch to full column */
+    text-align: center;
+    /* Center the text */
+    margin: 0 4px;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    color: white;
+    white-space: nowrap;
+    font-weight: bold;
+    background-color: red;
+}
+
+.status-label-detail {
+    display: block;
+    width: 100%;
+    /* full column */
+    text-align: center;
+    /* center text */
+    margin: 0 4px;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: bold;
+    border: 2px solid black;
+    color: black;
+    background-color: transparent;
+}
+
+.overflow-text {
+    width: 100%;
+    /* Adjust to the width of the container, or set a fixed width */
+    display: block;
+}
+
+.status-label-accepted {
+    white-space: normal;
+    /* Allow text to wrap onto the next line */
+    overflow: visible;
+    /* Ensure any overflow text is visible */
+    word-wrap: break-word;
+    /* Break long words if necessary */
+    display: block;
+    /* Make sure it's a block-level element to take up full width */
+    width: 100%;
+    /* Ensure the label takes up the full width available */
+    text-align: center;
+    /* Center-align the text */
+    margin: 0 4px;
+    /* Add some margin for spacing */
+    font-size: 14px;
+    /* Set the font size */
+    padding: 8px 10px;
+    /* Add some padding around the text */
+    border-radius: 20px;
+    /* Round the corners */
+    font-weight: bold;
+    /* Make the text bold */
+
+    /* Green background */
+    color: white;
+    /* White text color */
+    /* Green border to match the background */
+}
+
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+    display: block !important;
+    /* Ensure block-level for margin to apply */
+    padding: 10px 14px !important;
+    /* Add internal spacing */
+    margin: 6px 8px !important;
+    /* Add space between each item */
+    background-color: #f9f5e6 !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+    padding: 10px 14px !important;
+    /* Padding inside each item */
+    margin: 4px 6px !important;
+    /* Space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option:hover {
+    background-color: #f0f0f0 !important;
+    /* optional hover effect */
+}
+
+// Match ng-select height (default ~ 40-44px)
+.filter-button {
+    --background: linear-gradient(135deg, #198edb 0%, #1565c0 100%);
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    height: 55px; // 👈 Same as ng-select height
+    min-height: 55px;
+    max-height: 55px;
+
+    ion-icon {
+        font-size: 18px;
+    }
+}
+
+
+.clear-button {
+    --background: linear-gradient(135deg, #db1919 0%, #db1919 100%);
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    height: 55px; // 👈 Same as ng-select height
+    min-height: 55px;
+    max-height: 55px;
+
+    ion-icon {
+        font-size: 18px;
+    }
+}
+
+
+
+/* In your component's .scss file */
+.ion-align-items-center ion-button {
+    /* This is often needed if inputs have padding/margins that the grid doesn't account for */
+    margin-top: 1.5rem;
+    /* Adjust this value (e.g., 24px or 1.5rem) as needed */
+    height: 100%;
+    /* If you want the button to stretch to the height of the column */
+}
+
+ion-input.ion-valid {
+    margin-top: 1.5rem;
+    height: 100%;
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+ion-input.ion-valid {
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+.outlined-box ion-input {
+    --padding-start: 5px;
+    --padding-end: 5px;
+}
+
+.button-group-col {
+    /* On large screens, align the button group to the bottom of the row (redundant due to ion-align-items-end, but good practice) */
+    align-self: flex-end;
+
+    /* On small screens, add vertical margin to separate the button group from the inputs above */
+    @media (max-width: 991px) {
+        /* Adjust based on Ionic's lg breakpoint */
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    /* Space between FILTER and CLEAR */
+    width: 100%;
+    /* Ensure the flex container fills the column */
+}
+
+.button-group ion-button {
+    flex-grow: 1;
+    /* Makes both buttons share the space equally */
+}
+
+.virtual-viewport {
+    height: 100vh;
+    /* Full screen height */
+    width: 100%;
+    display: block;
+    overflow: auto;
+}
+
+/* =====================================
+   FIXED GREEN BUTTON (TOP ACTION)
+   ===================================== */
+.fixed-submit-btn {
+    position: fixed;
+
+    /* 🔥 Auto adjusts for notch + header */
+    top: calc(var(--ion-safe-area-top) + var(--ion-toolbar-height, 56px) + 20px);
+
+    left: 16px;
+    right: 16px;
+    z-index: 1000;
+
+    --border-radius: 12px;
+}
+
+/* =====================================
+   GREEN BUTTON STYLE
+   ===================================== */
+.green-btn {
+    --background: #28a745;
+    --background-hover: #218838;
+    --background-activated: #1e7e34;
+    --color: #ffffff;
+
+    --border-radius: 10px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --padding-start: 40px;
+    --padding-end: 40px;
+
+    font-weight: 600;
+    text-transform: none;
+}
+
+/* =====================================
+   MAIN GRID – PREVENT OVERLAP
+   Applied ONLY when button exists
+   ===================================== */
+.main-grid {
+    margin-top: 20px;
+    /* 📱 Mobile default */
+}
+
+/* 📲 Tablets */
+@media (min-width: 768px) {
+    .main-grid {
+        margin-top: 130px;
+    }
+}
+
+/* 🖥️ Desktop */
+@media (min-width: 1200px) {
+    .main-grid {
+        margin-top: 40px;
+    }
+}
+
+/* =====================================
+   OPTIONAL (RECOMMENDED)
+   Makes scrolling smoother on mobile
+   ===================================== */
+ion-content {
+    --padding-top: 0;
+}

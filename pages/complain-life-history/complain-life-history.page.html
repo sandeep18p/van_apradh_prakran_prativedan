@@ -1,0 +1,113 @@
+<ion-header class="ion-header-toolbar">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()" class="custom-back-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="responsive-toolbar-title">
+      {{ getTranslation('complain_history') }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-loading cssClass="custom-loading" [isOpen]="isLoading" [message]="loadingMessage"></ion-loading>
+
+  <ion-grid>
+
+    <ion-row class="ion-padding">
+      <ion-col size="12" size-lg="8" offset-lg="2">
+        <ion-card class="custom-card history-card">
+
+          <ion-card-title class="card-title">
+            <span class="icon-text-row">
+              <ion-icon name="time-outline"></ion-icon>
+              <ion-text>POR हस्तांतरण</ion-text>
+            </span>
+          </ion-card-title>
+
+          <ion-card-content class="por-table">
+
+            <div class="por-row" *ngFor="let item of listOfHistory; let i = index">
+              <div class="por-no">{{ i + 1 }}</div>
+
+              <div class="por-cells">
+                <div class="por-cell">
+                  <div class="por-key">भेजने का दिनांक</div>
+                  <div class="por-val">{{ item.complain_created_at }}</div>
+                </div>
+
+                <div class="por-cell">
+                  <div class="por-key">भेजने वाला</div>
+                  <div class="por-val">{{ item.complain_created_by }}</div>
+                </div>
+
+                <div class="por-cell">
+                  <div class="por-key">भेजा गया</div>
+                  <div class="por-val">{{ item.complain_sended_to }}</div>
+                </div>
+
+                <div class="por-cell">
+                  <div class="por-key">टिप्पणी</div>
+                  <div class="por-val">{{ item.approve_reject_remark || '------' }}</div>
+                </div>
+
+                <div class="por-cell por-full" *ngIf="isRA(item.designation_id)">
+                  <ion-label (click)="showWorkLog()" class="ra-link">
+                    <u>जाँच कर्ता अधिकारी के कार्य विवरण देखने के लिए यहाँ क्लिक करें</u>
+                  </ion-label>
+                </div>
+              </div>
+            </div>
+
+            <ion-card class="section-card" *ngIf="showShowExtension() && listOfExtension.length > 0">
+              <div class="section-header">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>समयवृद्धि की जानकारी</span>
+              </div>
+              <div class="section-body">
+                <ion-grid>
+                  <ion-row *ngFor="let itemOfExtension of listOfExtension" class="extension-row ion-padding-vertical">
+                    <ion-col size="6" size-md="2.5">
+                      <ion-label class="label-title">आवेदन दिनाँक</ion-label>
+                      <ion-label class="label-value">{{ itemOfExtension.request_at }}</ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-md="2.5">
+                      <ion-label class="label-title">अनुमोदक अधिकारी</ion-label>
+                      <ion-label class="label-value">{{ itemOfExtension.approver_name }}</ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-md="2.5">
+                      <ion-label class="label-title">समयवृद्धि की मांग</ion-label>
+                      <ion-label class="label-value">{{ itemOfExtension.days_to_extend }} दिन</ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-md="2.5" *ngIf="itemOfExtension.is_approved === '1'">
+                      <ion-label class="label-title">समयवृद्धि स्वीकृति</ion-label>
+                      <ion-label class="label-value">{{ itemOfExtension.days_by_approver }} दिन</ion-label>
+                    </ion-col>
+
+                    <ion-col size="6" size-md="2">
+                      <ion-label class="label-title">स्थिति</ion-label>
+                      <ion-label class="label-value">
+                        {{ getAwedanStatus(itemOfExtension.is_approved) }}
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </ion-card>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+</ion-content>

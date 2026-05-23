@@ -1,0 +1,1026 @@
+.custom-toolbar {
+    --background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    --border-color: #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+.responsive-label {
+    font-size: 12px;
+    font-weight: 700;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    /* Large screens (desktops) */
+    @media (min-width: 1024px) {
+        font-size: 20px;
+    }
+}
+
+.nice-ng-select {
+    width: 100%;
+    font-size: 14px;
+
+    @media (min-width: 600px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 22px;
+    }
+
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep .nice-ng-select.ng-select-focused .ng-select-container {
+    border-color: #3a86ff;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 65px;
+    }
+}
+
+::ng-deep .nice-ng-select .ng-value-container {
+    display: flex;
+    align-items: center;
+}
+
+::ng-deep .nice-ng-select .ng-input {
+    display: flex;
+    align-items: center;
+    height: 90%;
+}
+
+::ng-deep .nice-ng-select .ng-input input {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    line-height: 1.5;
+    align-self: center;
+}
+
+::ng-deep .nice-ng-select .ng-placeholder {
+    color: #888;
+    font-weight: 500;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+    display: block !important;
+    /* Ensure block-level for margin to apply */
+    padding: 10px 14px !important;
+    /* Add internal spacing */
+    margin: 6px 8px !important;
+    /* Add space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+    padding: 10px 14px !important;
+    /* Padding inside each item */
+    margin: 4px 6px !important;
+    /* Space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option:hover {
+    background-color: #f0f0f0 !important;
+    /* optional hover effect */
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #218838;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        --background: #c82333;
+        transform: translateY(-2px);
+        --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+// Container styles
+.profile-container {
+    max-width: 1200px;
+}
+
+// Card styles
+.welcome-card {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .welcome-title {
+        font-size: 1.5rem;
+        color: #2c3e50;
+    }
+
+    .welcome-title .icon-text-row {
+        display: flex;
+        align-items: center; // vertical centering
+        justify-content: flex-start; // align to start
+        gap: 8px; // spacing between icon and text
+    }
+
+    .welcome-title ion-icon {
+        font-size: 24px; // optional: adjust icon size
+    }
+
+    .officer-info {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+}
+
+.info-card {
+    //margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background: #fff3f3;
+    border: 1px solid #ffcdd2;
+
+    .info-text {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+
+        ion-icon {
+            font-size: 1.2rem;
+            color: #e74c3c;
+        }
+    }
+}
+
+.form-card {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .form-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+
+        ion-icon {
+            color: #3498db;
+        }
+    }
+}
+
+// Button container
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+    .button-container {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card .welcome-title {
+        font-size: 1.3rem;
+    }
+
+    .form-card .form-label {
+        font-size: 0.9rem;
+    }
+}
+
+// Loading animation
+.custom-loading {
+    --background: rgba(255, 255, 255, 0.9);
+    --spinner-color: #3498db;
+}
+
+.search-container {
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+ion-content {
+    --keyboard-offset: 250px; // optional tweak
+}
+
+.textarea-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+full-height-textarea {
+    flex: 1;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 2px;
+    border-color: black;
+}
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+// .horizontal-scroll-wrapper {
+//     display: flex;
+//     overflow-x: auto;
+//     white-space: nowrap;
+//     padding: 10px 0;
+
+//     .photo-container {
+//         position: relative;
+//         margin-right: 10px;
+
+//         .scroll-image {
+//             height: 100px;
+//             border-radius: 8px;
+//         }
+
+//         .remove-icon {
+//             position: absolute;
+//             top: -5px;
+//             right: -5px;
+//             font-size: 20px;
+//             color: red;
+//             background: white;
+//             border-radius: 50%;
+//             z-index: 1;
+//         }
+//     }
+// }
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    gap: 10px;
+    /* better than margin-right */
+    scroll-behavior: smooth;
+    /* optional */
+}
+
+.photo-container {
+    position: relative;
+    flex: 0 0 auto;
+    /* prevents shrinking */
+    width: 120px;
+    /* fixed width */
+    height: 100px;
+    /* fixed height */
+}
+
+.scroll-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* keeps aspect ratio */
+    border-radius: 8px;
+}
+
+.remove-icon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 20px;
+    color: red;
+    background: white;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.date-picker-card {
+    border-radius: 6px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+
+    &:hover {}
+
+    ion-icon {
+        color: #2e7d32;
+        font-size: 20px;
+    }
+
+    .date-label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+.button-green {
+    --background: #28a745; // green
+    --color: white;
+}
+
+.button-red {
+    --background: #dc3545; // red
+    --color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .p-column-title {
+        font-size: 12px;
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+    }
+
+    .ion-label-small {
+        font-size: 15px;
+    }
+}
+
+/* Hide label on large screens */
+@media screen and (min-width: 769px) {
+    .p-column-title {
+        display: none;
+    }
+
+    .ion-label-small {
+        font-size: 18px;
+    }
+
+}
+
+.dar-input {
+    width: 100px;
+    height: 32px;
+    font-size: 18px;
+    //text-align: right;
+    border-color: #666;
+    border-radius: 4px;
+    background: #fff;
+    padding-start: 6px;
+    padding-end: 6px;
+}
+
+// .outlined-box {
+//     border: 2px solid #ece9df;
+//     /* Ionic primary color or your choice */
+//     border-radius: 8px;
+//     padding: 5px 10px;
+//     margin-bottom: 10px;
+//     width: 100px;
+//     height: 32px;
+//     font-size: 18px;
+// }
+
+// .outlined-box ion-input {
+//     --padding-start: 5px;
+//     --padding-end: 5px;
+// }
+
+.kastha-card ion-input {
+    --min-height: 56px;
+    /* ensures floating label has space */
+    height: auto;
+    min-height: 56px; // enough for floating label
+    --border-width: 2px;
+    --border-style: solid;
+    --border-color: blue;
+    --border-radius: 8px;
+    --background: #ffffff;
+    padding-top: 12px; // optional to avoid label cut
+}
+
+.kastha-card {
+    overflow: visible; // allow label to float outside
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    margin: 12px 0;
+    background: #fff;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .instruction-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .add-btn {
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+            font-size: 26px;
+            color: var(--ion-color-primary);
+            transition: transform 0.2s ease;
+        }
+
+        &:hover ion-icon {
+            transform: scale(1.2);
+        }
+    }
+
+    .ion-textarea {
+        margin-top: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+        --border-width: 2px;
+        --border-style: solid;
+        --border-color: blue;
+        --border-radius: 8px;
+        --background: #ffffff;
+        min-height: 100px; // optional, adjust rows if needed
+    }
+
+    .kastha-row {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        background: #fafafa;
+        border: 1px dashed #ddd;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+
+    ion-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    ion-input {
+        --min-height: 56px;
+        height: auto;
+        --border-width: 2px;
+        --border-color: blue;
+        --border-radius: 8px;
+    }
+
+    ng-select {
+        width: 100%;
+        font-size: 14px;
+        border-radius: 6px;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        background: #fff;
+        border: 1px solid #ddd;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus-within {
+            border-color: var(--ion-color-primary);
+            box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.2);
+        }
+    }
+
+    ion-button[color="danger"] {
+        --color: #e74c3c;
+        --background-hover: #fdecea;
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        margin-top: 20px;
+
+        ion-icon {
+            font-size: 18px;
+        }
+    }
+}
+
+/* Table improvements */
+.custom-margin-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        background: var(--ion-color-light);
+        font-weight: 600;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td {
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    tr:hover {
+        background: #f9f9f9;
+    }
+}
+
+.outlined-box.negative {
+    --background: #fdecea; // light red background
+    --color: #2e7d32; // text green
+}
+
+.outlined-box.positive {
+    --background: #e8f5e9; // light green background
+    --color: #d32f2f; // text red
+}
+
+
+// ---------------//
+
+.form-section {
+    --ion-padding: 12px;
+
+    ion-col {
+        margin-bottom: 12px;
+    }
+
+    .outlined-input,
+    .outlined-textarea {
+        --border-width: 2px;
+        --border-style: solid;
+        --border-color: blue;
+        --border-radius: 8px;
+        --background: #ffffff;
+        margin: 0 5px;
+    }
+
+    .instruction-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+    }
+
+    .date-picker-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 2px solid blue;
+        border-radius: 8px;
+        background: #fff;
+        padding: 8px 10px;
+        cursor: pointer;
+        margin-top: 5px;
+
+        .date-label {
+            color: #333;
+            font-weight: 500;
+        }
+
+        ion-icon {
+            font-size: 20px;
+            color: #000;
+        }
+    }
+}
+
+.accused-radio-group {
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.accused-radio-group ion-radio {
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+::ng-deep .custom-margin-table {
+    .p-datatable {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        .p-datatable-header {
+            background: #2E7D32;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .p-datatable-thead>tr>th {
+            background: #2E7D32;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background: #1B5E20;
+            }
+        }
+
+        .p-datatable-tbody>tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e0e0e0;
+
+            &:hover {
+                background: #f5f5f5;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            >td {
+                padding: 1rem;
+                border: none;
+            }
+        }
+    }
+}
+
+.totals-container {
+    margin-top: 12px;
+    padding: 8px;
+
+    .total-card {
+        background: #f9f9f9;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .total-title {
+            font-weight: 600;
+            color: #222;
+            font-size: 14px;
+        }
+
+        .total-value {
+            font-weight: 700;
+            color: #1e88e5;
+            font-size: 15px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .total-card {
+            margin-bottom: 0;
+            font-size: 15px;
+            padding: 14px 18px;
+        }
+    }
+}
+
+
+.no-accused-container {
+    text-align: center;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: 2px dashed #dee2e6;
+}
+
+.no-accused-icon {
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.no-accused-title {
+    display: block;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.no-accused-subtitle {
+    display: block;
+    color: #868e96;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.accused-title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 6px;
+}
+
+.accused-icon {
+    color: #007bff;
+}
+
+.accused-title {
+    font-weight: 700;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.accused-count {
+    color: #666;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.accused-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fafafa;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.accused-header {
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.accused-field {
+    margin-bottom: 8px;
+}
+
+.label-small {
+    font-size: 13px;
+    color: #007bff;
+    display: block;
+}
+
+.label-large {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    color: #333;
+}
+
+.totals-container-for-other {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.total-card.worklog-date-card {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+.total-card.worklog-date-card:hover {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    transform: translateY(-1px);
+}
+
+.worklog-content {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.worklog-icon {
+    font-size: 20px;
+    color: #0d6efd;
+}
+
+.worklog-label-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.worklog-label-date {
+    font-weight: 500;
+    font-size: 15px;
+    color: #334155;
+}
+
+.input-card {
+    background: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.action-card {
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.instruction-label {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.button-green {
+    --background: #16a34a;
+    --background-hover: #15803d;
+}
+
+.button-red {
+    --background: #dc2626;
+    --background-hover: #b91c1c;
+}
+
+.camera-btn {
+    --background: #2563eb;
+}
+
+.photo-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 8px 2px;
+    scroll-behavior: smooth;
+}
+
+.photo-box {
+    position: relative;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-photo {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.remove-photo:hover {
+    transform: scale(1.2);
+}
+
+.separation-row {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+}
+
+.court-section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-left: 4px solid #2e7d32;
+    padding-left: 10px;
+}
+
+.custom-input-item {
+    --background: #f9f9f9;
+    --border-radius: 8px;
+    --padding-start: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    // Added to prevent overlap
+    min-height: 60px;
+    margin-bottom: 12px;
+
+    // ion-input {
+    //     --padding-top: 15px; // Give space for floating label
+    //     --padding-bottom: 5px;
+    // }
+}
+
+.full-width-file-input {
+    width: 100%;
+    padding: 10px 0;
+}

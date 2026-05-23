@@ -1,0 +1,25 @@
+<div class="dialog-container">
+  <div class="dialog-content">
+
+    <img
+      src="assets/img/ic_cancel.png"
+      class="close-icon"
+      (click)="closeModel()" />
+
+    <ion-datetime
+      presentation="time"
+      hour-cycle="h23"
+      [(ngModel)]="selectedTime"
+      placeholder="समय चुने">
+    </ion-datetime>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="center-btn">
+          <ion-button (click)="onSelectTime()">OK</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</div>

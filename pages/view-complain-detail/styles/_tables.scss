@@ -1,0 +1,206 @@
+// ============================================
+// Table Styles
+// ============================================
+::ng-deep .custom-margin-table {
+  .p-datatable {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e2e8f0;
+
+    .p-datatable-header {
+      background: $color-case-700;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .p-datatable-thead > tr > th {
+      background: $color-case-700;
+      color: white;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .p-datatable-tbody > tr {
+      transition: background 0.2s ease;
+      border-bottom: 1px solid #f1f5f9;
+
+      &:nth-child(even) {
+        background: #f8fafc;
+      }
+
+      &:hover {
+        background: #eff6ff;
+      }
+
+      > td {
+        padding: 10px 12px;
+        font-size: 13px;
+        border: none;
+        color: #1e293b;
+      }
+    }
+  }
+}
+
+// Transport and Recovery Table Styles
+.transport-table-wrapper,
+.recovery-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+
+  @media (min-width: 768px) {
+    margin-bottom: 16px;
+  }
+}
+
+.transport-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+
+  thead {
+    tr {
+      background: $color-por-icon;
+
+      th {
+        color: #ffffff;
+        padding: 10px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+
+        @media (min-width: 768px) {
+          padding: 12px 10px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background 0.2s ease;
+
+      &:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      &:hover {
+        background: $color-por-tint;
+      }
+
+      td {
+        padding: 10px 8px;
+        font-size: 13px;
+        color: #1a1a1a;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+
+        &.total-col {
+          font-weight: 600;
+          color: $color-por-muted;
+        }
+
+        @media (min-width: 768px) {
+          padding: 12px 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.recovery-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+
+  thead {
+    tr {
+      background: $color-geo-700;
+
+      th {
+        color: #ffffff;
+        padding: 10px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+
+        @media (min-width: 768px) {
+          padding: 12px 10px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background 0.2s ease;
+
+      &:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      &:hover {
+        background: $color-geo-tint;
+      }
+
+      td {
+        padding: 10px 8px;
+        font-size: 13px;
+        color: #1a1a1a;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+
+        &.total-col {
+          font-weight: 600;
+          color: $color-geo-700;
+        }
+
+        @media (min-width: 768px) {
+          padding: 12px 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.table-image {
+  width: 50px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    width: 60px;
+    height: 45px;
+  }
+}

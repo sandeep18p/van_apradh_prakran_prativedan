@@ -1,0 +1,638 @@
+// Match toolbar theme with add-complain (green gradient)
+.custom-toolbar {
+    --background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --color: #ffffff;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+}
+
+.ion-text-large {
+    font-size: 1.2rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-large {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-large {
+        font-size: 20px;
+    }
+}
+
+.ion-text-small {
+    font-size: 1rem;
+}
+
+@media (min-width: 600px) {
+    .ion-text-small {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-text-small {
+        font-size: 18px;
+    }
+}
+
+.ion-text-extra-small {
+    font-size: 12px; // Default mobile size
+
+    @media (min-width: 600px) {
+        font-size: 14px; // Tablet
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 16px; // Desktop
+    }
+}
+
+
+
+// Toolbar title styling (keep responsive sizes, use white text on green)
+.responsive-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 600px) {
+    .responsive-toolbar-title {
+        font-size: 16px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .responsive-toolbar-title {
+        font-size: 20px;
+    }
+}
+
+// Themed cards to match add-complain
+.custom-card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    margin-bottom: 16px;
+    padding: 0;
+
+    @media (min-width: 480px) {
+        border-radius: 12px;
+    }
+
+    @media (min-width: 768px) {
+        border-radius: 16px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    ion-card-content {
+        padding: 12px;
+
+        @media (min-width: 480px) {
+            padding: 14px;
+        }
+
+        @media (min-width: 768px) {
+            padding: 18px;
+        }
+    }
+}
+
+.card-title {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+
+    @media (min-width: 480px) {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 14px 18px;
+        font-size: 18px;
+    }
+
+    .icon-text-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+
+        ion-icon {
+            font-size: 18px;
+            color: #ffffff;
+
+            @media (min-width: 480px) {
+                font-size: 20px;
+            }
+
+            @media (min-width: 768px) {
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+.responsive-img {
+    width: 60%; // Base width
+    max-width: 60px; // Prevents it from getting too large
+    height: auto;
+    cursor: pointer;
+
+    //filter: invert(36%) sepia(100%) saturate(1000%) hue-rotate(90deg); /* green tint example */
+
+    @media (max-width: 600px) {
+        width: 60%; // Smaller devices
+        max-width: 60px;
+    }
+
+    @media (min-width: 768px) {
+        width: 50px; // Tablets or larger
+        max-width: 50px;
+    }
+}
+
+.center-img-col {
+    display: flex;
+    justify-content: center;
+    align-items: center; // optional if vertical alignment needed
+}
+
+.custom-back-button {
+    color: black;
+}
+
+.ion-label-large {
+    font-size: 1.2rem;
+}
+
+@media (min-width: 600px) {
+    .ion-label-large {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ion-label-large {
+        font-size: 20px;
+    }
+}
+
+
+
+::ng-deep .nice-ng-select .ng-select-container {
+    height: 45px;
+    min-height: 50px;
+
+    @media (min-width: 600px) {
+        min-height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        min-height: 55px;
+    }
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep ng-select .ng-dropdown-panel {
+    display: block !important;
+    /* Ensure block-level for margin to apply */
+    padding: 10px 14px !important;
+    /* Add internal spacing */
+    margin: 6px 8px !important;
+    /* Add space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option {
+    padding: 10px 14px !important;
+    /* Padding inside each item */
+    margin: 4px 6px !important;
+    /* Space between each item */
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease;
+}
+
+::ng-deep ng-select .ng-dropdown-panel .ng-option:hover {
+    background-color: #f0f0f0 !important;
+    /* optional hover effect */
+}
+
+// Date picker card styling
+.date-picker-card {
+    border-radius: 6px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+
+    &:hover {}
+
+    ion-icon {
+        color: #2e7d32;
+        font-size: 20px;
+    }
+
+    .date-label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+ion-input.ion-valid {
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+ion-textarea {
+    display: block;
+    --highlight-color: blue; // green when valid
+    --highlight-color-focused: blue;
+}
+
+// Button container
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.submit-button {
+    --background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    --background-activated: #218838;
+    --background-focused: #218838;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #218838;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.cancel-button {
+    --background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    --background-activated: #c82333;
+    --background-focused: #c82333;
+    --color: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    height: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    // &:hover {
+    //     --background: #c82333;
+    //     transform: translateY(-2px);
+    //     --box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
+    // }
+
+    ion-icon {
+        margin-right: 0.5rem;
+    }
+}
+
+.ion-header-toolbar {
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 40px;
+    }
+
+    @media (min-width: 1024px) {
+        margin-top: 0px;
+    }
+}
+
+ion-content {
+    --keyboard-offset: 250px; // optional tweak
+}
+
+.spin-animation {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.photo-scroll-container {
+    display: flex;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+
+    .photo-thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 10px;
+    }
+}
+
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+
+    .photo-container {
+        position: relative;
+        margin-right: 10px;
+
+        .scroll-image {
+            height: 100px;
+            border-radius: 8px;
+        }
+
+        .remove-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 20px;
+            color: red;
+            background: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    }
+}
+
+// .scroll-image {
+//     height: 100px;
+//     margin-right: 10px;
+//     flex-shrink: 0;
+//     scroll-snap-align: start;
+// }
+
+.instruction-label {
+    margin: 10px 0 5px 10px;
+    font-weight: 600;
+    display: block;
+    color: #333;
+
+    @media (min-width: 600px) {
+        font-size: 100px !important;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 20px !important;
+    }
+}
+
+// History card container
+.history-card {
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    background: #fff;
+}
+
+.por-table {
+    padding: 10px;
+}
+
+.por-row {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 12px;
+    padding: 12px 10px;
+    border-bottom: 1px solid #ececec;
+    border-radius: 14px;
+    background: #fafafa;
+    position: relative;
+
+    &:nth-child(even) {
+        background: #ffffff;
+    }
+
+    &:hover {
+        background: #f6f6f6;
+    }
+}
+
+.por-row::before {
+    content: "";
+    position: absolute;
+    left: 58px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: #ededed;
+}
+
+.por-no {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    color: #1a1a1a;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+}
+
+.por-cells {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.por-cell {
+    min-width: 0;
+}
+
+.por-full {
+    grid-column: 1 / -1;
+}
+
+.por-key {
+    font-weight: 700;
+    color: #111;
+    font-size: 12.5px;
+    margin-bottom: 3px;
+    opacity: 0.85;
+}
+
+.por-val {
+    font-weight: 650;
+    color: #111;
+    font-size: 14.5px;
+    line-height: 1.25;
+    word-break: break-word;
+}
+
+.label-title {
+    font-weight: 600;
+    color: #111;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.label-value {
+    font-size: 15px;
+    color: #222;
+    display: block;
+    font-weight: 500;
+}
+
+.ra-link {
+    color: #1565c0;
+    font-size: 14px;
+    margin-top: 8px;
+    cursor: pointer;
+    display: block;
+    text-align: left;
+
+    &:hover {
+        text-decoration: underline;
+        color: #0d47a1;
+    }
+}
+
+.section-title {
+    font-weight: 700;
+    color: #444;
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.extension-grid {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-top: 10px;
+}
+
+.extension-row {
+    border-bottom: 1px solid #e0e0e0;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+// Nested section card inside history card (for extension details)
+.section-card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(46, 125, 50, 0.15);
+    margin-top: 12px;
+
+    @media (min-width: 480px) {
+        border-radius: 12px;
+    }
+
+    @media (min-width: 768px) {
+        border-radius: 16px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+}
+
+.section-header {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    ion-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    @media (min-width: 480px) {
+        padding: 12px 14px;
+        font-size: 15px;
+        gap: 10px;
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        padding: 14px 18px;
+        font-size: 18px;
+
+        ion-icon {
+            font-size: 24px;
+        }
+    }
+}
+
+.section-body {
+    padding: 12px;
+
+    @media (min-width: 480px) {
+        padding: 14px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 18px;
+    }
+}
